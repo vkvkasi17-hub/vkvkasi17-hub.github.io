@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VENKATA SATYA SAI - Portfolio</title>
+    <style>
+        /* CSS STYLES */
+        :root {
+            --dark-blue: #1a365d;
+            --bg-light: #f4f7f6;
+            --text-dark: #333;
+        }
+        
+        /* Smooth scrolling behavior for the anchor links */
+        html { scroll-behavior: smooth; }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+        
+        /* Navigation Bar */
+        nav {
+            background: linear-gradient(90deg, #ff00cc, #333399);
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            position: sticky; /* Keeps nav at the top while scrolling */
+            top: 0;
+            z-index: 1000;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        nav a:hover { color: #ffeb3b; text-decoration: underline; }
+        
+        /* Header */
+        header {
+            background: linear-gradient(135deg, #00c6ff 0%, #0072ff 100%);
+            color: white;
+            padding: 80px 20px;
+            text-align: center;
+        }
+        header h1 { margin: 0; font-size: 3rem; }
+        header h2 { font-weight: normal; margin-bottom: 10px; }
+        
+        .container {
+            max-width: 1000px;
+            margin: 40px auto;
+            padding: 40px 20px;
+        }
+        
+        .card {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 15px rgba(0,0,0,0.05);
+            margin-bottom: 30px;
+        }
+        
+        /* Section Titles */
+        .section-title {
+            text-align: center;
+            font-size: 2rem;
+            color: var(--dark-blue);
+            margin-bottom: 40px;
+            border-bottom: 3px solid #ff00cc;
+            display: inline-block;
+            padding-bottom: 10px;
+        }
+        
+        .section-header-container { text-align: center; }
+        
+        /* Skills */
+        .skill-tags { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 25px; }
+        .tag { padding: 8px 16px; border-radius: 20px; color: white; font-weight: bold; font-size: 0.9rem; }
+        .tag-prog { background-color: #ff00cc; }
+        .tag-data { background-color: #00c6ff; }
+        .tag-tools { background-color: #333399; }
+
+        /* Projects */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        .project-card {
+            padding: 25px;
+            border-radius: 15px;
+            color: #333;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+        .project-card:hover { transform: translateY(-10px); }
+        .project-card h4 { margin: 0 0 10px 0; font-size: 1.3rem; }
+        .project-card .tech { font-weight: bold; opacity: 0.8; margin-bottom: 15px; }
+
+        footer {
+            background-color: var(--dark-blue);
+            color: white;
+            text-align: center;
+            padding: 30px 20px;
+            margin-top: 50px;
+        }
+        footer a { color: #00c6ff; text-decoration: none; }
+        footer a:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="#about">About Me</a>
+        <a href="#skills">Skills</a>
+        <a href="#projects">My Projects</a>
+    </nav>
+
+    <header>
+        <h1>VENKATA SATYA SAI</h1>
+        <h2>Information Science Graduate Student</h2>
+        <p><strong>Specializing in Data & Backend Systems | Seeking Internship: July 2026</strong></p>
+    </header>
+
+    <div id="about" class="container">
+        <div class="section-header-container">
+            <h2 class="section-title">About Me</h2>
+        </div>
+        <section class="card">
+            <p>My journey into software development started with a strong interest in solving complex problems using technology. Over the past several years, I have built experience in Python backend development, cloud computing, and data engineering while working on enterprise-scale applications. I enjoy designing efficient systems, automating workflows, and integrating modern technologies such as AI and cloud platforms to create scalable and reliable solutions. I am continuously learning new technologies and improving my skills to build impactful software systems.</p>
+        </section>
+    </div>
+
+    <div id="skills" class="container" style="background-color: #e2e8f0; border-radius: 15px;">
+        <div class="section-header-container">
+            <h2 class="section-title">Technical Expertise</h2>
+        </div>
+        <h4>Programming</h4><div class='skill-tags'><span class='tag tag-prog'>Python</span><span class='tag tag-prog'>HTML5</span><span class='tag tag-prog'>CSS3</span><span class='tag tag-prog'>JavaScript</span><span class='tag tag-prog'>SQL</span></div><h4>Data & Architecture</h4><div class='skill-tags'><span class='tag tag-data'>Data Analysis</span><span class='tag tag-data'>Database Design</span><span class='tag tag-data'>Information Architecture</span><span class='tag tag-data'>Algorithms</span></div><h4>Tools & Platforms</h4><div class='skill-tags'><span class='tag tag-tools'>Git/GitHub</span><span class='tag tag-tools'>Docker</span><span class='tag tag-tools'>VS Code</span><span class='tag tag-tools'>Mac OS</span></div>
+    </div>
+
+    <div id="projects" class="container">
+        <div class="section-header-container">
+            <h2 class="section-title">My Projects</h2>
+        </div>
+        <div class="projects-grid">
+            
+    <div class="project-card" style="background-color: #ff9a9e;">
+        <h4>Bitmask Subarray Optimization</h4>
+        <div class="tech">Python, Algorithms</div>
+        <p>Developed an optimized algorithm utilizing bitmasking techniques to analyze and solve maximum subarray problems efficiently.</p>
+    </div>
+    
+    <div class="project-card" style="background-color: #a18cd1;">
+        <h4>Catan Strategy Simulation</h4>
+        <div class="tech">Python, Game Theory</div>
+        <p>Built a simulation model to analyze optimal resource gathering strategies and settlement placement algorithms in the game of Catan.</p>
+    </div>
+    
+    <div class="project-card" style="background-color: #84fab0;">
+        <h4>Interactive To-Do List</h4>
+        <div class="tech">Python, Command Line</div>
+        <p>A simple and colorful command-line application that allows users to add, delete, and check off daily tasks.</p>
+    </div>
+    
+    <div class="project-card" style="background-color: #8fd3f4;">
+        <h4>Number Guessing Game</h4>
+        <div class="tech">Python, Logic</div>
+        <p>A fun, interactive game where the program generates a random number and gives the user hints to guess it correctly.</p>
+    </div>
+    
+    <div class="project-card" style="background-color: #fccb90;">
+        <h4>Automated Email Sender</h4>
+        <div class="tech">Python, SMTP Library</div>
+        <p>A lightweight script designed to automate sending customized emails to multiple recipients using Python's built-in libraries.</p>
+    </div>
+    
+        </div>
+    </div>
+
+    <footer>
+        <p>Connect with me:</p>
+        <p>Email: vkvkasi17@gmail.com | GitHub: <a href="https://github.com/vkvkasi17-hub" target="_blank">vkvkasi17-hub</a></p>
+    </footer>
+
+</body>
+</html>
