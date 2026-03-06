@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KASI MEKA - Portfolio</title>
+    <style>
+        :root {
+            --bg-deep: #0b0f19;
+            --bg-card: #161e2e;
+            --text-light: #e2e8f0;
+            --text-muted: #94a3b8;
+            --neon-blue: #00c6ff;
+            --neon-pink: #ff00cc;
+        }
+        
+        html { scroll-behavior: smooth; scroll-padding-top: 90px; }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-deep);
+            color: var(--text-light);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        /* NAVIGATION BAR */
+        nav {
+            background: rgba(11, 15, 25, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 20px;
+            text-align: center;
+            border-bottom: 2px solid var(--neon-blue);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            display: inline-block;
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), color 0.3s ease;
+        }
+        nav a:hover { 
+            color: var(--neon-pink); 
+            transform: translateY(-5px) scale(1.1); 
+        }
+        
+        /* MOBILE VIEW OPTIMIZATION */
+        @media (max-width: 768px) {
+            nav {
+                justify-content: flex-start;
+                flex-wrap: nowrap;
+                overflow-x: auto;
+                padding: 15px 15px;
+                gap: 20px;
+                -webkit-overflow-scrolling: touch;
+            }
+            nav::-webkit-scrollbar { display: none; }
+            nav a { font-size: 0.95rem; white-space: nowrap; }
+            header h1 { font-size: 2.5rem !important; }
+            .profile-img { width: 150px !important; height: 150px !important; }
+        }
+
+        header {
+            background: radial-gradient(circle at top, #1a233a 0%, var(--bg-deep) 100%);
+            padding: 50px 20px 60px 20px;
+            text-align: center;
+            border-bottom: 1px solid #2d3748;
+        }
+        header h1 { 
+            margin: 0; 
+            font-size: 3.5rem; 
+            background: linear-gradient(to right, var(--neon-blue), var(--neon-pink));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .profile-img {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin: 20px auto;
+            border: 4px solid var(--neon-blue);
+            box-shadow: 0 0 25px rgba(0, 198, 255, 0.4);
+            display: block;
+            transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275), border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+        .profile-img:hover { 
+            transform: scale(1.1) rotate(5deg); 
+            border-color: var(--neon-pink); 
+            box-shadow: 0 0 35px rgba(255, 0, 204, 0.6); 
+        }
+        
+        header h2 { font-weight: normal; margin-bottom: 10px; color: var(--text-light); }
+        .status-badge { background-color: #1e293b; border: 1px solid #334155; padding: 10px 20px; border-radius: 30px; display: inline-block; }
+        
+        /* REDUCED SPACING BETWEEN SECTIONS */
+        .container { max-width: 1000px; margin: 20px auto; padding: 15px 20px; }
+        
+        .interactive-card {
+            background: #111827;
+            padding: 25px;
+            border-radius: 12px;
+            margin-bottom: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            border: 1px solid #2d3748;
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease, border-color 0.3s ease;
+        }
+        .interactive-card:hover { 
+            transform: translateY(-5px) scale(1.01); 
+            box-shadow: 0 15px 30px rgba(0, 198, 255, 0.15); 
+            border-color: #4a5568;
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 2rem;
+            color: white;
+            margin-bottom: 25px;
+            border-bottom: 3px solid var(--neon-pink);
+            display: inline-block;
+            padding-bottom: 5px;
+        }
+        .section-header-container { text-align: center; }
+        
+        .skills-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+        .skill-column {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .skill-item {
+            background: linear-gradient(90deg, #1e3c72 0%, #2a5298 100%);
+            padding: 10px 20px;
+            border-radius: 8px;
+            color: white;
+            font-weight: bold;
+            font-size: 0.95rem;
+            border-left: 4px solid var(--neon-blue);
+            transition: transform 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
+            cursor: default;
+        }
+        .skill-item:hover {
+            transform: translateX(10px) scale(1.02); 
+            background: linear-gradient(90deg, #ff00cc 0%, #b300ff 100%);
+            border-left-color: #fff;
+            box-shadow: -5px 10px 20px rgba(255,0,204,0.3);
+        }
+
+        .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+        .project-card .tech { font-weight: bold; color: var(--text-muted); margin-bottom: 10px; font-size: 0.9rem; }
+
+        footer {
+            background-color: #05080f;
+            text-align: center;
+            padding: 30px 20px;
+            border-top: 1px solid #1e293b;
+            margin-top: 20px;
+        }
+        footer a { color: var(--neon-blue); text-decoration: none; font-weight: bold; }
+        footer a:hover { text-decoration: underline; color: var(--neon-pink); }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="#about">About</a>
+        <a href="#education">Education</a>
+        <a href="#experience">Experience</a>
+        <a href="#skills">Skills</a>
+        <a href="#publications">Publications</a>
+        <a href="#projects">Projects</a>
+    </nav>
+
+    <header>
+        <h1>KASI MEKA</h1>
+        <img src="profile.jpg" alt="Profile Picture" class="profile-img" onerror="this.style.display='none'">
+        <h2>Python Developer & Data Engineer</h2>
+        <div class="status-badge"><strong>Specializing in Data Engineering, Analytics & Cloud Platforms</strong></div>
+    </header>
+
+    <div id="about" class="container">
+        <div class="section-header-container"><h2 class="section-title">About Me</h2></div>
+        <div class="interactive-card">
+            <p style="font-size: 1.1rem; color: var(--text-muted); margin: 0;">
+        Hi, I'm Kasi Meka — a Python Developer and Backend Engineer passionate about building scalable applications, automation systems, and data-driven solutions. I specialize in developing robust backend services, REST APIs, and cloud-based data pipelines using modern technologies.
+        <br><br>
+        Beyond writing clean and efficient code in Python, SQL, and R, I am passionate about applying AI/ML techniques for predictive modeling and building scalable backend solutions. I thrive in collaborative, Agile environments and am actively seeking a Summer/Fall 2026 internship where I can contribute to innovative, data-driven projects.
+        <br><br>
+        With 4+ years of experience in software development, I have worked on enterprise applications involving Python, cloud platforms, microservices architecture, and AI-driven automation. I enjoy solving complex technical problems, improving system performance, and building reliable software that delivers real business value.
+    </p>
+        </div>
+    </div>
+
+    <div id="education" class="container">
+        <div class="section-header-container"><h2 class="section-title">Education</h2></div>
+        
+    <div class="interactive-card" style="border-left: 4px solid #00ffcc;">
+        <h3 style="color: #00ffcc; margin-top: 0;">Master's in Information Science</h3>
+        <h4 style="color: white; margin: 5px 0;">University of North Texas | Denton, TX</h4>
+        <div style="color: var(--text-muted); font-style: italic;">2024 - 2025</div>
+    </div>
+    
+    </div>
+
+    <div id="experience" class="container">
+        <div class="section-header-container"><h2 class="section-title">Professional Experience</h2></div>
+        
+    <div class="interactive-card" style="border-left: 4px solid #ffaa00;">
+        <h3 style="color: #ffaa00; margin-top: 0;">Python Developer</h3>
+        <h4 style="color: white; margin: 5px 0;">Hindustan Aeronautics Limited (HAL) | Bangalore, India</h4>
+        <div style="color: var(--text-muted); font-style: italic; margin-bottom: 15px;">Aug 2023 – Dec 2023</div>
+        <ul style="color: var(--text-light); padding-left: 20px; margin-bottom: 0;">
+            <li style='margin-bottom: 10px;'>Developed sensor logic initiated manually with Python scripts and Unix shell scripting.</li><li style='margin-bottom: 10px;'>Developed Python batch processors to consume and produce various feeds.</li><li style='margin-bottom: 10px;'>Performed Map-Reduce using PySpark to process huge Blob data sets.</li><li style='margin-bottom: 10px;'>Wrote Python scripts for data cleaning and data munging over massive datasets.</li><li style='margin-bottom: 10px;'>Built custom alerts and validations using Python Scripting.</li>
+        </ul>
+    </div>
+    
+    <div class="interactive-card" style="border-left: 4px solid #00c6ff;">
+        <h3 style="color: #00c6ff; margin-top: 0;">Python Developer</h3>
+        <h4 style="color: white; margin: 5px 0;">Cognizant Technology Solutions (Client: MERCK) | Hyderabad, India</h4>
+        <div style="color: var(--text-muted); font-style: italic; margin-bottom: 15px;">June 2021 - Jul 2023</div>
+        <ul style="color: var(--text-light); padding-left: 20px; margin-bottom: 0;">
+            <li style='margin-bottom: 10px;'>Created and managed automated data workflows in enterprise client environments using Python, SQL, and R.</li><li style='margin-bottom: 10px;'>Developed scripts using pandas to easily perform read/write operations to CSV files, manipulate, and compare data by columns.</li><li style='margin-bottom: 10px;'>Developed a GUI using Python and Django for dynamically displaying test block documentation and other features of Python code.</li><li style='margin-bottom: 10px;'>Analyzed data and system problems, identified root causes, and executed long-term technological fixes.</li><li style='margin-bottom: 10px;'>Worked in Agile delivery teams assisting with version upgrades (8.0-9.0) and data migrations.</li>
+        </ul>
+    </div>
+    
+    </div>
+
+    <div id="skills" class="container">
+        <div class="section-header-container"><h2 class="section-title">Technical Expertise</h2></div>
+        <div class='skills-container'><div class='interactive-card skill-category'><h3 style='color: var(--neon-blue); margin-top: 0; border-bottom: 1px solid #2d3748; padding-bottom: 10px;'>Languages & Core</h3><div class='skill-column'><span class='skill-item'>Python</span><span class='skill-item'>SQL</span><span class='skill-item'>R</span><span class='skill-item'>Java</span><span class='skill-item'>JavaScript</span><span class='skill-item'>TypeScript</span></div></div><div class='interactive-card skill-category'><h3 style='color: var(--neon-blue); margin-top: 0; border-bottom: 1px solid #2d3748; padding-bottom: 10px;'>Data Engineering</h3><div class='skill-column'><span class='skill-item'>ETL/ELT</span><span class='skill-item'>Data Pipelines</span><span class='skill-item'>Machine Learning</span><span class='skill-item'>Pandas</span><span class='skill-item'>PySpark</span><span class='skill-item'>Snowflake</span><span class='skill-item'>Kafka</span></div></div><div class='interactive-card skill-category'><h3 style='color: var(--neon-blue); margin-top: 0; border-bottom: 1px solid #2d3748; padding-bottom: 10px;'>Cloud & Tools</h3><div class='skill-column'><span class='skill-item'>AWS</span><span class='skill-item'>GCP</span><span class='skill-item'>Azure</span><span class='skill-item'>Docker</span><span class='skill-item'>Git/GitHub</span><span class='skill-item'>Django</span><span class='skill-item'>Flask</span><span class='skill-item'>Airflow</span></div></div></div>
+    </div>
+
+    <div id="publications" class="container">
+        <div class="section-header-container"><h2 class="section-title">Publications</h2></div>
+        <div class="projects-grid">
+            
+    <div class="interactive-card project-card" style="border-top: 4px solid #00ffcc;">
+        <h4 style="color: #00ffcc; margin-top: 0;">Standards, frameworks, and legislation for artificial intelligence (AI) transparency</h4>
+        <div class="tech">AI and Ethics (2025)</div>
+        <p style="font-size: 0.95rem; color: var(--text-muted); margin-bottom: 0;">Lund, B., Orhan, Z., Mannuru, N. R., Bevara, R. V. K., Porter, B., Vinaih, M. K., & Bhaskara, P. (2025). Standards, frameworks, and legislation for artificial intelligence (AI) transparency. AI and Ethics, 1-17.</p>
+    </div>
+    
+        </div>
+    </div>
+
+    <div id="projects" class="container">
+        <div class="section-header-container"><h2 class="section-title">My Projects</h2></div>
+        <div class="projects-grid">
+            
+    <div class="interactive-card project-card" style="border-top: 4px solid #ffeb3b;">
+        <h4 style="color: #ffeb3b; margin-top: 0;">ODI Cricket Analytics Dashboard</h4>
+        <div class="tech">Tableau, Data Visualization</div>
+        <p style="margin-bottom: 0;">Designed and developed interactive visual dashboards in Tableau to analyze One Day International (ODI) cricket match data from 2000 to 2020, uncovering key trends in player performance and match outcomes.</p>
+    </div>
+    
+    <div class="interactive-card project-card" style="border-top: 4px solid #ff3366;">
+        <h4 style="color: #ff3366; margin-top: 0;">LA Crime Pattern Analysis</h4>
+        <div class="tech">Data Visualization, Data Analytics</div>
+        <p style="margin-bottom: 0;">Created comprehensive visual dashboards to analyze crime patterns and geographical trends across Los Angeles from 2020 to 2025, providing actionable insights into public safety metrics.</p>
+    </div>
+    
+    <div class="interactive-card project-card" style="border-top: 4px solid #ff00cc;">
+        <h4 style="color: #ff00cc; margin-top: 0;">Bitmask Subarray Optimization</h4>
+        <div class="tech">Python, Algorithms</div>
+        <p style="margin-bottom: 0;">Developed an optimized algorithm utilizing bitmasking techniques to analyze and solve maximum subarray problems efficiently.</p>
+    </div>
+    
+    <div class="interactive-card project-card" style="border-top: 4px solid #b300ff;">
+        <h4 style="color: #b300ff; margin-top: 0;">Catan Strategy Simulation</h4>
+        <div class="tech">Python, Game Theory</div>
+        <p style="margin-bottom: 0;">Built a simulation model to analyze optimal resource gathering strategies and settlement placement algorithms in the game of Catan.</p>
+    </div>
+    
+        </div>
+    </div>
+
+    <footer>
+        <p>Connect with me:</p>
+        <p>Email: vkvkasi17@gmail.com | Phone: 940-290-0996 | GitHub: <a href="https://github.com/vkvkasi17-hub" target="_blank">vkvkasi17-hub</a></p>
+    </footer>
+
+</body>
+</html>
