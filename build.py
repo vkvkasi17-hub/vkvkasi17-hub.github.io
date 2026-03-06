@@ -1,0 +1,384 @@
+import os
+
+# 1. YOUR PORTFOLIO DATA
+portfolio_data = {
+    "name": "Kasi Meka",
+    "profile_pic": "profile.jpg",
+    "job_title": "Python Developer & Data Engineer",
+    "headline": "Specializing in Data Engineering, Analytics & Cloud Platforms | Seeking Internship: July 2026",
+    
+    "about_me": """
+        I am a dedicated Python Developer and Information Science graduate student with over 4 years of professional experience specializing in data engineering, analytics, and cloud platforms (AWS, Azure, GCP). My academic journey and hands-on industry experience have equipped me with deep expertise in designing robust data pipelines, ETL/ELT processes, and workflow automation.
+        <br><br>
+        Beyond writing clean and efficient code in Python, SQL, and R, I am passionate about applying AI/ML techniques for predictive modeling and building scalable backend solutions. I thrive in collaborative, Agile environments and am actively seeking a Summer/Fall 2026 internship where I can contribute to innovative, data-driven projects.
+    """,
+    
+    # NEW EDUCATION SECTION
+    "education": [
+        {
+            "degree": "Master's in Information Science",
+            "school": "University of North Texas | Denton, TX",
+            "duration": "2024 - 2025",
+            "color": "#00ffcc" # Neon Teal
+        }
+    ],
+
+    "experience": [
+        {
+            "role": "Python Developer",
+            "company": "Hindustan Aeronautics Limited (HAL) | Bangalore, India",
+            "duration": "Aug 2023 – Dec 2023",
+            "bullets": [
+                "Developed sensor logic initiated manually with Python scripts and Unix shell scripting.",
+                "Developed Python batch processors to consume and produce various feeds.",
+                "Performed Map-Reduce using PySpark to process huge Blob data sets.",
+                "Wrote Python scripts for data cleaning and data munging over massive datasets.",
+                "Built custom alerts and validations using Python Scripting."
+            ],
+            "color": "#ffaa00" # Neon Orange
+        },
+        {
+            "role": "Python Developer",
+            "company": "Cognizant Technology Solutions (Client: MERCK) | Hyderabad, India",
+            "duration": "June 2021 - Jul 2023",
+            "bullets": [
+                "Created and managed automated data workflows in enterprise client environments using Python, SQL, and R.",
+                "Developed scripts using pandas to easily perform read/write operations to CSV files, manipulate, and compare data by columns.",
+                "Developed a GUI using Python and Django for dynamically displaying test block documentation and other features of Python code.",
+                "Analyzed data and system problems, identified root causes, and executed long-term technological fixes.",
+                "Worked in Agile delivery teams assisting with version upgrades (8.0-9.0) and data migrations."
+            ],
+            "color": "#00c6ff" # Neon Blue
+        }
+    ],
+
+    "skills": {
+        "Languages & Core": ["Python", "SQL", "R", "Java", "JavaScript", "TypeScript"],
+        "Data Engineering": ["ETL/ELT", "Data Pipelines", "Machine Learning", "Pandas", "PySpark", "Snowflake", "Kafka"],
+        "Cloud & Tools": ["AWS", "GCP", "Azure", "Docker", "Git/GitHub", "Django", "Flask", "Airflow"]
+    },
+    
+    "projects": [
+        {
+            "title": "Bitmask Subarray Optimization",
+            "tech": "Python, Algorithms",
+            "description": "Developed an optimized algorithm utilizing bitmasking techniques to analyze and solve maximum subarray problems efficiently.",
+            "color": "#ff00cc" # Neon Pink
+        },
+        {
+            "title": "Catan Strategy Simulation",
+            "tech": "Python, Game Theory",
+            "description": "Built a simulation model to analyze optimal resource gathering strategies and settlement placement algorithms in the game of Catan.",
+            "color": "#b300ff" # Neon Purple
+        },
+        {
+            "title": "Interactive To-Do List",
+            "tech": "Python, Command Line",
+            "description": "A simple and colorful command-line application that allows users to add, delete, and check off daily tasks.",
+            "color": "#00ffcc" # Neon Teal
+        }
+    ],
+
+    "publications": [
+        {
+            "title": "Standards, frameworks, and legislation for artificial intelligence (AI) transparency",
+            "journal": "AI and Ethics",
+            "year": "2025",
+            "authors": "Lund, B. D., Orhan, Z., Mannuru, N. R., Bevara, N. V. K., Porter, B., Vinaih, M. K., & Bhaskara, P."
+        }
+    ],
+    
+    "contact": {
+        "email": "vkvkasi17@gmail.com", 
+        "github": "vkvkasi17-hub"           
+    }
+}
+
+# 2. GENERATE DYNAMIC HTML CONTENT
+
+# Education HTML
+education_html = ""
+for edu in portfolio_data['education']:
+    education_html += f"""
+    <div class="interactive-card" style="border-left: 4px solid {edu['color']};">
+        <h3 style="color: {edu['color']}; margin-top: 0;">{edu['degree']}</h3>
+        <h4 style="color: white; margin: 5px 0;">{edu['school']}</h4>
+        <div style="color: var(--text-muted); font-style: italic;">{edu['duration']}</div>
+    </div>
+    """
+
+# Skills HTML (Updated for vertical layout with hover effects)
+skills_html = "<div class='skills-container'>"
+for cat_name, skill_list in portfolio_data['skills'].items():
+    skills_html += f"<div class='interactive-card skill-category'><h3 style='color: var(--neon-blue); margin-top: 0; border-bottom: 1px solid #2d3748; padding-bottom: 10px;'>{cat_name}</h3><div class='skill-column'>"
+    for skill in skill_list:
+        skills_html += f"<span class='skill-item'>{skill}</span>"
+    skills_html += "</div></div>"
+skills_html += "</div>"
+
+# Experience HTML
+experience_html = ""
+for exp in portfolio_data['experience']:
+    bullets_html = "".join([f"<li style='margin-bottom: 10px;'>{bullet}</li>" for bullet in exp['bullets']])
+    experience_html += f"""
+    <div class="interactive-card" style="border-left: 4px solid {exp['color']};">
+        <h3 style="color: {exp['color']}; margin-top: 0;">{exp['role']}</h3>
+        <h4 style="color: white; margin: 5px 0;">{exp['company']}</h4>
+        <div style="color: var(--text-muted); font-style: italic; margin-bottom: 15px;">{exp['duration']}</div>
+        <ul style="color: var(--text-light); padding-left: 20px;">
+            {bullets_html}
+        </ul>
+    </div>
+    """
+
+# Projects HTML
+projects_html = ""
+for proj in portfolio_data['projects']:
+    projects_html += f"""
+    <div class="interactive-card project-card" style="border-top: 4px solid {proj['color']};">
+        <h4 style="color: {proj['color']}; margin-top: 0;">{proj['title']}</h4>
+        <div class="tech">{proj['tech']}</div>
+        <p style="margin-bottom: 0;">{proj['description']}</p>
+    </div>
+    """
+
+# Publications HTML
+publications_html = ""
+for pub in portfolio_data['publications']:
+    publications_html += f"""
+    <div class="interactive-card project-card" style="border-top: 4px solid #00ffcc;">
+        <h4 style="color: #00ffcc; margin-top: 0;">{pub['title']}</h4>
+        <div class="tech">{pub['journal']} ({pub['year']})</div>
+        <p style="font-size: 0.95rem; color: var(--text-muted); margin-bottom: 0;">{pub['authors']}</p>
+    </div>
+    """
+
+# 3. FULL HTML TEMPLATE
+html_content = f"""<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{portfolio_data['name']} - Portfolio</title>
+    <style>
+        :root {{
+            --bg-deep: #0b0f19;
+            --bg-card: #161e2e;
+            --text-light: #e2e8f0;
+            --text-muted: #94a3b8;
+            --neon-blue: #00c6ff;
+            --neon-pink: #ff00cc;
+        }}
+        
+        html {{ scroll-behavior: smooth; scroll-padding-top: 90px; }}
+        
+        body {{
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-deep);
+            color: var(--text-light);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }}
+        
+        /* INTERACTIVE NAV */
+        nav {{
+            background: rgba(11, 15, 25, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 20px;
+            text-align: center;
+            border-bottom: 2px solid var(--neon-blue);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }}
+        nav a {{
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            display: inline-block;
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), color 0.3s ease;
+        }}
+        nav a:hover {{ 
+            color: var(--neon-pink); 
+            transform: translateY(-5px) scale(1.1); /* Bounce up */
+        }}
+        
+        header {{
+            background: radial-gradient(circle at top, #1a233a 0%, var(--bg-deep) 100%);
+            padding: 60px 20px 80px 20px;
+            text-align: center;
+            border-bottom: 1px solid #2d3748;
+        }}
+        header h1 {{ 
+            margin: 0; 
+            font-size: 3.5rem; 
+            background: linear-gradient(to right, var(--neon-blue), var(--neon-pink));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }}
+        
+        /* INTERACTIVE PROFILE PICTURE */
+        .profile-img {{
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin: 25px auto;
+            border: 4px solid var(--neon-blue);
+            box-shadow: 0 0 25px rgba(0, 198, 255, 0.4);
+            display: block;
+            transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275), border-color 0.3s ease, box-shadow 0.3s ease;
+        }}
+        .profile-img:hover {{ 
+            transform: scale(1.1) rotate(5deg); /* Enlarge and tilt */
+            border-color: var(--neon-pink); 
+            box-shadow: 0 0 35px rgba(255, 0, 204, 0.6); 
+        }}
+        
+        header h2 {{ font-weight: normal; margin-bottom: 10px; color: var(--text-light); }}
+        .status-badge {{ background-color: #1e293b; border: 1px solid #334155; padding: 10px 20px; border-radius: 30px; display: inline-block; }}
+        
+        .container {{ max-width: 1000px; margin: 40px auto; padding: 40px 20px; }}
+        
+        /* INTERACTIVE CARDS (Edu, Exp, About, Projects) */
+        .interactive-card {{
+            background: #111827;
+            padding: 30px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            border: 1px solid #2d3748;
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease, border-color 0.3s ease;
+        }}
+        .interactive-card:hover {{ 
+            transform: translateY(-10px) scale(1.02); /* Pop out and up */
+            box-shadow: 0 20px 40px rgba(0, 198, 255, 0.15); 
+            border-color: #4a5568;
+        }}
+        
+        .section-title {{
+            text-align: center;
+            font-size: 2.2rem;
+            color: white;
+            margin-bottom: 40px;
+            border-bottom: 3px solid var(--neon-pink);
+            display: inline-block;
+            padding-bottom: 10px;
+        }}
+        .section-header-container {{ text-align: center; }}
+        
+        /* NEW VERTICAL SKILLS LAYOUT & ANIMATION */
+        .skills-container {{
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }}
+        .skill-column {{
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }}
+        .skill-item {{
+            background: linear-gradient(90deg, #1e3c72 0%, #2a5298 100%);
+            padding: 12px 20px;
+            border-radius: 8px;
+            color: white;
+            font-weight: bold;
+            font-size: 1rem;
+            border-left: 4px solid var(--neon-blue);
+            transition: transform 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
+            cursor: default;
+        }}
+        .skill-item:hover {{
+            transform: translateX(15px) scale(1.03); /* Slide to the right and pop */
+            background: linear-gradient(90deg, #ff00cc 0%, #b300ff 100%);
+            border-left-color: #fff;
+            box-shadow: -5px 10px 20px rgba(255,0,204,0.3);
+        }}
+
+        .projects-grid {{ display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; }}
+        .project-card .tech {{ font-weight: bold; color: var(--text-muted); margin-bottom: 15px; font-size: 0.9rem; }}
+
+        footer {{
+            background-color: #05080f;
+            text-align: center;
+            padding: 40px 20px;
+            border-top: 1px solid #1e293b;
+        }}
+        footer a {{ color: var(--neon-blue); text-decoration: none; font-weight: bold; }}
+        footer a:hover {{ text-decoration: underline; color: var(--neon-pink); }}
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="#about">About</a>
+        <a href="#education">Education</a>
+        <a href="#experience">Experience</a>
+        <a href="#skills">Skills</a>
+        <a href="#publications">Publications</a>
+        <a href="#projects">Projects</a>
+    </nav>
+
+    <header>
+        <h1>{portfolio_data['name']}</h1>
+        <img src="{portfolio_data['profile_pic']}" alt="Profile Picture" class="profile-img" onerror="this.style.display='none'">
+        <h2>{portfolio_data['job_title']}</h2>
+        <div class="status-badge"><strong>{portfolio_data['headline']}</strong></div>
+    </header>
+
+    <div id="about" class="container">
+        <div class="section-header-container"><h2 class="section-title">About Me</h2></div>
+        <div class="interactive-card">
+            <p style="font-size: 1.1rem; color: var(--text-muted); margin: 0;">{portfolio_data['about_me']}</p>
+        </div>
+    </div>
+
+    <div id="education" class="container">
+        <div class="section-header-container"><h2 class="section-title">Education</h2></div>
+        {education_html}
+    </div>
+
+    <div id="experience" class="container">
+        <div class="section-header-container"><h2 class="section-title">Professional Experience</h2></div>
+        {experience_html}
+    </div>
+
+    <div id="skills" class="container">
+        <div class="section-header-container"><h2 class="section-title">Technical Expertise</h2></div>
+        {skills_html}
+    </div>
+
+    <div id="publications" class="container">
+        <div class="section-header-container"><h2 class="section-title">Publications</h2></div>
+        <div class="projects-grid">
+            {publications_html}
+        </div>
+    </div>
+
+    <div id="projects" class="container">
+        <div class="section-header-container"><h2 class="section-title">My Projects</h2></div>
+        <div class="projects-grid">
+            {projects_html}
+        </div>
+    </div>
+
+    <footer>
+        <p>Connect with me:</p>
+        <p>Email: {portfolio_data['contact']['email']} | GitHub: <a href="https://github.com/{portfolio_data['contact']['github']}" target="_blank">{portfolio_data['contact']['github']}</a></p>
+    </footer>
+
+</body>
+</html>
+"""
+
+with open("index.html", "w") as file:
+    file.write(html_content)
+
+print("Interactive portfolio generated successfully!")
