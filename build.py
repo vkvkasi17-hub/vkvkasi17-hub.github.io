@@ -1,9 +1,182 @@
-<!DOCTYPE html>
+import os
+
+# 1. YOUR PORTFOLIO DATA
+portfolio_data = {
+    "name": "KASI MEKA",
+    "profile_pic": "profile.jpeg",
+    "headline": "Specializing in Backend Development, GenAI Integration & Cloud Platforms",
+    
+    "about_me": """
+        Hi, I'm Kasi Meka — a Python Developer and Backend Engineer with over 4 years of experience specializing in backend development, data engineering, and cloud platforms (AWS, Azure, GCP). I have proven expertise in designing data pipelines, ETL/ELT processes, and scalable backend APIs using frameworks like FastAPI, Flask, and Django.
+        <br><br>
+        I am highly experienced in integrating Generative AI (GenAI) and Large Language Models (LLMs) into enterprise applications for chatbot evaluation, automation, and intelligent data workflows. I thrive in collaborative, Agile environments and am actively looking for opportunities where I can contribute to innovative, data-driven projects.
+    """,
+    
+    "education": [
+        {
+            "degree": "Master's in Information Science",
+            "school": "University of North Texas | Denton, TX",
+            "duration": "2024 - 2025",
+            "color": "#3182ce" 
+        }
+    ],
+
+    "experience": [
+        {
+            "role": "Senior Python Developer",
+            "company": "Cigna Health Care | Plano, TX",
+            "duration": "Jun 2024 – Present",
+            "bullets": [
+                "Developed Python services integrating Generative AI APIs to automate chatbot response evaluation.",
+                "Designed backend data workflows using Python and SQL to support scalable analytics.",
+                "Implemented automated LLM-based evaluation pipelines to assess chatbot response quality.",
+                "Managed AWS cloud infrastructure using VPC, EC2, ECS, S3, and CloudFormation.",
+                "Developed ETL pipelines from S3 to Snowflake using Python.",
+                "Built APIs using FastAPI and Hug frameworks for cross-functional data sharing.",
+                "Improved project code coverage to over 90% using automated unit testing.",
+                "Built Airflow data pipelines in GCP for enterprise ETL jobs.",
+                "Containerized applications using Docker and deployed via Jenkins CI/CD pipelines."
+            ],
+            "color": "#3182ce" 
+        },
+        {
+            "role": "Python Developer",
+            "company": "Hindustan Aeronautics Limited (HAL) | Bangalore, India",
+            "duration": "Aug 2023 – Dec 2023",
+            "bullets": [
+                "Developed sensor logic using Python scripts and Unix shell scripting.",
+                "Built Python batch processors to consume and produce various feeds.",
+                "Processed massive Blob datasets using PySpark Map-Reduce.",
+                "Wrote cleaning and munging scripts for large-scale datasets."
+            ],
+            "color": "#4a5568"
+        },
+        {
+            "role": "Python Developer",
+            "company": "Cognizant (Client: MERCK) | Hyderabad, India",
+            "duration": "June 2021 - Jul 2023",
+            "bullets": [
+                "Managed automated data workflows using Python, SQL, and R.",
+                "Developed pandas scripts for complex CSV data manipulation and comparison.",
+                "Built a Django-based GUI for dynamic code documentation display.",
+                "Executed long-term technological fixes for data and system bottlenecks."
+            ],
+            "color": "#4a5568"
+        }
+    ],
+
+    "skills": {
+        "Languages": ["Python", "SQL", "R", "Java", "JavaScript", "TypeScript"],
+        "GenAI & Data": ["LLMs", "LangChain", "ETL/ELT", "PySpark", "Snowflake", "Pandas"],
+        "Cloud & DevOps": ["AWS", "GCP", "Azure", "Docker", "Git", "FastAPI", "Airflow", "Jenkins"]
+    },
+    
+    "projects": [
+        {
+            "title": "LLM-Powered Chatbot Evaluation Framework",
+            "tech": "Python, LangChain, Generative AI",
+            "description": "Built an automated GenAI pipeline leveraging LLM-as-a-judge methodologies to evaluate enterprise chatbot responses for relevance, specificity, and hallucination rates.",
+            "category": "GenAI"
+        },
+        {
+            "title": "Automated Resume Parsing API",
+            "tech": "Python, FastAPI, NLP",
+            "description": "Designed a highly scalable REST API using advanced Natural Language Processing models to extract key entities (skills, experience, education) from unstructured resume PDFs.",
+            "category": "ML"
+        },
+        {
+            "title": "Real-Time Cloud Data Ingestion Pipeline",
+            "tech": "Python, AWS S3, PySpark",
+            "description": "Developed a robust streaming data pipeline to automatically ingest, clean, and store high-throughput event data for downstream analytics and machine learning applications.",
+            "category": "Data Engineering"
+        },
+        {
+            "title": "ODI Cricket Analytics Dashboard",
+            "tech": "Python, Tableau, Pandas",
+            "description": "Utilized Python (Pandas) to clean, transform, and preprocess raw match data before designing interactive visual dashboards in Tableau to uncover 20 years of performance trends.",
+            "category": "Data Viz"
+        },
+        {
+            "title": "LA Crime Pattern Analysis",
+            "tech": "Python, Data Analytics, Tableau",
+            "description": "Extracted messy crime datasets using Python scripts prior to creating interactive Tableau dashboards to analyze graphical trends across Los Angeles.",
+            "category": "Data Viz"
+        }
+    ],
+
+    "publications": [
+        {
+            "title": "Standards, frameworks, and legislation for artificial intelligence (AI) transparency",
+            "journal": "AI and Ethics",
+            "year": "2025",
+            "authors": "Lund, B., Orhan, Z., Mannuru, N. R., Bevara, R. V. K., Porter, B., Vinaih, M. K., & Bhaskara, P. (2025). Standards, frameworks, and legislation for artificial intelligence (AI) transparency. AI and Ethics, 5(4), 3639-3655.",
+            "link": "https://link.springer.com/article/10.1007/s43681-025-00661-4"
+        }
+    ],
+    
+    "contact": {
+        "email": "vkvkasi17@gmail.com", 
+        "phone": "940-290-0996",
+        "github": "vkvkasi17-hub",
+        "linkedin": "meka-kasi-2193003b1"
+    }
+}
+
+# 2. GENERATE DYNAMIC HTML CHUNKS
+education_html = ""
+for edu in portfolio_data['education']:
+    education_html += f'<div class="card reveal right"><h3 style="color: var(--accent);">{edu["degree"]}</h3><h4>{edu["school"]}</h4><div class="duration">{edu["duration"]}</div></div>'
+
+skills_html = "<div class='skills-grid'>"
+for cat, items in portfolio_data['skills'].items():
+    skill_tags = "".join([f"<span class='tag'>{i}</span>" for i in items])
+    skills_html += f"<div class='card reveal bottom'><h3>{cat}</h3><div class='tag-container'>{skill_tags}</div></div>"
+skills_html += "</div>"
+
+experience_html = ""
+for exp in portfolio_data['experience']:
+    bullets = "".join([f"<li>{b}</li>" for b in exp['bullets']])
+    experience_html += f'<div class="card reveal left" style="border-left: 5px solid {exp["color"]};"><h3 style="color: {exp["color"]};">{exp["role"]}</h3><h4>{exp["company"]}</h4><div class="duration">{exp["duration"]}</div><ul>{bullets}</ul></div>'
+
+icon_mapping = {
+    "GenAI": "fa-brain",
+    "ML": "fa-robot",
+    "Data Engineering": "fa-server",
+    "Data Viz": "fa-chart-pie"
+}
+
+projects_html = ""
+for i, proj in enumerate(portfolio_data['projects']):
+    direction = "left" if i % 2 == 0 else "right" 
+    cat = proj["category"]
+    icon = icon_mapping.get(cat, "fa-code") 
+
+    projects_html += f"""
+    <div class="card reveal {direction} new-project-card" data-category="{cat}">
+        <div class="card-icon-header">
+            <span class="category-badge">{cat}</span>
+            <i class="fa-solid {icon}"></i>
+        </div>
+        <div class="card-content">
+            <h3>{proj['title']}</h3>
+            <div class="tech">{proj['tech']}</div>
+            <p>{proj['description']}</p>
+        </div>
+    </div>
+    """
+    
+publications_html = ""
+for pub in portfolio_data['publications']:
+    publications_html += f'<div class="card reveal right"><a href="{pub["link"]}" target="_blank" style="text-decoration: none;"><h3 class="pub-title" style="color: var(--accent); cursor: pointer;">{pub["title"]} ↗</h3></a><div class="tech">{pub["journal"]} ({pub["year"]})</div><p style="font-size: 0.95rem; color: var(--text-muted);">{pub["authors"]}</p></div>'
+
+
+# 3. HTML TEMPLATE STORED AS A STRING
+template_content = """<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KASI MEKA | Portfolio</title>
+    <title>[[NAME]] | Portfolio</title>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -308,9 +481,9 @@
     <header class="hero-section">
         <div class="hero-container">
             <div class="hero-text reveal left">
-                <h1>KASI MEKA</h1>
+                <h1>[[NAME]]</h1>
                 <div class="typewriter-text"><span id="typewriter"></span><span class="cursor">&nbsp;</span></div>
-                <p class="hero-desc">Specializing in Backend Development, GenAI Integration & Cloud Platforms</p>
+                <p class="hero-desc">[[HEADLINE]]</p>
                 
                 <div class="hero-ctas">
                     <a href="#projects" class="btn-primary">View Projects</a>
@@ -318,15 +491,15 @@
                 </div>
                 
                 <div class="hero-socials">
-                    <a href="https://linkedin.com/in/meka-kasi-2193003b1" target="_blank" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
-                    <a href="https://github.com/vkvkasi17-hub" target="_blank" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
-                    <a href="mailto:vkvkasi17@gmail.com" aria-label="Email"><i class="fa-regular fa-envelope"></i></a>
+                    <a href="https://linkedin.com/in/[[LINKEDIN]]" target="_blank" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+                    <a href="https://github.com/[[GITHUB]]" target="_blank" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
+                    <a href="mailto:[[EMAIL]]" aria-label="Email"><i class="fa-regular fa-envelope"></i></a>
                 </div>
             </div>
             
             <div class="hero-visual reveal right">
                 <div class="image-wrapper">
-                    <img src="profile.jpeg" class="profile-img-large" onerror="this.style.display='none'">
+                    <img src="[[PROFILE_PIC]]" class="profile-img-large" onerror="this.style.display='none'">
                     <div class="glass-badge badge-1">🚀 4+ Years Experience</div>
                     <div class="glass-badge badge-2">🧠 GenAI & LLMs</div>
                 </div>
@@ -345,30 +518,26 @@
         <span class="section-title reveal bottom">About Me</span>
         <div class="title-underline reveal bottom"></div>
         <div class="card reveal bottom">
-            <p style="margin:0; font-size: 1.25rem;">
-        Hi, I'm Kasi Meka — a Python Developer and Backend Engineer with over 4 years of experience specializing in backend development, data engineering, and cloud platforms (AWS, Azure, GCP). I have proven expertise in designing data pipelines, ETL/ELT processes, and scalable backend APIs using frameworks like FastAPI, Flask, and Django.
-        <br><br>
-        I am highly experienced in integrating Generative AI (GenAI) and Large Language Models (LLMs) into enterprise applications for chatbot evaluation, automation, and intelligent data workflows. I thrive in collaborative, Agile environments and am actively looking for opportunities where I can contribute to innovative, data-driven projects.
-    </p>
+            <p style="margin:0; font-size: 1.25rem;">[[ABOUT_ME]]</p>
         </div>
     </section>
 
     <section id="experience" class="container">
         <span class="section-title reveal bottom">Professional Experience</span>
         <div class="title-underline reveal bottom"></div>
-        <div class="card reveal left" style="border-left: 5px solid #3182ce;"><h3 style="color: #3182ce;">Senior Python Developer</h3><h4>Cigna Health Care | Plano, TX</h4><div class="duration">Jun 2024 – Present</div><ul><li>Developed Python services integrating Generative AI APIs to automate chatbot response evaluation.</li><li>Designed backend data workflows using Python and SQL to support scalable analytics.</li><li>Implemented automated LLM-based evaluation pipelines to assess chatbot response quality.</li><li>Managed AWS cloud infrastructure using VPC, EC2, ECS, S3, and CloudFormation.</li><li>Developed ETL pipelines from S3 to Snowflake using Python.</li><li>Built APIs using FastAPI and Hug frameworks for cross-functional data sharing.</li><li>Improved project code coverage to over 90% using automated unit testing.</li><li>Built Airflow data pipelines in GCP for enterprise ETL jobs.</li><li>Containerized applications using Docker and deployed via Jenkins CI/CD pipelines.</li></ul></div><div class="card reveal left" style="border-left: 5px solid #4a5568;"><h3 style="color: #4a5568;">Python Developer</h3><h4>Hindustan Aeronautics Limited (HAL) | Bangalore, India</h4><div class="duration">Aug 2023 – Dec 2023</div><ul><li>Developed sensor logic using Python scripts and Unix shell scripting.</li><li>Built Python batch processors to consume and produce various feeds.</li><li>Processed massive Blob datasets using PySpark Map-Reduce.</li><li>Wrote cleaning and munging scripts for large-scale datasets.</li></ul></div><div class="card reveal left" style="border-left: 5px solid #4a5568;"><h3 style="color: #4a5568;">Python Developer</h3><h4>Cognizant (Client: MERCK) | Hyderabad, India</h4><div class="duration">June 2021 - Jul 2023</div><ul><li>Managed automated data workflows using Python, SQL, and R.</li><li>Developed pandas scripts for complex CSV data manipulation and comparison.</li><li>Built a Django-based GUI for dynamic code documentation display.</li><li>Executed long-term technological fixes for data and system bottlenecks.</li></ul></div>
+        [[EXPERIENCE_HTML]]
     </section>
 
     <section id="education" class="container">
         <span class="section-title reveal bottom">Education</span>
         <div class="title-underline reveal bottom"></div>
-        <div class="card reveal right"><h3 style="color: var(--accent);">Master's in Information Science</h3><h4>University of North Texas | Denton, TX</h4><div class="duration">2024 - 2025</div></div>
+        [[EDUCATION_HTML]]
     </section>
 
     <section id="skills" class="container">
         <span class="section-title reveal bottom">Technical Expertise</span>
         <div class="title-underline reveal bottom"></div>
-        <div class='skills-grid'><div class='card reveal bottom'><h3>Languages</h3><div class='tag-container'><span class='tag'>Python</span><span class='tag'>SQL</span><span class='tag'>R</span><span class='tag'>Java</span><span class='tag'>JavaScript</span><span class='tag'>TypeScript</span></div></div><div class='card reveal bottom'><h3>GenAI & Data</h3><div class='tag-container'><span class='tag'>LLMs</span><span class='tag'>LangChain</span><span class='tag'>ETL/ELT</span><span class='tag'>PySpark</span><span class='tag'>Snowflake</span><span class='tag'>Pandas</span></div></div><div class='card reveal bottom'><h3>Cloud & DevOps</h3><div class='tag-container'><span class='tag'>AWS</span><span class='tag'>GCP</span><span class='tag'>Azure</span><span class='tag'>Docker</span><span class='tag'>Git</span><span class='tag'>FastAPI</span><span class='tag'>Airflow</span><span class='tag'>Jenkins</span></div></div></div>
+        [[SKILLS_HTML]]
     </section>
 
     <section id="projects" class="container">
@@ -384,74 +553,14 @@
         </div>
 
         <div class="skills-grid" id="project-grid">
-            
-    <div class="card reveal left new-project-card" data-category="GenAI">
-        <div class="card-icon-header">
-            <span class="category-badge">GenAI</span>
-            <i class="fa-solid fa-brain"></i>
-        </div>
-        <div class="card-content">
-            <h3>LLM-Powered Chatbot Evaluation Framework</h3>
-            <div class="tech">Python, LangChain, Generative AI</div>
-            <p>Built an automated GenAI pipeline leveraging LLM-as-a-judge methodologies to evaluate enterprise chatbot responses for relevance, specificity, and hallucination rates.</p>
-        </div>
-    </div>
-    
-    <div class="card reveal right new-project-card" data-category="ML">
-        <div class="card-icon-header">
-            <span class="category-badge">ML</span>
-            <i class="fa-solid fa-robot"></i>
-        </div>
-        <div class="card-content">
-            <h3>Automated Resume Parsing API</h3>
-            <div class="tech">Python, FastAPI, NLP</div>
-            <p>Designed a highly scalable REST API using advanced Natural Language Processing models to extract key entities (skills, experience, education) from unstructured resume PDFs.</p>
-        </div>
-    </div>
-    
-    <div class="card reveal left new-project-card" data-category="Data Engineering">
-        <div class="card-icon-header">
-            <span class="category-badge">Data Engineering</span>
-            <i class="fa-solid fa-server"></i>
-        </div>
-        <div class="card-content">
-            <h3>Real-Time Cloud Data Ingestion Pipeline</h3>
-            <div class="tech">Python, AWS S3, PySpark</div>
-            <p>Developed a robust streaming data pipeline to automatically ingest, clean, and store high-throughput event data for downstream analytics and machine learning applications.</p>
-        </div>
-    </div>
-    
-    <div class="card reveal right new-project-card" data-category="Data Viz">
-        <div class="card-icon-header">
-            <span class="category-badge">Data Viz</span>
-            <i class="fa-solid fa-chart-pie"></i>
-        </div>
-        <div class="card-content">
-            <h3>ODI Cricket Analytics Dashboard</h3>
-            <div class="tech">Python, Tableau, Pandas</div>
-            <p>Utilized Python (Pandas) to clean, transform, and preprocess raw match data before designing interactive visual dashboards in Tableau to uncover 20 years of performance trends.</p>
-        </div>
-    </div>
-    
-    <div class="card reveal left new-project-card" data-category="Data Viz">
-        <div class="card-icon-header">
-            <span class="category-badge">Data Viz</span>
-            <i class="fa-solid fa-chart-pie"></i>
-        </div>
-        <div class="card-content">
-            <h3>LA Crime Pattern Analysis</h3>
-            <div class="tech">Python, Data Analytics, Tableau</div>
-            <p>Extracted messy crime datasets using Python scripts prior to creating interactive Tableau dashboards to analyze graphical trends across Los Angeles.</p>
-        </div>
-    </div>
-    
+            [[PROJECTS_HTML]]
         </div>
     </section>
     
     <section id="publications" class="container">
         <span class="section-title reveal bottom">Research & Publications</span>
         <div class="title-underline reveal bottom"></div>
-        <div class="card reveal right"><a href="https://link.springer.com/article/10.1007/s43681-025-00661-4" target="_blank" style="text-decoration: none;"><h3 class="pub-title" style="color: var(--accent); cursor: pointer;">Standards, frameworks, and legislation for artificial intelligence (AI) transparency ↗</h3></a><div class="tech">AI and Ethics (2025)</div><p style="font-size: 0.95rem; color: var(--text-muted);">Lund, B., Orhan, Z., Mannuru, N. R., Bevara, R. V. K., Porter, B., Vinaih, M. K., & Bhaskara, P. (2025). Standards, frameworks, and legislation for artificial intelligence (AI) transparency. AI and Ethics, 5(4), 3639-3655.</p></div>
+        [[PUBLICATIONS_HTML]]
     </section>
 
     <section id="game" class="container">
@@ -497,9 +606,9 @@
                     <p><span class="prompt">>>></span> kasi.contact()</p>
                     <div class="term-output">
                         {<br>
-                        &nbsp;&nbsp;"email": "<a href='mailto:vkvkasi17@gmail.com'>vkvkasi17@gmail.com</a>",<br>
-                        &nbsp;&nbsp;"phone": "940-290-0996",<br>
-                        &nbsp;&nbsp;"github": "<a href='https://github.com/vkvkasi17-hub' target='_blank'>/vkvkasi17-hub</a>",<br>
+                        &nbsp;&nbsp;"email": "<a href='mailto:[[EMAIL]]'>[[EMAIL]]</a>",<br>
+                        &nbsp;&nbsp;"phone": "[[PHONE]]",<br>
+                        &nbsp;&nbsp;"github": "<a href='https://github.com/[[GITHUB]]' target='_blank'>/[[GITHUB]]</a>",<br>
                         &nbsp;&nbsp;"status": "Available for 2026 Internships"<br>
                         }
                     </div>
@@ -508,7 +617,7 @@
             </div>
 
             <div class="form-container">
-                <form action="mailto:vkvkasi17@gmail.com?subject=Portfolio Contact" method="POST" enctype="text/plain">
+                <form action="mailto:[[EMAIL]]?subject=Portfolio Contact" method="POST" enctype="text/plain">
                     <div class="form-group">
                         <label>Name *</label>
                         <input type="text" name="Name" required placeholder="John Doe">
@@ -530,12 +639,12 @@
     <footer>
         <div class="footer-left">
             <a href="#" class="footer-logo logo">KM</a>
-            <p class="footer-copy">© 2026 KASI MEKA. All rights reserved.</p>
+            <p class="footer-copy">© 2026 [[NAME]]. All rights reserved.</p>
         </div>
         <div class="footer-icons">
-            <a href="https://linkedin.com/in/meka-kasi-2193003b1" target="_blank" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
-            <a href="https://github.com/vkvkasi17-hub" target="_blank" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
-            <a href="mailto:vkvkasi17@gmail.com" aria-label="Email"><i class="fa-regular fa-envelope"></i></a>
+            <a href="https://linkedin.com/in/[[LINKEDIN]]" target="_blank" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+            <a href="https://github.com/[[GITHUB]]" target="_blank" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
+            <a href="mailto:[[EMAIL]]" aria-label="Email"><i class="fa-regular fa-envelope"></i></a>
         </div>
     </footer>
 
@@ -758,3 +867,25 @@
     </script>
 </body>
 </html>
+"""
+
+# 4. INJECT AND SAVE
+final_html = template_content.replace("[[NAME]]", portfolio_data["name"])
+final_html = final_html.replace("[[PROFILE_PIC]]", portfolio_data["profile_pic"])
+final_html = final_html.replace("[[HEADLINE]]", portfolio_data["headline"])
+final_html = final_html.replace("[[ABOUT_ME]]", portfolio_data["about_me"])
+final_html = final_html.replace("[[EMAIL]]", portfolio_data["contact"]["email"])
+final_html = final_html.replace("[[PHONE]]", portfolio_data["contact"]["phone"])
+final_html = final_html.replace("[[GITHUB]]", portfolio_data["contact"]["github"])
+final_html = final_html.replace("[[LINKEDIN]]", portfolio_data["contact"]["linkedin"])
+
+final_html = final_html.replace("[[EDUCATION_HTML]]", education_html)
+final_html = final_html.replace("[[SKILLS_HTML]]", skills_html)
+final_html = final_html.replace("[[EXPERIENCE_HTML]]", experience_html)
+final_html = final_html.replace("[[PROJECTS_HTML]]", projects_html)
+final_html = final_html.replace("[[PUBLICATIONS_HTML]]", publications_html)
+
+with open("index.html", "w") as file:
+    file.write(final_html)
+
+print("AI Prediction Game integrated successfully!")
