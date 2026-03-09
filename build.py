@@ -9,7 +9,7 @@ portfolio_data = {
     "about_me": """
         Hi, I'm Kasi Meka — a Python Developer and Backend Engineer with over 4 years of experience specializing in backend development, data engineering, and cloud platforms (AWS, Azure, GCP). I have proven expertise in designing data pipelines, ETL/ELT processes, and scalable backend APIs using frameworks like FastAPI, Flask, and Django.
         <br><br>
-        I am highly experienced in integrating Generative AI (GenAI) and Large Language Models (LLMs) into enterprise applications for chatbot evaluation, automation, and intelligent data workflows. I thrive in collaborative, Agile environments and am actively looking for opportunities where I can contribute to innovative, data-driven projects.
+        I am highly experienced in integrating Generative AI (GenAI) and Large Language Models (LLMs) into enterprise applications for chatbot evaluation, automation, and intelligent data workflows. I thrive in collaborative, Agile environments and am actively looking for new opportunities where I can contribute to innovative, data-driven projects.
     """,
     
     "education": [
@@ -292,7 +292,7 @@ template_content = """<!DOCTYPE html>
         .hero-socials a { color: var(--text-muted); font-size: 1.5rem; transition: all 0.3s ease; }
         .hero-socials a:hover { color: var(--accent); transform: translateY(-3px); }
 
-        .hero-visual { flex: 1; display: flex; justify-content: center; position: relative; }
+        .hero-visual { flex: 1; display: flex; justify-content: center; position: relative; padding: 20px 0;} /* Added vertical padding for spacing */
         .image-wrapper { position: relative; display: inline-block; }
         .profile-img-large { 
             width: 320px; height: 320px; border-radius: 50%; object-fit: cover; 
@@ -300,16 +300,6 @@ template_content = """<!DOCTYPE html>
             transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275), border-color 0.3s;
         }
         .image-wrapper:hover .profile-img-large { transform: scale(1.05) rotate(2deg); border-color: var(--accent); }
-
-        .glass-badge {
-            position: absolute; background: var(--glass-bg); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
-            border: 1px solid rgba(255,255,255,0.2); padding: 10px 20px; border-radius: 20px;
-            font-weight: bold; font-size: 0.95rem; color: var(--text-main); box-shadow: 0 8px 32px rgba(0,0,0,0.1);
-            animation: float 4s ease-in-out infinite; z-index: 5; white-space: nowrap;
-        }
-        .badge-1 { top: 15%; left: -70px; animation-delay: 0s; }
-        .badge-2 { bottom: 15%; right: -70px; animation-delay: 2s; }
-        @keyframes float { 0% { transform: translateY(0px); } 50% { transform: translateY(-15px); } 100% { transform: translateY(0px); } }
 
         .marquee-container { position: absolute; bottom: 0; left: 0; width: 100%; background: var(--nav-bg); backdrop-filter: blur(5px); border-top: 1px solid var(--border); padding: 12px 0; overflow: hidden; white-space: nowrap; z-index: 3; }
         .marquee-content { display: inline-block; animation: scrollMarquee 25s linear infinite; }
@@ -349,7 +339,6 @@ template_content = """<!DOCTYPE html>
         .card-content h3 { margin-top: 0; margin-bottom: 10px; font-size: 1.3rem;}
         .card-content p { margin-bottom: 0; font-size: 0.95rem; }
 
-        /* --- PREDICTIVE RPS GAME STYLES --- */
         .game-container { 
             background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px;
             padding: 40px; text-align: center; box-shadow: 0 4px 6px rgba(0,0,0,0.02); margin-bottom: 40px;
@@ -436,9 +425,7 @@ template_content = """<!DOCTYPE html>
             .hero-socials { justify-content: center; }
             .hero-text h1 { font-size: 3.2rem; }
             .profile-img-large { width: 220px; height: 220px; }
-            .badge-1 { left: 50%; top: -15px; transform: translateX(-50%); animation: none; font-size: 0.8rem; }
-            .badge-2 { right: auto; left: 50%; bottom: -15px; transform: translateX(-50%); animation: none; font-size: 0.8rem; }
-
+            
             footer { flex-direction: column; gap: 20px; text-align: center; }
             .contact-wrapper { grid-template-columns: 1fr; }
             .container { padding: 30px 15px; }
@@ -449,7 +436,7 @@ template_content = """<!DOCTYPE html>
     <div class="modal-overlay" id="celebrationModal">
         <div class="modal-content">
             <h2>🎉 Thank You! 🎉</h2>
-            <p>You have visited my website and reached the end of it! I think you are impressed with my portfolio. 
+            <p>You have visited my website and reached the bottom of it! I think you are impressed with my portfolio. 
             <br><br>
             Thanks for visiting!</p>
             <div class="progress-container">
@@ -500,9 +487,7 @@ template_content = """<!DOCTYPE html>
             <div class="hero-visual reveal right">
                 <div class="image-wrapper">
                     <img src="[[PROFILE_PIC]]" class="profile-img-large" onerror="this.style.display='none'">
-                    <div class="glass-badge badge-1">🚀 4+ Years Experience</div>
-                    <div class="glass-badge badge-2">🧠 GenAI & LLMs</div>
-                </div>
+                    </div>
             </div>
         </div>
 
@@ -794,7 +779,6 @@ template_content = """<!DOCTYPE html>
         let aScore = 0;
         let lastUserMove = null;
 
-        // Markov Chain History Matrix
         const history = {
             'rock': { 'rock': 0, 'paper': 0, 'scissors': 0 },
             'paper': { 'rock': 0, 'paper': 0, 'scissors': 0 },
@@ -807,9 +791,8 @@ template_content = """<!DOCTYPE html>
         const emojis = { 'rock': '✊', 'paper': '✋', 'scissors': '✌️' };
 
         function playRPS(userMove) {
-            let aiMove = moves[Math.floor(Math.random() * 3)]; // Default to random choice
+            let aiMove = moves[Math.floor(Math.random() * 3)];
 
-            // If we have history, try to predict their next move based on their last move
             if (lastUserMove) {
                 const pastMoves = history[lastUserMove];
                 let predictedMove = 'rock';
@@ -822,19 +805,16 @@ template_content = """<!DOCTYPE html>
                     }
                 }
                 
-                // If the algorithm has learned a pattern, counter the predicted move
                 if (maxCount > 0) {
                     aiMove = losesTo[predictedMove];
                 }
             }
 
-            // Update history matrix with what they actually played
             if (lastUserMove) {
                 history[lastUserMove][userMove]++;
             }
             lastUserMove = userMove;
 
-            // Determine Winner
             let resultText = '';
             let resultColor = '';
             
@@ -851,7 +831,6 @@ template_content = """<!DOCTYPE html>
                 aScore++;
             }
 
-            // Update UI
             userScoreEl.innerText = uScore;
             aiScoreEl.innerText = aScore;
             
@@ -888,4 +867,4 @@ final_html = final_html.replace("[[PUBLICATIONS_HTML]]", publications_html)
 with open("index.html", "w") as file:
     file.write(final_html)
 
-print("AI Prediction Game integrated successfully!")
+print("Glass tiles removed and layout polished successfully!")
