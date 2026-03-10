@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>[[NAME]] | Portfolio</title>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Fira+Code:wght@400;600&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="at-top in-hero is-idle"> 
+
+    <div class="weather-container">
+        <div class="weather-sun" id="sun"></div>
+        <div class="weather-birds" id="birds">
+            <svg class="bird" viewBox="0 0 100 100"><path d="M10 50 Q 25 25 50 45 Q 75 25 90 50 Q 75 35 50 55 Q 25 35 10 50 Z"/></svg>
+            <svg class="bird" viewBox="0 0 100 100"><path d="M10 50 Q 25 25 50 45 Q 75 25 90 50 Q 75 35 50 55 Q 25 35 10 50 Z"/></svg>
+            <svg class="bird" viewBox="0 0 100 100"><path d="M10 50 Q 25 25 50 45 Q 75 25 90 50 Q 75 35 50 55 Q 25 35 10 50 Z"/></svg>
+        </div>
+        <div class="cloud-layer"></div>
+        <div class="cloud-layer cloud-layer-2"></div>
+        <canvas id="rainCanvas"></canvas>
+    </div>
+
+    <div class="race-track" id="raceTrack">
+        <div class="race-car" id="raceCar">🏎️</div>
+    </div>
+
+    <div class="custom-cursor" id="customCursor"></div>
+
+    <div id="darkModeToast" class="toast-popup">
+        👋 Welcome! Would you like to view the site in <b>Dark Mode</b>? 
+        <br><button onclick="document.getElementById('themeToggle').click(); this.parentElement.classList.remove('show');" class="toast-btn">Switch to Dark Mode</button>
+    </div>
+
+    <div class="modal-overlay" id="celebrationModal">
+        <div class="modal-content">
+            <h2>🎉 Thank You! 🎉</h2>
+            <p>You reached the bottom of my website! I think you are impressed with my portfolio. Thanks for visiting!</p>
+            <div class="progress-container"><div class="progress-bar" id="modalProgressBar"></div></div>
+            <button class="close-btn" onclick="closeModal()">Close</button>
+        </div>
+    </div>
+
+    <nav id="navbar">
+        <div class="nav-left"><a href="#" class="logo">KM</a></div>
+        <div class="nav-right-group">
+            <div class="nav-links">
+                <a href="#about">About</a>
+                <a href="#experience">Experience</a>
+                <a href="#education">Education</a>
+                <a href="#skills">Skills</a>
+                <a href="#projects">Projects</a>
+                <a href="#game">AI Bot</a>
+                <a href="#contact">Contact</a>
+            </div>
+            <button id="themeToggle" class="theme-toggle-btn" aria-label="Toggle Dark Mode"><i class="fa-solid fa-moon"></i></button>
+        </div>
+    </nav>
+
+    <header class="hero-section">
+        <canvas id="networkCanvas"></canvas>
+        <div class="hero-container">
+            <div class="hero-text">
+                <h1>[[NAME]]</h1>
+                <div class="typewriter-text"><span id="typewriter"></span><span class="cursor">&nbsp;</span></div>
+                <p class="hero-desc">[[HEADLINE]]</p>
+                <div class="hero-ctas">
+                    <a href="#projects" class="btn-primary">View Projects</a>
+                    <a href="#contact" class="btn-secondary">Contact Me</a>
+                </div>
+                <div class="hero-socials">
+                    <a href="https://linkedin.com/in/[[LINKEDIN]]" target="_blank"><i class="fa-brands fa-linkedin-in"></i></a>
+                    <a href="https://github.com/[[GITHUB]]" target="_blank"><i class="fa-brands fa-github"></i></a>
+                    <a href="mailto:[[EMAIL]]"><i class="fa-regular fa-envelope"></i></a>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="image-wrapper"><img src="[[PROFILE_PIC]]" class="profile-img-large" onerror="this.style.display='none'"></div>
+            </div>
+        </div>
+        <div class="marquee-container">
+            <div class="marquee-content">
+                <span>Python • AWS • LangChain • FastAPI • Snowflake • Docker • SQL • GCP • Data Engineering • Machine Learning • </span>
+                <span>Python • AWS • LangChain • FastAPI • Snowflake • Docker • SQL • GCP • Data Engineering • Machine Learning • </span>
+            </div>
+        </div>
+    </header>
+
+    <section id="about" class="container book-page">
+        <span class="section-title">About Me</span>
+        <div class="title-underline"></div>
+        <div class="card"><p style="margin:0; font-size: 1.15rem;">[[ABOUT_ME]]</p></div>
+    </section>
+
+    <section id="experience" class="container book-page">
+        <span class="section-title">Professional Experience</span>
+        <div class="title-underline"></div>
+        [[EXPERIENCE_HTML]]
+    </section>
+
+    <section id="education" class="container book-page">
+        <span class="section-title">Education</span>
+        <div class="title-underline"></div>
+        [[EDUCATION_HTML]]
+    </section>
+
+    <section id="skills" class="container book-page">
+        <span class="section-title">Technical Expertise</span>
+        <div class="title-underline"></div>
+        <p style="text-align: center; color: var(--text-muted); margin-bottom: 20px;"><i>* Click a skill to pop it! *</i></p>
+        [[SKILLS_HTML]]
+    </section>
+
+    <section id="projects" class="container book-page">
+        <span class="section-title">Featured Research & Projects</span>
+        <div class="title-underline"></div>
+        <div class="filter-container">
+            <button class="filter-btn active" onclick="filterProjects('all')">All</button>
+            <button class="filter-btn" onclick="filterProjects('GenAI')">GenAI</button>
+            <button class="filter-btn" onclick="filterProjects('ML')">ML</button>
+            <button class="filter-btn" onclick="filterProjects('Data Engineering')">Data Eng</button>
+            <button class="filter-btn" onclick="filterProjects('Data Viz')">Data Viz</button>
+        </div>
+        <div class="skills-grid" id="project-grid">[[PROJECTS_HTML]]</div>
+    </section>
+    
+    <section id="publications" class="container book-page">
+        <span class="section-title">Research & Publications</span>
+        <div class="title-underline"></div>
+        [[PUBLICATIONS_HTML]]
+    </section>
+
+    <section id="game" class="container book-page">
+        <span class="section-title">Beat the AI 🤖</span>
+        <div class="title-underline"></div>
+        <div class="game-container">
+            <h3 style="margin-top: 0;">Predictive Rock-Paper-Scissors</h3>
+            <p style="color: var(--text-muted); margin-bottom: 20px;">This bot uses a simple <b>Markov Chain</b> algorithm to learn your patterns and predict your next move.</p>
+            <div class="score-board">
+                <div>You: <span id="userScore" class="user-score">0</span></div>
+                <div>AI: <span id="aiScore" class="ai-score">0</span></div>
+            </div>
+            <div id="gameLog" class="game-log"><div style="color: var(--text-muted); font-size: 1.1rem;">Make your move below to start the algorithm.</div></div>
+            <div style="display: flex; justify-content: center; gap: 15px; flex-wrap: wrap;">
+                <button class="rps-btn" onclick="playRPS('rock')">✊ Rock</button>
+                <button class="rps-btn" onclick="playRPS('paper')">✋ Paper</button>
+                <button class="rps-btn" onclick="playRPS('scissors')">✌️ Scissors</button>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="container book-page">
+        <span class="section-title">Contact Me</span>
+        <div class="title-underline"></div>
+        <div class="contact-wrapper">
+            <div class="interactive-terminal">
+                <div class="term-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="term-title">contact_kasi.py</span></div>
+                <div class="term-body">
+                    <p><span class="prompt">>>></span> import developer</p>
+                    <p><span class="prompt">>>></span> kasi = developer.get("Kasi Meka")</p>
+                    <p><span class="prompt">>>></span> kasi.contact()</p>
+                    <div class="term-output">
+                        {<br>&nbsp;&nbsp;"email": "<a href='mailto:[[EMAIL]]'>[[EMAIL]]</a>",<br>&nbsp;&nbsp;"phone": "[[PHONE]]",<br>&nbsp;&nbsp;"github": "<a href='https://github.com/[[GITHUB]]' target='_blank'>/[[GITHUB]]</a>",<br>&nbsp;&nbsp;"status": "Available for 2026 Internships"<br>}
+                    </div>
+                    <p><span class="prompt">>>></span> <span class="cursor" style="background-color: white;">&nbsp;</span></p>
+                </div>
+            </div>
+            <div class="form-container">
+                <form action="mailto:[[EMAIL]]?subject=Portfolio Contact" method="POST" enctype="text/plain">
+                    <div class="form-group"><label>Name *</label><input type="text" name="Name" required placeholder="John Doe"></div>
+                    <div class="form-group"><label>Email *</label><input type="email" name="Email" required placeholder="john@example.com"></div>
+                    <div class="form-group" style="margin-bottom: 25px;"><label>Message *</label><textarea name="Message" rows="4" required placeholder="Hello Kasi, I am reaching out regarding..."></textarea></div>
+                    <button type="submit" class="submit-btn">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-left">
+            <a href="#" class="footer-logo logo">KM</a>
+            <p class="footer-copy">© 2026 [[NAME]]. All rights reserved.</p>
+        </div>
+        <div class="footer-icons">
+            <a href="https://linkedin.com/in/[[LINKEDIN]]" target="_blank"><i class="fa-brands fa-linkedin-in"></i></a>
+            <a href="https://github.com/[[GITHUB]]" target="_blank"><i class="fa-brands fa-github"></i></a>
+            <a href="mailto:[[EMAIL]]"><i class="fa-regular fa-envelope"></i></a>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

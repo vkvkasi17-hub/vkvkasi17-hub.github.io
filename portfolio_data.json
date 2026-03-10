@@ -1,0 +1,109 @@
+{
+    "name": "KASI MEKA",
+    "profile_pic": "profile.jpg",
+    "headline": "Specializing in Backend Development, GenAI Integration & Cloud Platforms",
+    "about_me": "Hi, I'm Kasi Meka. A Python Developer and Backend Engineer with over 4 years of experience specializing in backend development, data engineering, and cloud platforms (AWS, Azure, GCP). I have proven expertise in designing data pipelines, ETL/ELT processes, and scalable backend APIs using frameworks like FastAPI, Flask, and Django.<br><br>I am highly experienced in integrating Generative AI (GenAI) and Large Language Models (LLMs) into enterprise applications for chatbot evaluation, automation, and intelligent data workflows. I thrive in collaborative, Agile environments and am actively seeking a Summer/Fall 2026 internship where I can contribute to innovative, data-driven projects.",
+    "education": [
+        {
+            "degree": "Master's in Information Science",
+            "school": "University of North Texas | Denton, TX",
+            "duration": "2024 - 2025",
+            "color": "#3182ce"
+        }
+    ],
+    "experience": [
+        {
+            "role": "Senior Python Developer",
+            "company": "Cigna Health Care | Plano, TX",
+            "duration": "Jun 2024 – Present",
+            "bullets": [
+                "Developed Python services integrating Generative AI APIs to automate chatbot response evaluation.",
+                "Designed backend data workflows using Python and SQL to support scalable analytics.",
+                "Implemented automated LLM-based evaluation pipelines to assess chatbot response quality.",
+                "Managed AWS cloud infrastructure using VPC, EC2, ECS, S3, and CloudFormation.",
+                "Developed ETL pipelines from S3 to Snowflake using Python.",
+                "Built APIs using FastAPI and Hug frameworks for cross-functional data sharing.",
+                "Improved project code coverage to over 90% using automated unit testing.",
+                "Built Airflow data pipelines in GCP for enterprise ETL jobs.",
+                "Containerized applications using Docker and deployed via Jenkins CI/CD pipelines."
+            ],
+            "color": "#3182ce"
+        },
+        {
+            "role": "Python Developer",
+            "company": "Hindustan Aeronautics Limited (HAL) | Bangalore, India",
+            "duration": "Aug 2023 – Dec 2023",
+            "bullets": [
+                "Developed sensor logic using Python scripts and Unix shell scripting.",
+                "Built Python batch processors to consume and produce various feeds.",
+                "Processed massive Blob datasets using PySpark Map-Reduce.",
+                "Wrote cleaning and munging scripts for large-scale datasets."
+            ],
+            "color": "#4a5568"
+        },
+        {
+            "role": "Python Developer",
+            "company": "Cognizant (Client: MERCK) | Hyderabad, India",
+            "duration": "June 2021 - Jul 2023",
+            "bullets": [
+                "Managed automated data workflows using Python, SQL, and R.",
+                "Developed pandas scripts for complex CSV data manipulation and comparison.",
+                "Built a Django-based GUI for dynamic code documentation display.",
+                "Executed long-term technological fixes for data and system bottlenecks."
+            ],
+            "color": "#4a5568"
+        }
+    ],
+    "skills": {
+        "Languages": ["Python", "SQL", "R", "Java", "JavaScript", "TypeScript"],
+        "GenAI & Data": ["LLMs", "LangChain", "ETL/ELT", "PySpark", "Snowflake", "Pandas"],
+        "Cloud & DevOps": ["AWS", "GCP", "Azure", "Docker", "Git", "FastAPI", "Airflow", "Jenkins"]
+    },
+    "projects": [
+        {
+            "title": "LLM-Powered Chatbot Evaluation Framework",
+            "tech": "Python, LangChain, Generative AI",
+            "description": "Built an automated GenAI pipeline leveraging LLM-as-a-judge methodologies to evaluate enterprise chatbot responses for relevance, specificity, and hallucination rates.",
+            "category": "GenAI"
+        },
+        {
+            "title": "Automated Resume Parsing API",
+            "tech": "Python, FastAPI, NLP",
+            "description": "Designed a highly scalable REST API using advanced Natural Language Processing models to extract key entities (skills, experience, education) from unstructured resume PDFs.",
+            "category": "ML"
+        },
+        {
+            "title": "Real-Time Cloud Data Ingestion Pipeline",
+            "tech": "Python, AWS S3, PySpark",
+            "description": "Developed a robust streaming data pipeline to automatically ingest, clean, and store high-throughput event data for downstream analytics and machine learning applications.",
+            "category": "Data Engineering"
+        },
+        {
+            "title": "ODI Cricket Analytics Dashboard",
+            "tech": "Python, Tableau, Pandas",
+            "description": "Utilized Python (Pandas) to clean, transform, and preprocess raw match data before designing interactive visual dashboards in Tableau to uncover 20 years of performance trends.",
+            "category": "Data Viz"
+        },
+        {
+            "title": "LA Crime Pattern Analysis",
+            "tech": "Python, Data Analytics, Tableau",
+            "description": "Extracted messy crime datasets using Python scripts prior to creating interactive Tableau dashboards to analyze graphical trends across Los Angeles.",
+            "category": "Data Viz"
+        }
+    ],
+    "publications": [
+        {
+            "title": "Standards, frameworks, and legislation for artificial intelligence (AI) transparency",
+            "journal": "AI and Ethics",
+            "year": "2025",
+            "authors": "Lund, B., Orhan, Z., Mannuru, N. R., Bevara, R. V. K., Porter, B., Vinaih, M. K., & Bhaskara, P. (2025). Standards, frameworks, and legislation for artificial intelligence (AI) transparency. AI and Ethics, 5(4), 3639-3655.",
+            "link": "https://link.springer.com/article/10.1007/s43681-025-00661-4"
+        }
+    ],
+    "contact": {
+        "email": "vkvkasi17@gmail.com",
+        "phone": "940-290-0996",
+        "github": "vkvkasi17-hub",
+        "linkedin": "meka-kasi-2193003b1"
+    }
+}
