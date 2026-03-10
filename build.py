@@ -7,7 +7,7 @@ portfolio_data = {
     "headline": "Specializing in Backend Development, GenAI Integration & Cloud Platforms",
     
     "about_me": """
-        Hi, I'm Kasi Meka. A Python Developer and Backend Engineer with over 4 years of experience specializing in backend development, data engineering, and cloud platforms (AWS, Azure, GCP). I have experience in designing data pipelines, ETL/ELT processes, and scalable backend APIs using frameworks like FastAPI, Flask, and Django.
+        Hi, I'm Kasi Meka. APython Developer and Backend Engineer with over 4 years of experience specializing in backend development, data engineering, and cloud platforms (AWS, Azure, GCP). I am experienced in designing data pipelines, ETL/ELT processes, and scalable backend APIs using frameworks like FastAPI, Flask, and Django.
         <br><br>
         I am highly experienced in integrating Generative AI (GenAI) and Large Language Models (LLMs) into enterprise applications for chatbot evaluation, automation, and intelligent data workflows. I thrive in collaborative, Agile environments and am actively seeking a Summer/Fall 2026 internship where I can contribute to innovative, data-driven projects.
     """,
@@ -537,7 +537,6 @@ template_content = """<!DOCTYPE html>
         <div class="modal-content">
             <h2>🎉 Thank You! 🎉</h2>
             <p>You have visited and reached the bottom of my website! 
-            <br><br>
             I think you are impressed with my portfolio. 
             <br><br>
             Thanks for visiting!</p>
