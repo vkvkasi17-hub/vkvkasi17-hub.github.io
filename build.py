@@ -7,7 +7,7 @@ portfolio_data = {
     "headline": "Specializing in Backend Development, GenAI Integration & Cloud Platforms",
     
     "about_me": """
-        Hi, I'm Kasi Meka — a Python Developer and Backend Engineer with over 4 years of experience specializing in backend development, data engineering, and cloud platforms (AWS, Azure, GCP). I have proven expertise in designing data pipelines, ETL/ELT processes, and scalable backend APIs using frameworks like FastAPI, Flask, and Django.
+        Hi, I'm Kasi Meka. A Python Developer and Backend Engineer with over 4 years of experience specializing in backend development, data engineering, and cloud platforms (AWS, Azure, GCP). I have experience in designing data pipelines, ETL/ELT processes, and scalable backend APIs using frameworks like FastAPI, Flask, and Django.
         <br><br>
         I am highly experienced in integrating Generative AI (GenAI) and Large Language Models (LLMs) into enterprise applications for chatbot evaluation, automation, and intelligent data workflows. I thrive in collaborative, Agile environments and am actively seeking a Summer/Fall 2026 internship where I can contribute to innovative, data-driven projects.
     """,
@@ -234,13 +234,30 @@ template_content = """<!DOCTYPE html>
         
         a, button, input, textarea { cursor: none; }
 
-        /* --- THE WEATHER ENGINE: IDLE vs SCROLLING --- */
+        /* --- STRICT HERO ISOLATION (Hides extra elements when at the top) --- */
+        body.at-top .marquee-container, 
+        body.at-top .race-track,
+        body.at-top .weather-container {
+            opacity: 0 !important;
+            visibility: hidden !important;
+            pointer-events: none !important;
+        }
+
+        /* --- THE WEATHER ENGINE --- */
+        .weather-container {
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            z-index: -2; pointer-events: none; transition: opacity 1s ease, visibility 1s;
+        }
+        
+        /* Enforce NO weather on the Hero page */
+        body.in-hero .weather-container { opacity: 0 !important; visibility: hidden !important; }
+
         .cloud-layer {
-            position: fixed; top: -50px; left: 0; width: 100vw; height: 400px;
+            position: absolute; top: -50px; left: 0; width: 100vw; height: 400px;
             background: radial-gradient(ellipse at 20% 30%, rgba(160, 174, 192, 0.6) 0%, transparent 60%),
                         radial-gradient(ellipse at 80% 20%, rgba(148, 163, 184, 0.5) 0%, transparent 50%),
                         radial-gradient(ellipse at 50% 40%, rgba(203, 213, 225, 0.7) 0%, transparent 70%);
-            filter: blur(30px); z-index: -2; pointer-events: none;
+            filter: blur(30px); z-index: 1; pointer-events: none;
             transition: opacity 1.5s ease, transform 1.5s ease; 
         }
         body.dark-mode .cloud-layer {
@@ -252,10 +269,10 @@ template_content = """<!DOCTYPE html>
         body.is-scrolling .cloud-layer { opacity: 0; transform: scale(1.1); }
 
         .weather-sun {
-            position: fixed; top: -150px; right: 100px; width: 120px; height: 120px;
+            position: absolute; top: -150px; right: 100px; width: 120px; height: 120px;
             background: radial-gradient(circle, #fef08a 20%, #facc15 60%, transparent 80%);
             border-radius: 50%; box-shadow: 0 0 50px #fde047;
-            z-index: -3; transition: top 1.5s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 1s ease;
+            z-index: 0; transition: top 1.5s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 1s ease;
             opacity: 0; pointer-events: none;
         }
         body.dark-mode .weather-sun { 
@@ -265,7 +282,7 @@ template_content = """<!DOCTYPE html>
         body.is-scrolling .weather-sun { top: 120px; opacity: 1; }
 
         .weather-birds {
-            position: fixed; top: 150px; left: -200px; z-index: -2; opacity: 0; pointer-events: none;
+            position: absolute; top: 150px; left: -200px; z-index: 1; opacity: 0; pointer-events: none;
             display: flex; gap: 30px;
         }
         .bird { fill: var(--text-main); width: 45px; height: 45px; animation: flap 1s infinite alternate ease-in-out; opacity: 0.6;}
@@ -276,8 +293,8 @@ template_content = """<!DOCTYPE html>
         body.is-idle .weather-birds { left: -200px; opacity: 0; transition: opacity 0.5s; }
 
         #rainCanvas {
-            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-            z-index: -1; pointer-events: none; transition: opacity 0.5s ease;
+            position: absolute; top: 0; left: 0; width: 100vw; height: 100vh;
+            z-index: 2; pointer-events: none; transition: opacity 0.5s ease;
         }
         body.is-idle #rainCanvas { opacity: 0.85; }
         body.is-scrolling #rainCanvas { opacity: 0; }
@@ -286,19 +303,18 @@ template_content = """<!DOCTYPE html>
         .race-track {
             position: fixed; top: 0; right: 0; width: 50px; height: 100vh;
             background: transparent; z-index: 999999; cursor: grab;
+            transition: opacity 0.5s ease;
         }
         .race-car {
             position: absolute; top: 0; left: 50%; font-size: 2.2rem; 
-            transform: translateX(-50%) rotate(-90deg); /* Start pointing down */
-            opacity: 0; /* Hidden by default */
-            transition: opacity 0.3s ease, transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            filter: drop-shadow(0 4px 6px rgba(0,0,0,0.3)); pointer-events: none;
-            user-select: none;
+            /* Start pointing down (-90deg for emoji) */
+            transform: translateX(-50%) rotate(-90deg); 
+            opacity: 0; /* Invisible when idle */
+            transition: opacity 0.3s ease, top 0.1s ease-out, transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            filter: drop-shadow(0 4px 6px rgba(0,0,0,0.3)); pointer-events: none; user-select: none;
         }
-        /* Show car when scrolling OR when mouse hovers near the right side of the screen */
-        .race-track:hover .race-car, body.is-scrolling .race-car, body.is-dragging-car .race-car {
-            opacity: 1;
-        }
+        /* Show car when scrolling or hovering */
+        .race-track:hover .race-car, body.is-scrolling .race-car, body.is-dragging-car .race-car { opacity: 1; }
         body.is-dragging-car .race-track { cursor: grabbing; }
 
         .custom-cursor {
@@ -307,7 +323,7 @@ template_content = """<!DOCTYPE html>
             pointer-events: none; z-index: 999999; transform: translate(-50%, -50%); transition: width 0.2s, height 0.2s, background-color 0.2s;
         }
         .custom-cursor.hovering { width: 45px; height: 45px; background-color: rgba(72, 187, 120, 0.5); border: 2px solid var(--accent); }
-        @media (pointer: coarse) { body, a, button, input, textarea { cursor: auto; } .custom-cursor, .race-track { display: none; } html{scrollbar-width: auto;} }
+        @media (pointer: coarse) { body, a, button, input, textarea { cursor: auto; } .custom-cursor { display: none; } html{scrollbar-width: auto;} }
 
         nav {
             position: fixed; top: 0; left: 0; width: 100%;
@@ -341,19 +357,19 @@ template_content = """<!DOCTYPE html>
         .book-page {
             transform-origin: left center;
             transform: perspective(2000px) rotateY(90deg);
-            opacity: 0;
-            transition: transform 1.2s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.8s ease-out;
-            will-change: transform, opacity;
+            opacity: 0; transition: transform 1.2s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.8s ease-out; will-change: transform, opacity;
         }
-        .book-page.page-open {
-            transform: perspective(2000px) rotateY(0deg);
-            opacity: 1;
-        }
+        .book-page.page-open { transform: perspective(2000px) rotateY(0deg); opacity: 1; }
 
-        /* --- ONLY HERO VISIBLE ON LOAD --- */
+        /* --- HERO SECTION (100vh locked) --- */
         .hero-section { 
             position: relative; height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 2; padding: 40px 20px; 
         }
+        #networkCanvas {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none; transition: opacity 1s ease;
+        }
+        body.past-hero #networkCanvas { opacity: 0; }
+
         .hero-container { max-width: 1200px; width: 100%; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 40px; position: relative; z-index: 2; padding-bottom: 60px; }
 
         .hero-text { flex: 1; text-align: left; }
@@ -379,7 +395,7 @@ template_content = """<!DOCTYPE html>
         .profile-img-large { width: 320px; height: 320px; border-radius: 50%; object-fit: cover; border: 4px solid var(--border); box-shadow: 0 20px 40px rgba(0,0,0,0.1); transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275), border-color 0.3s; }
         .image-wrapper:hover .profile-img-large { transform: scale(1.05) rotate(2deg); border-color: var(--accent); }
 
-        .marquee-container { position: absolute; bottom: 0; left: 0; width: 100%; background: var(--nav-bg); backdrop-filter: blur(5px); border-top: 1px solid var(--border); padding: 12px 0; overflow: hidden; white-space: nowrap; z-index: 3; }
+        .marquee-container { position: absolute; bottom: 0; left: 0; width: 100%; background: var(--nav-bg); backdrop-filter: blur(5px); border-top: 1px solid var(--border); padding: 12px 0; overflow: hidden; white-space: nowrap; z-index: 3; transition: opacity 0.5s ease; }
         .marquee-content { display: inline-block; animation: scrollMarquee 25s linear infinite; }
         .marquee-content span { font-family: 'Fira Code', monospace; font-size: 1rem; color: var(--text-muted); margin: 0 15px; letter-spacing: 1px; }
         @keyframes scrollMarquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
@@ -395,18 +411,19 @@ template_content = """<!DOCTYPE html>
         .tech { font-family: 'Fira Code', monospace; font-weight: bold; color: var(--accent); font-size: 0.9rem; margin-bottom: 10px; }
         .pub-title:hover { text-decoration: underline; color: #2b6cb0 !important; }
 
-        /* --- SKILL BUBBLE POP ANIMATION --- */
+        /* --- BUBBLE POP SKILLS --- */
         .tag-container { display: flex; flex-wrap: wrap; gap: 10px; }
         .tag { background: var(--tag-bg); color: var(--tag-text); padding: 8px 16px; border-radius: 6px; font-family: 'Fira Code', monospace; font-size: 0.9rem; font-weight: 600; border: 1px solid var(--border); transition: all 0.3s ease; cursor: pointer; }
         .tag:hover { border-color: var(--accent); color: var(--accent); background: var(--card-bg); transform: translateY(-3px); box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
         
-        @keyframes bubblePop {
-            0% { transform: scale(1); }
-            40% { transform: scale(1.4); opacity: 1; }
-            50% { transform: scale(1.3); }
-            100% { transform: translateY(150px) scale(0); opacity: 0; }
+        @keyframes popAndReturn {
+            0% { transform: scale(1); box-shadow: 0 0 0 rgba(66,153,225,0); }
+            40% { transform: scale(1.4); background: transparent; border: 2px solid var(--accent); box-shadow: 0 0 20px rgba(66,153,225,0.6); color: var(--accent); opacity: 1; }
+            50% { transform: scale(1.5); opacity: 0; }
+            90% { transform: scale(0.8); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
         }
-        .tag.popped { animation: bubblePop 0.6s forwards cubic-bezier(0.175, 0.885, 0.32, 1.275); pointer-events: none; }
+        .tag.popped { animation: popAndReturn 1s ease-out forwards; pointer-events: none; }
 
         .filter-container { display: flex; justify-content: center; flex-wrap: wrap; gap: 15px; margin-bottom: 30px; }
         .filter-btn { padding: 10px 25px; font-size: 1rem; font-weight: bold; font-family: 'Inter', sans-serif; border-radius: 30px; border: 1px solid var(--border); background-color: var(--card-bg); color: var(--text-muted); transition: all 0.3s ease; cursor: pointer;}
@@ -474,8 +491,9 @@ template_content = """<!DOCTYPE html>
         .close-btn:hover { background: #2b6cb0; transform: translateY(-2px); box-shadow: 0 5px 15px rgba(66, 153, 225, 0.4); }
 
         @media (max-width: 900px) {
-            nav { padding: 1rem 1.5rem; }
+            nav { padding: 1rem 1.5rem; background: var(--card-bg) !important; border-bottom: 1px solid var(--border);}
             .nav-links { display: none; } 
+            
             .hero-container { flex-direction: column-reverse; text-align: center; gap: 20px; padding-top: 20px;}
             .hero-text { text-align: center; }
             .hero-ctas { justify-content: center; }
@@ -490,20 +508,19 @@ template_content = """<!DOCTYPE html>
     </style>
 </head>
 
-<body class="is-idle"> 
+<body class="at-top in-hero is-idle"> 
 
-    <div class="weather-sun" id="sun"></div>
-    
-    <div class="weather-birds" id="birds">
-        <svg class="bird" viewBox="0 0 100 100"><path d="M10 50 Q 25 25 50 45 Q 75 25 90 50 Q 75 35 50 55 Q 25 35 10 50 Z"/></svg>
-        <svg class="bird" viewBox="0 0 100 100"><path d="M10 50 Q 25 25 50 45 Q 75 25 90 50 Q 75 35 50 55 Q 25 35 10 50 Z"/></svg>
-        <svg class="bird" viewBox="0 0 100 100"><path d="M10 50 Q 25 25 50 45 Q 75 25 90 50 Q 75 35 50 55 Q 25 35 10 50 Z"/></svg>
+    <div class="weather-container">
+        <div class="weather-sun" id="sun"></div>
+        <div class="weather-birds" id="birds">
+            <svg class="bird" viewBox="0 0 100 100"><path d="M10 50 Q 25 25 50 45 Q 75 25 90 50 Q 75 35 50 55 Q 25 35 10 50 Z"/></svg>
+            <svg class="bird" viewBox="0 0 100 100"><path d="M10 50 Q 25 25 50 45 Q 75 25 90 50 Q 75 35 50 55 Q 25 35 10 50 Z"/></svg>
+            <svg class="bird" viewBox="0 0 100 100"><path d="M10 50 Q 25 25 50 45 Q 75 25 90 50 Q 75 35 50 55 Q 25 35 10 50 Z"/></svg>
+        </div>
+        <div class="cloud-layer"></div>
+        <div class="cloud-layer cloud-layer-2"></div>
+        <canvas id="rainCanvas"></canvas>
     </div>
-
-    <div class="cloud-layer"></div>
-    <div class="cloud-layer cloud-layer-2"></div>
-
-    <canvas id="rainCanvas"></canvas>
 
     <div class="race-track" id="raceTrack">
         <div class="race-car" id="raceCar">🏎️</div>
@@ -513,17 +530,18 @@ template_content = """<!DOCTYPE html>
 
     <div id="darkModeToast" class="toast-popup">
         👋 Welcome! Would you like to view the site in <b>Dark Mode</b>? 
-        <br>
-        <button onclick="document.getElementById('themeToggle').click(); this.parentElement.classList.remove('show');" class="toast-btn">Switch to Dark Mode</button>
+        <br><button onclick="document.getElementById('themeToggle').click(); this.parentElement.classList.remove('show');" class="toast-btn">Switch to Dark Mode</button>
     </div>
 
     <div class="modal-overlay" id="celebrationModal">
         <div class="modal-content">
             <h2>🎉 Thank You! 🎉</h2>
-            <p>You reached the bottom of my website! I think you are impressed with my portfolio. Thanks for visiting!</p>
-            <div class="progress-container">
-                <div class="progress-bar" id="modalProgressBar"></div>
-            </div>
+            <p>You have visited and reached the bottom of my website! 
+            <br><br>
+            I think you are impressed with my portfolio. 
+            <br><br>
+            Thanks for visiting!</p>
+            <div class="progress-container"><div class="progress-bar" id="modalProgressBar"></div></div>
             <button class="close-btn" onclick="closeModal()">Close</button>
         </div>
     </div>
@@ -545,6 +563,8 @@ template_content = """<!DOCTYPE html>
     </nav>
 
     <header class="hero-section">
+        <canvas id="networkCanvas"></canvas>
+
         <div class="hero-container">
             <div class="hero-text">
                 <h1>[[NAME]]</h1>
@@ -677,43 +697,45 @@ template_content = """<!DOCTYPE html>
     <script>
         // --- CUSTOM CURSOR ---
         const cursor = document.getElementById('customCursor');
-        document.addEventListener('mousemove', (e) => { cursor.style.left = e.clientX + 'px'; cursor.style.top = e.clientY + 'px'; });
+        let mouseX = window.innerWidth/2; let mouseY = window.innerHeight/2;
+        document.addEventListener('mousemove', (e) => { 
+            mouseX = e.clientX; mouseY = e.clientY;
+            cursor.style.left = mouseX + 'px'; cursor.style.top = mouseY + 'px'; 
+        });
         document.querySelectorAll('a, button, input, textarea, .filter-btn').forEach(el => {
             el.addEventListener('mouseenter', () => cursor.classList.add('hovering'));
             el.addEventListener('mouseleave', () => cursor.classList.remove('hovering'));
         });
 
-        // --- SKILL BUBBLE POP INTERACTION ---
+        // --- SKILL BUBBLE POP & RETURN INTERACTION ---
         document.querySelectorAll('.skill-tag').forEach(tag => {
             tag.addEventListener('click', function() {
+                if(this.classList.contains('popped')) return;
                 this.classList.add('popped');
-                setTimeout(() => this.style.visibility = 'hidden', 600); // Hides permanently after pop
+                
+                // After popping animation finishes, gently return it
+                setTimeout(() => {
+                    this.classList.remove('popped');
+                }, 1000); 
             });
         });
 
-        // --- BOOK PAGE TURN INTERSECTION OBSERVER ---
+        // --- BOOK PAGE TURN OBSERVER ---
         const pages = document.querySelectorAll('.book-page');
         const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) { entry.target.classList.add('page-open'); }
-            });
+            entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add('page-open'); } });
         }, { threshold: 0.1 }); 
         pages.forEach(page => observer.observe(page));
 
         // --- THEME TOGGLE ---
         const themeToggleBtn = document.getElementById('themeToggle');
         if (localStorage.getItem('portfolio-theme') === 'dark') {
-            document.body.classList.add('dark-mode');
-            themeToggleBtn.querySelector('i').classList.replace('fa-moon', 'fa-sun');
+            document.body.classList.add('dark-mode'); themeToggleBtn.querySelector('i').classList.replace('fa-moon', 'fa-sun');
         }
         themeToggleBtn.addEventListener('click', () => {
-            document.body.classList.toggle('dark-mode');
-            const icon = themeToggleBtn.querySelector('i');
-            if (document.body.classList.contains('dark-mode')) {
-                localStorage.setItem('portfolio-theme', 'dark'); icon.classList.replace('fa-moon', 'fa-sun');
-            } else {
-                localStorage.setItem('portfolio-theme', 'light'); icon.classList.replace('fa-sun', 'fa-moon');
-            }
+            document.body.classList.toggle('dark-mode'); const icon = themeToggleBtn.querySelector('i');
+            if (document.body.classList.contains('dark-mode')) { localStorage.setItem('portfolio-theme', 'dark'); icon.classList.replace('fa-moon', 'fa-sun'); } 
+            else { localStorage.setItem('portfolio-theme', 'light'); icon.classList.replace('fa-sun', 'fa-moon'); }
         });
 
         // --- TYPEWRITER ---
@@ -722,8 +744,7 @@ template_content = """<!DOCTYPE html>
         function type() {
             if (count === titles.length) count = 0;
             currentText = titles[count];
-            if (isDeleting) letter = currentText.slice(0, --index); 
-            else letter = currentText.slice(0, ++index);
+            if (isDeleting) letter = currentText.slice(0, --index); else letter = currentText.slice(0, ++index);
             document.getElementById('typewriter').textContent = letter;
             let typeSpeed = isDeleting ? 30 : 70;
             if (!isDeleting && letter.length === currentText.length) { typeSpeed = 2000; isDeleting = true; } 
@@ -732,49 +753,98 @@ template_content = """<!DOCTYPE html>
         }
         document.addEventListener("DOMContentLoaded", type);
 
-        // --- DRAGGABLE RACE CAR & SCROLL LOGIC ---
+        // --- DRAGGABLE RACE CAR SCROLLBAR ---
         const raceCar = document.getElementById('raceCar');
         const raceTrack = document.getElementById('raceTrack');
         let isDraggingCar = false;
 
-        // Allow clicking anywhere on track to jump
-        raceTrack.addEventListener('mousedown', (e) => {
-            isDraggingCar = true;
-            document.body.classList.add('is-dragging-car');
-            document.body.style.userSelect = 'none'; // Prevents text highlighting while dragging
-            handleCarDrag(e);
-        });
-
-        window.addEventListener('mouseup', () => {
-            isDraggingCar = false;
-            document.body.classList.remove('is-dragging-car');
-            document.body.style.userSelect = '';
-        });
-
-        window.addEventListener('mousemove', (e) => {
-            if (isDraggingCar) handleCarDrag(e);
-        });
-
-        function handleCarDrag(e) {
+        function handleCarDrag(yPos) {
             const trackHeight = raceTrack.offsetHeight;
-            let y = e.clientY;
-            // Bound it to the screen
-            y = Math.max(0, Math.min(y, trackHeight));
+            let y = Math.max(0, Math.min(yPos, trackHeight));
             const scrollPercent = y / trackHeight;
             const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-            // Scroll page instantly to match drag
             window.scrollTo({ top: scrollPercent * docHeight, behavior: 'instant' });
         }
 
-        // Heavy Rain & Splash Setup
+        // Desktop Drag
+        raceTrack.addEventListener('mousedown', (e) => {
+            isDraggingCar = true; document.body.classList.add('is-dragging-car');
+            document.body.style.userSelect = 'none'; handleCarDrag(e.clientY);
+        });
+        window.addEventListener('mouseup', () => { isDraggingCar = false; document.body.classList.remove('is-dragging-car'); document.body.style.userSelect = ''; });
+        window.addEventListener('mousemove', (e) => { if (isDraggingCar) handleCarDrag(e.clientY); });
+        
+        // Mobile Touch Drag
+        raceTrack.addEventListener('touchstart', (e) => {
+            isDraggingCar = true; document.body.classList.add('is-dragging-car');
+            handleCarDrag(e.touches[0].clientY);
+        }, {passive: true});
+        window.addEventListener('touchend', () => { isDraggingCar = false; document.body.classList.remove('is-dragging-car'); });
+        window.addEventListener('touchmove', (e) => { if (isDraggingCar) handleCarDrag(e.touches[0].clientY); }, {passive: true});
+
+        // --- HERO NEURAL NETWORK LOGIC ---
+        const netCanvas = document.getElementById('networkCanvas');
+        const netCtx = netCanvas.getContext('2d');
+        let netW = netCanvas.width = window.innerWidth;
+        let netH = netCanvas.height = window.innerHeight;
+        
+        const netParticles = [];
+        for(let i=0; i<80; i++) {
+            netParticles.push({
+                x: Math.random() * netW, y: Math.random() * netH,
+                vx: (Math.random()-0.5)*0.5, vy: (Math.random()-0.5)*0.5, radius: Math.random()*2+1
+            });
+        }
+        
+        function animateNet() {
+            if(document.body.classList.contains('in-hero')) {
+                netCtx.clearRect(0,0,netW,netH);
+                const isDark = document.body.classList.contains('dark-mode');
+                const dotColor = isDark ? 'rgba(99,179,237,0.6)' : 'rgba(43,108,176,0.3)';
+                const lineRGB = isDark ? '99,179,237' : '43,108,176';
+                
+                for(let i=0; i<netParticles.length; i++) {
+                    let p = netParticles[i];
+                    p.x += p.vx; p.y += p.vy;
+                    if(p.x<0) p.x=netW; if(p.x>netW) p.x=0;
+                    if(p.y<0) p.y=netH; if(p.y>netH) p.y=0;
+                    
+                    netCtx.beginPath(); netCtx.arc(p.x, p.y, p.radius, 0, Math.PI*2);
+                    netCtx.fillStyle = dotColor; netCtx.fill();
+                    
+                    for(let j=i+1; j<netParticles.length; j++) {
+                        let p2 = netParticles[j];
+                        let dx = p.x-p2.x, dy = p.y-p2.y;
+                        let dist = Math.sqrt(dx*dx+dy*dy);
+                        if(dist < 120) {
+                            netCtx.beginPath(); netCtx.strokeStyle = `rgba(${lineRGB},${0.2*(1-dist/120)})`;
+                            netCtx.lineWidth=0.8; netCtx.moveTo(p.x,p.y); netCtx.lineTo(p2.x,p2.y); netCtx.stroke();
+                        }
+                    }
+                    let dxM = p.x - mouseX, dyM = p.y - mouseY;
+                    let distM = Math.sqrt(dxM*dxM + dyM*dyM);
+                    if(distM < 150) {
+                        netCtx.beginPath(); netCtx.strokeStyle = `rgba(${lineRGB},${0.4*(1-distM/150)})`;
+                        netCtx.lineWidth=1; netCtx.moveTo(p.x,p.y); netCtx.lineTo(mouseX,mouseY); netCtx.stroke();
+                    }
+                }
+            }
+            requestAnimationFrame(animateNet);
+        }
+        animateNet();
+
+        // --- WEATHER ENGINE (RAIN & SPLASH) LOGIC ---
         const rainCanvas = document.getElementById('rainCanvas');
         const ctx = rainCanvas.getContext('2d');
         let width = rainCanvas.width = window.innerWidth;
         let height = rainCanvas.height = window.innerHeight;
-        window.addEventListener('resize', () => { width = rainCanvas.width = window.innerWidth; height = rainCanvas.height = window.innerHeight; });
 
-        const drops = [];
-        const splashes = []; // Stores rings for when rain hits bottom
+        window.addEventListener('resize', () => { 
+            width = rainCanvas.width = window.innerWidth; height = rainCanvas.height = window.innerHeight; 
+            netW = netCanvas.width = window.innerWidth; netH = netCanvas.height = window.innerHeight;
+        });
+
+        const drops = []; const splashes = []; 
         for(let i=0; i<350; i++) {
             drops.push({
                 x: Math.random() * width, y: Math.random() * height,
@@ -794,11 +864,30 @@ template_content = """<!DOCTYPE html>
             clearTimeout(closeTimeout); 
         }
 
+        // --- MASTER SCROLL CONTROLLER ---
         window.addEventListener('scroll', () => {
             const currentScrollY = window.scrollY;
             const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const heroHeight = window.innerHeight;
+
+            // 1. ISOLATION: Hide marquee, track, and weather when strictly at the top
+            if (currentScrollY <= 5) {
+                document.body.classList.add('at-top');
+            } else {
+                document.body.classList.remove('at-top');
+            }
+
+            // 2. HERO vs CONTENT TOGGLE
+            if (currentScrollY > heroHeight * 0.2) {
+                document.body.classList.add('past-hero');
+                document.body.classList.remove('in-hero');
+            } else {
+                document.body.classList.add('in-hero');
+                document.body.classList.remove('past-hero');
+            }
             
-            // CAR DIRECTION (Native emoji faces LEFT. -90 rotates down, +90 rotates up)
+            // 3. CAR DIRECTION LOGIC
+            // -90deg rotates the left-facing emoji DOWN. 90deg rotates it UP.
             if (currentScrollY > lastScrollY) { 
                 raceCar.style.transform = 'translateX(-50%) rotate(-90deg)'; 
             } else if (currentScrollY < lastScrollY) { 
@@ -806,17 +895,15 @@ template_content = """<!DOCTYPE html>
             }
             lastScrollY = currentScrollY;
 
-            // Move Car Position automatically when scrolling with mouse wheel
-            if (!isDraggingCar) {
-                raceCar.style.top = `${(currentScrollY / docHeight) * 95}%`; 
-            }
+            // 4. MOVE CAR
+            if (!isDraggingCar) { raceCar.style.top = `${(currentScrollY / docHeight) * 95}%`; }
             
-            // Navbar shrink
+            // 5. NAVBAR
             const navbar = document.getElementById('navbar');
             if (currentScrollY > 20) { navbar.classList.add('scrolled'); } else { navbar.classList.remove('scrolled'); }
 
-            // CELEBRATION MODAL CHECK
-            if (!hasCelebrated && currentScrollY >= docHeight - 50) {
+            // 6. CELEBRATION MODAL
+            if (!hasCelebrated && currentScrollY >= docHeight - 50 && docHeight > 100) {
                 hasCelebrated = true; 
                 var duration = 3000; var end = Date.now() + duration;
                 (function frame() {
@@ -832,65 +919,56 @@ template_content = """<!DOCTYPE html>
                 }, 500);
             }
 
-            // WEATHER: ACTIVE SCROLLING
+            // 7. WEATHER ENGINE UPDATE
             document.body.classList.add('is-scrolling');
             document.body.classList.remove('is-idle');
 
             clearTimeout(weatherTimeout);
             weatherTimeout = setTimeout(() => {
-                // WEATHER: IDLE
                 document.body.classList.remove('is-scrolling');
                 document.body.classList.add('is-idle');
             }, 300); 
         });
 
+        // Trigger scroll event manually on load to set correct initial classes
+        window.dispatchEvent(new Event('scroll'));
+
         // Draw Rain & Splash Loop
         function animateRain() {
-            ctx.clearRect(0, 0, width, height);
-            const isDark = document.body.classList.contains('dark-mode');
-            const colorRGB = isDark ? '200, 230, 255' : '100, 150, 200'; 
+            // Only render rain if we have passed the hero section
+            if(document.body.classList.contains('past-hero')) {
+                ctx.clearRect(0, 0, width, height);
+                const isDark = document.body.classList.contains('dark-mode');
+                const colorRGB = isDark ? '200, 230, 255' : '100, 150, 200'; 
 
-            // Only update rain logic if screen is mostly idle (rainCanvas is visible)
-            if (document.body.classList.contains('is-idle')) {
-                for(let drop of drops) {
-                    drop.y += drop.speed;
-                    drop.x += 0.5; // Wind
-                    
-                    // IF RAIN HITS THE BOTTOM -> SPLASH!
-                    if(drop.y > height - 10) { 
-                        splashes.push({
-                            x: drop.x, y: height - 10, 
-                            radius: 1, maxRadius: Math.random() * 8 + 4, 
-                            opacity: drop.opacity
-                        });
-                        drop.y = -50; 
-                        drop.x = Math.random() * width; 
+                if (document.body.classList.contains('is-idle')) {
+                    for(let drop of drops) {
+                        drop.y += drop.speed;
+                        drop.x += 0.5; // Wind
+                        
+                        // SPLASH WHEN HIT BOTTOM
+                        if(drop.y > height - 10) { 
+                            splashes.push({ x: drop.x, y: height - 10, radius: 1, maxRadius: Math.random() * 8 + 4, opacity: drop.opacity });
+                            drop.y = -50; drop.x = Math.random() * width; 
+                        }
+                        if(drop.x > width + 20) { drop.x = -20; }
+
+                        ctx.beginPath();
+                        ctx.strokeStyle = `rgba(${colorRGB}, ${drop.opacity})`;
+                        ctx.lineWidth = drop.thickness;
+                        ctx.moveTo(drop.x, drop.y); ctx.lineTo(drop.x + 1, drop.y + drop.length); 
+                        ctx.stroke();
                     }
-                    if(drop.x > width + 20) { drop.x = -20; }
 
-                    // Draw Line
-                    ctx.beginPath();
-                    ctx.strokeStyle = `rgba(${colorRGB}, ${drop.opacity})`;
-                    ctx.lineWidth = drop.thickness;
-                    ctx.moveTo(drop.x, drop.y);
-                    ctx.lineTo(drop.x + 1, drop.y + drop.length); 
-                    ctx.stroke();
-                }
-
-                // Draw Splashes
-                for(let i = splashes.length - 1; i >= 0; i--) {
-                    let s = splashes[i];
-                    ctx.beginPath();
-                    ctx.strokeStyle = `rgba(${colorRGB}, ${s.opacity})`;
-                    ctx.lineWidth = 1;
-                    // Draw a squished circle to simulate perspective
-                    ctx.ellipse(s.x, s.y, s.radius * 2, s.radius, 0, 0, Math.PI * 2);
-                    ctx.stroke();
-                    
-                    s.radius += 0.5; // Ring grows
-                    s.opacity -= 0.02; // Ring fades out
-                    
-                    if (s.opacity <= 0) splashes.splice(i, 1); // Remove when fully faded
+                    // Draw Splashes
+                    for(let i = splashes.length - 1; i >= 0; i--) {
+                        let s = splashes[i];
+                        ctx.beginPath(); ctx.strokeStyle = `rgba(${colorRGB}, ${s.opacity})`; ctx.lineWidth = 1;
+                        ctx.ellipse(s.x, s.y, s.radius * 2, s.radius, 0, 0, Math.PI * 2);
+                        ctx.stroke();
+                        s.radius += 0.5; s.opacity -= 0.02; 
+                        if (s.opacity <= 0) splashes.splice(i, 1); 
+                    }
                 }
             }
             requestAnimationFrame(animateRain);
@@ -946,4 +1024,4 @@ final_html = final_html.replace("[[PUBLICATIONS_HTML]]", publications_html)
 with open("index.html", "w") as file:
     file.write(final_html)
 
-print("Draggable Race Car, Ground Splashes, and Popping Skills applied!")
+print("Final adjustments applied successfully!")
