@@ -14,42 +14,63 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <style>
-        body {
-            background-color: #09090b !important;
+        /* DEFEAT ANY ROGUE BACKGROUND COLORS */
+        html, body {
+            background: #09090b !important;
             color: #f8fafc !important;
-            position: relative;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
         }
+        
+        /* 3D CANVAS GUARANTEED PLACEMENT */
         #canvas-container {
             position: fixed;
             top: 0;
             left: 0;
             width: 100vw;
             height: 100vh;
-            z-index: -1;
-            pointer-events: none;
+            z-index: 0; /* Base Layer */
+            pointer-events: none; /* Let clicks pass through */
         }
-        /* Upgrades your existing portfolio cards to transparent glass */
+
+        /* PUT ALL TEXT AND CARDS ON TOP OF THE 3D */
+        #content-wrapper {
+            position: relative;
+            z-index: 10; /* Top Layer */
+            background: transparent !important;
+        }
+
+        /* GLASSMORPHISM CARDS */
         .card, .new-project-card, .project-card, .interactive-terminal, .form-container, .game-container {
-            background: rgba(24, 24, 27, 0.6) !important;
-            backdrop-filter: blur(12px) !important;
-            -webkit-backdrop-filter: blur(12px) !important;
-            border: 1px solid rgba(255, 255, 255, 0.08) !important;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5) !important;
-            color: #f8fafc !important;
+            background: rgba(24, 24, 27, 0.5) !important;
+            backdrop-filter: blur(16px) !important;
+            -webkit-backdrop-filter: blur(16px) !important;
+            border: 1px solid rgba(255, 255, 255, 0.1) !important;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.5) !important;
+            
+            /* Scroll "Pop" Animation */
+            opacity: 0;
+            transform: translateY(60px) scale(0.95);
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+            will-change: opacity, transform;
         }
-        /* Adjust text colors for dark background */
-        h1, h2, h3, h4, .section-title {
-            color: #f8fafc !important;
+        
+        .is-visible {
+            opacity: 1 !important;
+            transform: translateY(0) scale(1) !important;
         }
-        p, .duration, .tech, li {
-            color: #a1a1aa !important;
-        }
-        /* Make navbar glassy too */
+
+        h1, h2, h3, h4, .section-title { color: #f8fafc !important; }
+        p, .duration, .tech, li, .hero-desc { color: #a1a1aa !important; }
+        
         nav#navbar {
             background: rgba(9, 9, 11, 0.7) !important;
-            backdrop-filter: blur(12px) !important;
+            backdrop-filter: blur(16px) !important;
             border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
         }
+        .weather-container { display: none !important; } /* Hide old 2D animations */
+        header.hero-section { background: transparent !important; } /* Defeat hero background */
     </style>
 </head>
 
@@ -57,263 +78,234 @@
 
     <div id="canvas-container"></div>
 
-    <div class="weather-container">
-        <div class="weather-sun" id="sun"></div>
-        <div class="weather-birds" id="birds">
-            <svg class="bird" viewBox="0 0 100 100"><path d="M10 50 Q 25 25 50 45 Q 75 25 90 50 Q 75 35 50 55 Q 25 35 10 50 Z"/></svg>
-            <svg class="bird" viewBox="0 0 100 100"><path d="M10 50 Q 25 25 50 45 Q 75 25 90 50 Q 75 35 50 55 Q 25 35 10 50 Z"/></svg>
-            <svg class="bird" viewBox="0 0 100 100"><path d="M10 50 Q 25 25 50 45 Q 75 25 90 50 Q 75 35 50 55 Q 25 35 10 50 Z"/></svg>
-        </div>
-        <div class="cloud-layer"></div>
-        <div class="cloud-layer cloud-layer-2"></div>
-        <canvas id="rainCanvas"></canvas>
-    </div>
+    <div id="content-wrapper">
 
-    <div class="race-track" id="raceTrack">
-        <div class="race-car" id="raceCar">🏎️</div>
-    </div>
+        <div class="race-track" id="raceTrack"><div class="race-car" id="raceCar">🏎️</div></div>
+        <div class="custom-cursor" id="customCursor"></div>
 
-    <div class="custom-cursor" id="customCursor"></div>
-
-    <div id="darkModeToast" class="toast-popup">
-        👋 Welcome! Would you like to view the site in <b>Dark Mode</b>? 
-        <br><button onclick="document.getElementById('themeToggle').click(); this.parentElement.classList.remove('show');" class="toast-btn">Switch to Dark Mode</button>
-    </div>
-
-    <div class="modal-overlay" id="celebrationModal">
-        <div class="modal-content">
-            <h2>🎉 Thank You! 🎉</h2>
-            <p>You reached the bottom of my website! I think you are impressed with my portfolio. Thanks for visiting!</p>
-            <div class="progress-container"><div class="progress-bar" id="modalProgressBar"></div></div>
-            <button class="close-btn" onclick="closeModal()">Close</button>
-        </div>
-    </div>
-
-    <nav id="navbar">
-        <div class="nav-left"><a href="#" class="logo">KM</a></div>
-        <div class="nav-right-group">
-            <div class="nav-links">
-                <a href="#about">About</a>
-                <a href="#experience">Experience</a>
-                <a href="#education">Education</a>
-                <a href="#skills">Skills</a>
-                <a href="#projects">Projects</a>
-                <a href="#game">AI Bot</a>
-                <a href="#contact">Contact</a>
-            </div>
-            <button id="themeToggle" class="theme-toggle-btn" aria-label="Toggle Dark Mode"><i class="fa-solid fa-moon"></i></button>
-        </div>
-    </nav>
-
-    <header class="hero-section">
-        <canvas id="networkCanvas"></canvas>
-        <div class="hero-container">
-            <div class="hero-text">
-                <h1>KASI MEKA</h1>
-                <div class="typewriter-text"><span id="typewriter"></span><span class="cursor">&nbsp;</span></div>
-                <p class="hero-desc">Specializing in Backend Development, GenAI Integration & Cloud Platforms</p>
-                <div class="hero-ctas">
-                    <a href="#projects" class="btn-primary">View Projects</a>
-                    <a href="#contact" class="btn-secondary">Contact Me</a>
+        <nav id="navbar">
+            <div class="nav-left"><a href="#" class="logo">KM</a></div>
+            <div class="nav-right-group">
+                <div class="nav-links">
+                    <a href="#about">About</a>
+                    <a href="#experience">Experience</a>
+                    <a href="#education">Education</a>
+                    <a href="#skills">Skills</a>
+                    <a href="#projects">Projects</a>
+                    <a href="#game">AI Bot</a>
+                    <a href="#contact">Contact</a>
                 </div>
-                <div class="hero-socials">
-                    <a href="https://linkedin.com/in/meka-kasi-2193003b1" target="_blank"><i class="fa-brands fa-linkedin-in"></i></a>
-                    <a href="https://github.com/vkvkasi17-hub" target="_blank"><i class="fa-brands fa-github"></i></a>
-                    <a href="mailto:vkvkasi17@gmail.com"><i class="fa-regular fa-envelope"></i></a>
-                </div>
+                <button id="themeToggle" class="theme-toggle-btn" style="display:none;"></button>
             </div>
-            <div class="hero-visual">
-                <div class="image-wrapper"><img src="profile.jpeg" class="profile-img-large" onerror="this.style.display='none'"></div>
-            </div>
-        </div>
-        <div class="marquee-container">
-            <div class="marquee-content">
-                <span>Python • AWS • LangChain • FastAPI • Snowflake • Docker • SQL • GCP • Data Engineering • Machine Learning • </span>
-                <span>Python • AWS • LangChain • FastAPI • Snowflake • Docker • SQL • GCP • Data Engineering • Machine Learning • </span>
-            </div>
-        </div>
-    </header>
+        </nav>
 
-    <section id="about" class="container book-page">
-        <span class="section-title">About Me</span>
-        <div class="title-underline"></div>
-        <div class="card"><p style="margin:0; font-size: 1.15rem;">Hi, I'm Kasi Meka. A Python Developer and Backend Engineer with over 4 years of experience specializing in backend development, data engineering, and cloud platforms (AWS, Azure, GCP). I have proven expertise in designing data pipelines, ETL/ELT processes, and scalable backend APIs using frameworks like FastAPI, Flask, and Django.<br><br>I am highly experienced in integrating Generative AI (GenAI) and Large Language Models (LLMs) into enterprise applications for chatbot evaluation, automation, and intelligent data workflows. I thrive in collaborative, Agile environments and am actively seeking a Summer/Fall 2026 internship where I can contribute to innovative, data-driven projects.</p></div>
-    </section>
-
-    <section id="experience" class="container book-page">
-        <span class="section-title">Professional Experience</span>
-        <div class="title-underline"></div>
-        <div class="card left" style="border-left: 5px solid #3182ce;"><h3 style="color: #3182ce;">Senior Python Developer</h3><h4>Cigna Health Care | Plano, TX</h4><div class="duration">Jun 2024 – Present</div><ul><li>Developed Python services integrating Generative AI APIs to automate chatbot response evaluation.</li><li>Designed backend data workflows using Python and SQL to support scalable analytics.</li><li>Implemented automated LLM-based evaluation pipelines to assess chatbot response quality.</li><li>Managed AWS cloud infrastructure using VPC, EC2, ECS, S3, and CloudFormation.</li><li>Developed ETL pipelines from S3 to Snowflake using Python.</li><li>Built APIs using FastAPI and Hug frameworks for cross-functional data sharing.</li><li>Improved project code coverage to over 90% using automated unit testing.</li><li>Built Airflow data pipelines in GCP for enterprise ETL jobs.</li><li>Containerized applications using Docker and deployed via Jenkins CI/CD pipelines.</li></ul></div><div class="card left" style="border-left: 5px solid #4a5568;"><h3 style="color: #4a5568;">Python Developer</h3><h4>Hindustan Aeronautics Limited (HAL) | Bangalore, India</h4><div class="duration">Aug 2023 – Dec 2023</div><ul><li>Developed sensor logic using Python scripts and Unix shell scripting.</li><li>Built Python batch processors to consume and produce various feeds.</li><li>Processed massive Blob datasets using PySpark Map-Reduce.</li><li>Wrote cleaning and munging scripts for large-scale datasets.</li></ul></div><div class="card left" style="border-left: 5px solid #4a5568;"><h3 style="color: #4a5568;">Python Developer</h3><h4>Cognizant (Client: MERCK) | Hyderabad, India</h4><div class="duration">June 2021 - Jul 2023</div><ul><li>Managed automated data workflows using Python, SQL, and R.</li><li>Developed pandas scripts for complex CSV data manipulation and comparison.</li><li>Built a Django-based GUI for dynamic code documentation display.</li><li>Executed long-term technological fixes for data and system bottlenecks.</li></ul></div>
-    </section>
-
-    <section id="education" class="container book-page">
-        <span class="section-title">Education</span>
-        <div class="title-underline"></div>
-        <div class="card right"><h3 style="color: var(--accent);">Master's in Information Science</h3><h4>University of North Texas | Denton, TX</h4><div class="duration">2024 - 2025</div></div>
-    </section>
-
-    <section id="skills" class="container book-page">
-        <span class="section-title">Technical Expertise</span>
-        <div class="title-underline"></div>
-        <p style="text-align: center; color: var(--text-muted); margin-bottom: 20px;"><i>* Click a skill to pop it! *</i></p>
-        <div class='skills-grid'><div class='card bottom'><h3>Languages</h3><div class='tag-container'><span class='tag skill-tag'>Python</span><span class='tag skill-tag'>SQL</span><span class='tag skill-tag'>R</span><span class='tag skill-tag'>Java</span><span class='tag skill-tag'>JavaScript</span><span class='tag skill-tag'>TypeScript</span></div></div><div class='card bottom'><h3>GenAI & Data</h3><div class='tag-container'><span class='tag skill-tag'>LLMs</span><span class='tag skill-tag'>LangChain</span><span class='tag skill-tag'>ETL/ELT</span><span class='tag skill-tag'>PySpark</span><span class='tag skill-tag'>Snowflake</span><span class='tag skill-tag'>Pandas</span></div></div><div class='card bottom'><h3>Cloud & DevOps</h3><div class='tag-container'><span class='tag skill-tag'>AWS</span><span class='tag skill-tag'>GCP</span><span class='tag skill-tag'>Azure</span><span class='tag skill-tag'>Docker</span><span class='tag skill-tag'>Git</span><span class='tag skill-tag'>FastAPI</span><span class='tag skill-tag'>Airflow</span><span class='tag skill-tag'>Jenkins</span></div></div></div>
-    </section>
-
-    <section id="projects" class="container book-page">
-        <span class="section-title">Featured Research & Projects</span>
-        <div class="title-underline"></div>
-        <div class="filter-container">
-            <button class="filter-btn active" onclick="filterProjects('all')">All</button>
-            <button class="filter-btn" onclick="filterProjects('GenAI')">GenAI</button>
-            <button class="filter-btn" onclick="filterProjects('ML')">ML</button>
-            <button class="filter-btn" onclick="filterProjects('Data Engineering')">Data Eng</button>
-            <button class="filter-btn" onclick="filterProjects('Data Viz')">Data Viz</button>
-        </div>
-        <div class="skills-grid" id="project-grid"><div class="card left new-project-card" data-category="GenAI"><div class="card-icon-header"><span class="category-badge">GenAI</span><i class="fa-solid fa-brain"></i></div><div class="card-content"><h3>LLM-Powered Chatbot Evaluation Framework</h3><div class="tech">Python, LangChain, Generative AI</div><p>Built an automated GenAI pipeline leveraging LLM-as-a-judge methodologies to evaluate enterprise chatbot responses for relevance, specificity, and hallucination rates.</p></div></div><div class="card right new-project-card" data-category="ML"><div class="card-icon-header"><span class="category-badge">ML</span><i class="fa-solid fa-robot"></i></div><div class="card-content"><h3>Automated Resume Parsing API</h3><div class="tech">Python, FastAPI, NLP</div><p>Designed a highly scalable REST API using advanced Natural Language Processing models to extract key entities (skills, experience, education) from unstructured resume PDFs.</p></div></div><div class="card left new-project-card" data-category="Data Engineering"><div class="card-icon-header"><span class="category-badge">Data Engineering</span><i class="fa-solid fa-server"></i></div><div class="card-content"><h3>Real-Time Cloud Data Ingestion Pipeline</h3><div class="tech">Python, AWS S3, PySpark</div><p>Developed a robust streaming data pipeline to automatically ingest, clean, and store high-throughput event data for downstream analytics and machine learning applications.</p></div></div><div class="card right new-project-card" data-category="Data Viz"><div class="card-icon-header"><span class="category-badge">Data Viz</span><i class="fa-solid fa-chart-pie"></i></div><div class="card-content"><h3>ODI Cricket Analytics Dashboard</h3><div class="tech">Python, Tableau, Pandas</div><p>Utilized Python (Pandas) to clean, transform, and preprocess raw match data before designing interactive visual dashboards in Tableau to uncover 20 years of performance trends.</p></div></div><div class="card left new-project-card" data-category="Data Viz"><div class="card-icon-header"><span class="category-badge">Data Viz</span><i class="fa-solid fa-chart-pie"></i></div><div class="card-content"><h3>LA Crime Pattern Analysis</h3><div class="tech">Python, Data Analytics, Tableau</div><p>Extracted messy crime datasets using Python scripts prior to creating interactive Tableau dashboards to analyze graphical trends across Los Angeles.</p></div></div></div>
-    </section>
-    
-    <section id="publications" class="container book-page">
-        <span class="section-title">Research & Publications</span>
-        <div class="title-underline"></div>
-        <div class="card right"><a href="https://link.springer.com/article/10.1007/s43681-025-00661-4" target="_blank" style="text-decoration: none;"><h3 class="pub-title" style="color: var(--accent); cursor: pointer;">Standards, frameworks, and legislation for artificial intelligence (AI) transparency ↗</h3></a><div class="tech">AI and Ethics (2025)</div><p style="font-size: 0.95rem; color: var(--text-muted);">Lund, B., Orhan, Z., Mannuru, N. R., Bevara, R. V. K., Porter, B., Vinaih, M. K., & Bhaskara, P. (2025). Standards, frameworks, and legislation for artificial intelligence (AI) transparency. AI and Ethics, 5(4), 3639-3655.</p></div>
-    </section>
-
-    <section id="game" class="container book-page">
-        <span class="section-title">Beat the AI 🤖</span>
-        <div class="title-underline"></div>
-        <div class="game-container">
-            <h3 style="margin-top: 0;">Predictive Rock-Paper-Scissors</h3>
-            <p style="color: var(--text-muted); margin-bottom: 20px;">This bot uses a simple <b>Markov Chain</b> algorithm to learn your patterns and predict your next move.</p>
-            <div class="score-board">
-                <div>You: <span id="userScore" class="user-score">0</span></div>
-                <div>AI: <span id="aiScore" class="ai-score">0</span></div>
-            </div>
-            <div id="gameLog" class="game-log"><div style="color: var(--text-muted); font-size: 1.1rem;">Make your move below to start the algorithm.</div></div>
-            <div style="display: flex; justify-content: center; gap: 15px; flex-wrap: wrap;">
-                <button class="rps-btn" onclick="playRPS('rock')">✊ Rock</button>
-                <button class="rps-btn" onclick="playRPS('paper')">✋ Paper</button>
-                <button class="rps-btn" onclick="playRPS('scissors')">✌️ Scissors</button>
-            </div>
-        </div>
-    </section>
-
-    <section id="contact" class="container book-page">
-        <span class="section-title">Contact Me</span>
-        <div class="title-underline"></div>
-        <div class="contact-wrapper">
-            <div class="interactive-terminal">
-                <div class="term-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="term-title">contact_kasi.py</span></div>
-                <div class="term-body">
-                    <p><span class="prompt">>>></span> import developer</p>
-                    <p><span class="prompt">>>></span> kasi = developer.get("Kasi Meka")</p>
-                    <p><span class="prompt">>>></span> kasi.contact()</p>
-                    <div class="term-output">
-                        {<br>&nbsp;&nbsp;"email": "<a href='mailto:vkvkasi17@gmail.com'>vkvkasi17@gmail.com</a>",<br>&nbsp;&nbsp;"phone": "940-290-0996",<br>&nbsp;&nbsp;"github": "<a href='https://github.com/vkvkasi17-hub' target='_blank'>/vkvkasi17-hub</a>",<br>&nbsp;&nbsp;"status": "Available for 2026 Internships"<br>}
+        <header class="hero-section">
+            <div class="hero-container">
+                <div class="hero-text">
+                    <h1>KASI MEKA</h1>
+                    <div class="typewriter-text"><span id="typewriter"></span><span class="cursor">&nbsp;</span></div>
+                    <p class="hero-desc">Specializing in Backend Development, GenAI Integration & Cloud Platforms</p>
+                    <div class="hero-ctas">
+                        <a href="#projects" class="btn-primary">View Projects</a>
+                        <a href="#contact" class="btn-secondary">Contact Me</a>
                     </div>
-                    <p><span class="prompt">>>></span> <span class="cursor" style="background-color: white;">&nbsp;</span></p>
+                    <div class="hero-socials">
+                        <a href="https://linkedin.com/in/meka-kasi-2193003b1" target="_blank"><i class="fa-brands fa-linkedin-in" style="color: white;"></i></a>
+                        <a href="https://github.com/vkvkasi17-hub" target="_blank"><i class="fa-brands fa-github" style="color: white;"></i></a>
+                        <a href="mailto:vkvkasi17@gmail.com"><i class="fa-regular fa-envelope" style="color: white;"></i></a>
+                    </div>
+                </div>
+                <div class="hero-visual">
+                    <div class="image-wrapper"><img src="profile.jpeg" class="profile-img-large" onerror="this.style.display='none'"></div>
                 </div>
             </div>
-            <div class="form-container">
-                <form action="mailto:vkvkasi17@gmail.com?subject=Portfolio Contact" method="POST" enctype="text/plain">
-                    <div class="form-group"><label>Name *</label><input type="text" name="Name" required placeholder="John Doe"></div>
-                    <div class="form-group"><label>Email *</label><input type="email" name="Email" required placeholder="john@example.com"></div>
-                    <div class="form-group" style="margin-bottom: 25px;"><label>Message *</label><textarea name="Message" rows="4" required placeholder="Hello Kasi, I am reaching out regarding..."></textarea></div>
-                    <button type="submit" class="submit-btn">Send Message</button>
-                </form>
+        </header>
+
+        <section id="about" class="container book-page">
+            <span class="section-title">About Me</span>
+            <div class="title-underline"></div>
+            <div class="card"><p style="margin:0; font-size: 1.15rem;">Hi, I'm Kasi Meka. A Python Developer and Backend Engineer with over 4 years of experience specializing in backend development, data engineering, and cloud platforms (AWS, Azure, GCP). I have proven expertise in designing data pipelines, ETL/ELT processes, and scalable backend APIs using frameworks like FastAPI, Flask, and Django.<br><br>I am highly experienced in integrating Generative AI (GenAI) and Large Language Models (LLMs) into enterprise applications for chatbot evaluation, automation, and intelligent data workflows. I thrive in collaborative, Agile environments and am actively seeking a Summer/Fall 2026 internship where I can contribute to innovative, data-driven projects.</p></div>
+        </section>
+
+        <section id="experience" class="container book-page">
+            <span class="section-title">Professional Experience</span>
+            <div class="title-underline"></div>
+            <div class="card left" style="border-left: 5px solid #3182ce;"><h3 style="color: #3182ce;">Senior Python Developer</h3><h4>Cigna Health Care | Plano, TX</h4><div class="duration">Jun 2024 – Present</div><ul><li>Developed Python services integrating Generative AI APIs to automate chatbot response evaluation.</li><li>Designed backend data workflows using Python and SQL to support scalable analytics.</li><li>Implemented automated LLM-based evaluation pipelines to assess chatbot response quality.</li><li>Managed AWS cloud infrastructure using VPC, EC2, ECS, S3, and CloudFormation.</li><li>Developed ETL pipelines from S3 to Snowflake using Python.</li><li>Built APIs using FastAPI and Hug frameworks for cross-functional data sharing.</li><li>Improved project code coverage to over 90% using automated unit testing.</li><li>Built Airflow data pipelines in GCP for enterprise ETL jobs.</li><li>Containerized applications using Docker and deployed via Jenkins CI/CD pipelines.</li></ul></div><div class="card left" style="border-left: 5px solid #4a5568;"><h3 style="color: #4a5568;">Python Developer</h3><h4>Hindustan Aeronautics Limited (HAL) | Bangalore, India</h4><div class="duration">Aug 2023 – Dec 2023</div><ul><li>Developed sensor logic using Python scripts and Unix shell scripting.</li><li>Built Python batch processors to consume and produce various feeds.</li><li>Processed massive Blob datasets using PySpark Map-Reduce.</li><li>Wrote cleaning and munging scripts for large-scale datasets.</li></ul></div><div class="card left" style="border-left: 5px solid #4a5568;"><h3 style="color: #4a5568;">Python Developer</h3><h4>Cognizant (Client: MERCK) | Hyderabad, India</h4><div class="duration">June 2021 - Jul 2023</div><ul><li>Managed automated data workflows using Python, SQL, and R.</li><li>Developed pandas scripts for complex CSV data manipulation and comparison.</li><li>Built a Django-based GUI for dynamic code documentation display.</li><li>Executed long-term technological fixes for data and system bottlenecks.</li></ul></div>
+        </section>
+
+        <section id="education" class="container book-page">
+            <span class="section-title">Education</span>
+            <div class="title-underline"></div>
+            <div class="card right"><h3 style="color: var(--accent);">Master's in Information Science</h3><h4>University of North Texas | Denton, TX</h4><div class="duration">2024 - 2025</div></div>
+        </section>
+
+        <section id="skills" class="container book-page">
+            <span class="section-title">Technical Expertise</span>
+            <div class="title-underline"></div>
+            <div class='skills-grid'><div class='card bottom'><h3>Languages</h3><div class='tag-container'><span class='tag skill-tag'>Python</span><span class='tag skill-tag'>SQL</span><span class='tag skill-tag'>R</span><span class='tag skill-tag'>Java</span><span class='tag skill-tag'>JavaScript</span><span class='tag skill-tag'>TypeScript</span></div></div><div class='card bottom'><h3>GenAI & Data</h3><div class='tag-container'><span class='tag skill-tag'>LLMs</span><span class='tag skill-tag'>LangChain</span><span class='tag skill-tag'>ETL/ELT</span><span class='tag skill-tag'>PySpark</span><span class='tag skill-tag'>Snowflake</span><span class='tag skill-tag'>Pandas</span></div></div><div class='card bottom'><h3>Cloud & DevOps</h3><div class='tag-container'><span class='tag skill-tag'>AWS</span><span class='tag skill-tag'>GCP</span><span class='tag skill-tag'>Azure</span><span class='tag skill-tag'>Docker</span><span class='tag skill-tag'>Git</span><span class='tag skill-tag'>FastAPI</span><span class='tag skill-tag'>Airflow</span><span class='tag skill-tag'>Jenkins</span></div></div></div>
+        </section>
+
+        <section id="projects" class="container book-page">
+            <span class="section-title">Featured Research & Projects</span>
+            <div class="title-underline"></div>
+            <div class="filter-container">
+                <button class="filter-btn active" onclick="filterProjects('all')" style="color:white; border-color:white;">All</button>
+                <button class="filter-btn" onclick="filterProjects('GenAI')" style="color:white; border-color:white;">GenAI</button>
+                <button class="filter-btn" onclick="filterProjects('ML')" style="color:white; border-color:white;">ML</button>
+                <button class="filter-btn" onclick="filterProjects('Data Engineering')" style="color:white; border-color:white;">Data Eng</button>
             </div>
-        </div>
-    </section>
+            <div class="skills-grid" id="project-grid"><div class="card left new-project-card" data-category="GenAI"><div class="card-icon-header"><span class="category-badge">GenAI</span><i class="fa-solid fa-brain"></i></div><div class="card-content"><h3>LLM-Powered Chatbot Evaluation Framework</h3><div class="tech">Python, LangChain, Generative AI</div><p>Built an automated GenAI pipeline leveraging LLM-as-a-judge methodologies to evaluate enterprise chatbot responses for relevance, specificity, and hallucination rates.</p></div></div><div class="card right new-project-card" data-category="ML"><div class="card-icon-header"><span class="category-badge">ML</span><i class="fa-solid fa-robot"></i></div><div class="card-content"><h3>Automated Resume Parsing API</h3><div class="tech">Python, FastAPI, NLP</div><p>Designed a highly scalable REST API using advanced Natural Language Processing models to extract key entities (skills, experience, education) from unstructured resume PDFs.</p></div></div><div class="card left new-project-card" data-category="Data Engineering"><div class="card-icon-header"><span class="category-badge">Data Engineering</span><i class="fa-solid fa-server"></i></div><div class="card-content"><h3>Real-Time Cloud Data Ingestion Pipeline</h3><div class="tech">Python, AWS S3, PySpark</div><p>Developed a robust streaming data pipeline to automatically ingest, clean, and store high-throughput event data for downstream analytics and machine learning applications.</p></div></div><div class="card right new-project-card" data-category="Data Viz"><div class="card-icon-header"><span class="category-badge">Data Viz</span><i class="fa-solid fa-chart-pie"></i></div><div class="card-content"><h3>ODI Cricket Analytics Dashboard</h3><div class="tech">Python, Tableau, Pandas</div><p>Utilized Python (Pandas) to clean, transform, and preprocess raw match data before designing interactive visual dashboards in Tableau to uncover 20 years of performance trends.</p></div></div><div class="card left new-project-card" data-category="Data Viz"><div class="card-icon-header"><span class="category-badge">Data Viz</span><i class="fa-solid fa-chart-pie"></i></div><div class="card-content"><h3>LA Crime Pattern Analysis</h3><div class="tech">Python, Data Analytics, Tableau</div><p>Extracted messy crime datasets using Python scripts prior to creating interactive Tableau dashboards to analyze graphical trends across Los Angeles.</p></div></div></div>
+        </section>
+        
+        <section id="publications" class="container book-page">
+            <span class="section-title">Research & Publications</span>
+            <div class="title-underline"></div>
+            <div class="card right"><a href="https://link.springer.com/article/10.1007/s43681-025-00661-4" target="_blank" style="text-decoration: none;"><h3 class="pub-title" style="color: var(--accent); cursor: pointer;">Standards, frameworks, and legislation for artificial intelligence (AI) transparency ↗</h3></a><div class="tech">AI and Ethics (2025)</div><p style="font-size: 0.95rem; color: var(--text-muted);">Lund, B., Orhan, Z., Mannuru, N. R., Bevara, R. V. K., Porter, B., Vinaih, M. K., & Bhaskara, P. (2025). Standards, frameworks, and legislation for artificial intelligence (AI) transparency. AI and Ethics, 5(4), 3639-3655.</p></div>
+        </section>
 
-    <footer>
-        <div class="footer-left">
-            <a href="#" class="footer-logo logo">KM</a>
-            <p class="footer-copy">© 2026 KASI MEKA. All rights reserved.</p>
-        </div>
-        <div class="footer-icons">
-            <a href="https://linkedin.com/in/meka-kasi-2193003b1" target="_blank"><i class="fa-brands fa-linkedin-in"></i></a>
-            <a href="https://github.com/vkvkasi17-hub" target="_blank"><i class="fa-brands fa-github"></i></a>
-            <a href="mailto:vkvkasi17@gmail.com"><i class="fa-regular fa-envelope"></i></a>
-        </div>
-    </footer>
+        <section id="contact" class="container book-page">
+            <span class="section-title">Contact Me</span>
+            <div class="title-underline"></div>
+            <div class="contact-wrapper">
+                <div class="interactive-terminal">
+                    <div class="term-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="term-title">contact_kasi.py</span></div>
+                    <div class="term-body">
+                        <p><span class="prompt">>>></span> import developer</p>
+                        <p><span class="prompt">>>></span> kasi = developer.get("Kasi Meka")</p>
+                        <p><span class="prompt">>>></span> kasi.contact()</p>
+                        <div class="term-output">
+                            {<br>&nbsp;&nbsp;"email": "<a href='mailto:vkvkasi17@gmail.com' style='color:#60a5fa;'>vkvkasi17@gmail.com</a>",<br>&nbsp;&nbsp;"phone": "940-290-0996",<br>&nbsp;&nbsp;"github": "<a href='https://github.com/vkvkasi17-hub' target='_blank' style='color:#60a5fa;'>/vkvkasi17-hub</a>",<br>&nbsp;&nbsp;"status": "Available for 2026"<br>}
+                        </div>
+                    </div>
+                </div>
+                <div class="form-container">
+                    <form action="mailto:vkvkasi17@gmail.com" method="POST" enctype="text/plain">
+                        <div class="form-group"><label style="color:white;">Name *</label><input type="text" name="Name" required style="background: rgba(0,0,0,0.5); color:white; border-color: rgba(255,255,255,0.2);"></div>
+                        <div class="form-group"><label style="color:white;">Email *</label><input type="email" name="Email" required style="background: rgba(0,0,0,0.5); color:white; border-color: rgba(255,255,255,0.2);"></div>
+                        <div class="form-group" style="margin-bottom: 25px;"><label style="color:white;">Message *</label><textarea name="Message" rows="4" required style="background: rgba(0,0,0,0.5); color:white; border-color: rgba(255,255,255,0.2);"></textarea></div>
+                        <button type="submit" class="submit-btn" style="background: linear-gradient(135deg, #8b5cf6, #3b82f6);">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </section>
 
-    <script src="script.js"></script>
+        <footer style="background: transparent; border-top: 1px solid rgba(255,255,255,0.1);">
+            <div class="footer-left"><p class="footer-copy">© 2026 KASI MEKA. All rights reserved.</p></div>
+        </footer>
+
+    </div> <script src="script.js"></script>
 
     <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const targets = document.querySelectorAll('.card, .new-project-card, .interactive-terminal, .form-container');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) entry.target.classList.add('is-visible');
+                });
+            }, { threshold: 0.1 });
+            targets.forEach(el => observer.observe(el));
+        });
+    </script>
+
+    <script>
+        // 1. Scene Setup
         const scene = new THREE.Scene();
+        // Force the Three.js renderer to paint the dark background so it covers everything!
+        scene.background = new THREE.Color('#09090b'); 
+        
         const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-        const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+        const renderer = new THREE.WebGLRenderer({ antialias: true });
         
         renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setPixelRatio(window.devicePixelRatio);
         document.getElementById('canvas-container').appendChild(renderer.domElement);
 
-        const particleCount = 400;
-        const geometry = new THREE.BufferGeometry();
-        const positions = new Float32Array(particleCount * 3);
-        const velocities = [];
+        // 2. GIANT FLOATING SHAPES
+        const shapes = [];
+        const colors = [0x8b5cf6, 0x3b82f6, 0x10b981]; // Purple, Blue, Green
 
-        for (let i = 0; i < particleCount; i++) {
-            positions[i * 3] = (Math.random() - 0.5) * 25;     
-            positions[i * 3 + 1] = (Math.random() - 0.5) * 25; 
-            positions[i * 3 + 2] = (Math.random() - 0.5) * 25; 
-            
-            velocities.push({
-                x: (Math.random() - 0.5) * 0.015,
-                y: (Math.random() - 0.5) * 0.015,
-                z: (Math.random() - 0.5) * 0.015
+        for (let i = 0; i < 20; i++) {
+            let geometry;
+            const rand = Math.random();
+            if (rand < 0.33) geometry = new THREE.IcosahedronGeometry(Math.random() * 3 + 2, 0);
+            else if (rand < 0.66) geometry = new THREE.TorusKnotGeometry(Math.random() * 2 + 1, 0.5, 64, 8);
+            else geometry = new THREE.OctahedronGeometry(Math.random() * 3 + 2, 0);
+
+            const material = new THREE.MeshBasicMaterial({ 
+                color: colors[Math.floor(Math.random() * colors.length)], 
+                wireframe: true,
+                transparent: true,
+                opacity: 0.15 // Faint neon outlines
             });
+
+            const mesh = new THREE.Mesh(geometry, material);
+            
+            // Scatter them wildly across the 3D space
+            mesh.position.x = (Math.random() - 0.5) * 60;
+            mesh.position.y = (Math.random() - 0.5) * 100; // Deep Y scatter for scrolling
+            mesh.position.z = (Math.random() - 0.5) * 40 - 15;
+            
+            mesh.userData = {
+                rx: (Math.random() - 0.5) * 0.01,
+                ry: (Math.random() - 0.5) * 0.01
+            };
+
+            shapes.push(mesh);
+            scene.add(mesh);
         }
 
-        geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+        // 3. BACKGROUND DATA PARTICLES
+        const particleCount = 1000;
+        const pGeo = new THREE.BufferGeometry();
+        const pPos = new Float32Array(particleCount * 3);
 
-        const material = new THREE.PointsMaterial({
-            color: 0x8b5cf6, 
-            size: 0.12,
-            transparent: true,
-            opacity: 0.8
-        });
+        for (let i = 0; i < particleCount; i++) {
+            pPos[i * 3] = (Math.random() - 0.5) * 100;     
+            pPos[i * 3 + 1] = (Math.random() - 0.5) * 200; // Very tall to cover scrolling
+            pPos[i * 3 + 2] = (Math.random() - 0.5) * 50 - 20; 
+        }
 
-        const particles = new THREE.Points(geometry, material);
+        pGeo.setAttribute('position', new THREE.BufferAttribute(pPos, 3));
+        const pMat = new THREE.PointsMaterial({ color: 0x60a5fa, size: 0.15, transparent: true, opacity: 0.6 });
+        const particles = new THREE.Points(pGeo, pMat);
         scene.add(particles);
 
-        camera.position.z = 12;
+        camera.position.z = 20;
 
-        let mouseX = 0;
-        let mouseY = 0;
-        let targetX = 0;
-        let targetY = 0;
-
-        const windowHalfX = window.innerWidth / 2;
-        const windowHalfY = window.innerHeight / 2;
+        // 4. INTERACTIVITY: Mouse & Scroll
+        let mouseX = 0; let mouseY = 0;
+        let scrollY = 0;
 
         document.addEventListener('mousemove', (event) => {
-            mouseX = (event.clientX - windowHalfX);
-            mouseY = (event.clientY - windowHalfY);
+            mouseX = (event.clientX - window.innerWidth / 2);
+            mouseY = (event.clientY - window.innerHeight / 2);
         });
 
+        window.addEventListener('scroll', () => {
+            scrollY = window.scrollY;
+        });
+
+        // 5. RENDER LOOP
         function animate() {
             requestAnimationFrame(animate);
 
-            targetX = mouseX * 0.003;
-            targetY = mouseY * 0.003;
-            camera.position.x += (targetX - camera.position.x) * 0.05;
-            camera.position.y += (-targetY - camera.position.y) * 0.05;
-            camera.lookAt(scene.position);
-
-            const positions = particles.geometry.attributes.position.array;
-
-            for (let i = 0; i < particleCount; i++) {
-                positions[i * 3] += velocities[i].x;
-                positions[i * 3 + 1] += velocities[i].y;
-                positions[i * 3 + 2] += velocities[i].z;
-
-                if (Math.abs(positions[i * 3]) > 12) velocities[i].x *= -1;
-                if (Math.abs(positions[i * 3 + 1]) > 12) velocities[i].y *= -1;
-                if (Math.abs(positions[i * 3 + 2]) > 12) velocities[i].z *= -1;
-            }
+            // Camera Parallax on Mouse Move
+            camera.position.x += (mouseX * 0.005 - camera.position.x) * 0.05;
             
-            particles.geometry.attributes.position.needsUpdate = true;
-            particles.rotation.y += 0.001;
-            particles.rotation.x += 0.0005;
+            // Camera Scroll Tracking! Moving down the page moves the camera DOWN in 3D space!
+            const targetCameraY = -(scrollY * 0.02) + (mouseY * 0.005);
+            camera.position.y += (targetCameraY - camera.position.y) * 0.1;
+            
+            camera.lookAt(scene.position.x, camera.position.y, 0); // Keep looking forward
+
+            // Spin the giant shapes
+            shapes.forEach(shape => {
+                shape.rotation.x += shape.userData.rx;
+                shape.rotation.y += shape.userData.ry;
+            });
+
+            // Slowly rotate the particle starfield
+            particles.rotation.y += 0.0005;
 
             renderer.render(scene, camera);
         }
