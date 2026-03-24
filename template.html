@@ -14,42 +14,38 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <style>
-        /* DEFEAT ANY ROGUE BACKGROUND COLORS */
+        /* Base wrapper setups - no hardcoded colors so your style.css works! */
         html, body {
-            background: #09090b !important;
-            color: #f8fafc !important;
             margin: 0;
             padding: 0;
             overflow-x: hidden;
         }
         
-        /* 3D CANVAS GUARANTEED PLACEMENT */
         #canvas-container {
             position: fixed;
             top: 0;
             left: 0;
             width: 100vw;
             height: 100vh;
-            z-index: 0; /* Base Layer */
-            pointer-events: none; /* Let clicks pass through */
+            z-index: 0;
+            pointer-events: none;
         }
 
-        /* PUT ALL TEXT AND CARDS ON TOP OF THE 3D */
         #content-wrapper {
             position: relative;
-            z-index: 10; /* Top Layer */
+            z-index: 10;
             background: transparent !important;
         }
 
-        /* GLASSMORPHISM CARDS */
+        /* THEME-AWARE NEUTRAL GLASS: Looks great in both Light and Dark mode */
         .card, .new-project-card, .project-card, .interactive-terminal, .form-container, .game-container {
-            background: rgba(24, 24, 27, 0.5) !important;
+            background: rgba(128, 128, 128, 0.1) !important;
             backdrop-filter: blur(16px) !important;
             -webkit-backdrop-filter: blur(16px) !important;
-            border: 1px solid rgba(255, 255, 255, 0.1) !important;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.5) !important;
+            border: 1px solid rgba(128, 128, 128, 0.2) !important;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1) !important;
             
-            /* Scroll "Pop" Animation */
+            /* Scroll Animation */
             opacity: 0;
             transform: translateY(60px) scale(0.95);
             transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
@@ -60,17 +56,15 @@
             opacity: 1 !important;
             transform: translateY(0) scale(1) !important;
         }
-
-        h1, h2, h3, h4, .section-title { color: #f8fafc !important; }
-        p, .duration, .tech, li, .hero-desc { color: #a1a1aa !important; }
         
         nav#navbar {
-            background: rgba(9, 9, 11, 0.7) !important;
+            background: rgba(128, 128, 128, 0.1) !important;
             backdrop-filter: blur(16px) !important;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+            border-bottom: 1px solid rgba(128, 128, 128, 0.2) !important;
         }
-        .weather-container { display: none !important; } /* Hide old 2D animations */
-        header.hero-section { background: transparent !important; } /* Defeat hero background */
+        
+        .weather-container { display: none !important; }
+        header.hero-section { background: transparent !important; }
     </style>
 </head>
 
@@ -95,7 +89,7 @@
                     <a href="#game">AI Bot</a>
                     <a href="#contact">Contact</a>
                 </div>
-                <button id="themeToggle" class="theme-toggle-btn" style="display:none;"></button>
+                <button id="themeToggle" class="theme-toggle-btn" aria-label="Toggle Dark Mode"><i class="fa-solid fa-moon"></i></button>
             </div>
         </nav>
 
@@ -110,9 +104,9 @@
                         <a href="#contact" class="btn-secondary">Contact Me</a>
                     </div>
                     <div class="hero-socials">
-                        <a href="https://linkedin.com/in/[[LINKEDIN]]" target="_blank"><i class="fa-brands fa-linkedin-in" style="color: white;"></i></a>
-                        <a href="https://github.com/[[GITHUB]]" target="_blank"><i class="fa-brands fa-github" style="color: white;"></i></a>
-                        <a href="mailto:[[EMAIL]]"><i class="fa-regular fa-envelope" style="color: white;"></i></a>
+                        <a href="https://linkedin.com/in/[[LINKEDIN]]" target="_blank"><i class="fa-brands fa-linkedin-in"></i></a>
+                        <a href="https://github.com/[[GITHUB]]" target="_blank"><i class="fa-brands fa-github"></i></a>
+                        <a href="mailto:[[EMAIL]]"><i class="fa-regular fa-envelope"></i></a>
                     </div>
                 </div>
                 <div class="hero-visual">
@@ -149,10 +143,10 @@
             <span class="section-title">Featured Research & Projects</span>
             <div class="title-underline"></div>
             <div class="filter-container">
-                <button class="filter-btn active" onclick="filterProjects('all')" style="color:white; border-color:white;">All</button>
-                <button class="filter-btn" onclick="filterProjects('GenAI')" style="color:white; border-color:white;">GenAI</button>
-                <button class="filter-btn" onclick="filterProjects('ML')" style="color:white; border-color:white;">ML</button>
-                <button class="filter-btn" onclick="filterProjects('Data Engineering')" style="color:white; border-color:white;">Data Eng</button>
+                <button class="filter-btn active" onclick="filterProjects('all')">All</button>
+                <button class="filter-btn" onclick="filterProjects('GenAI')">GenAI</button>
+                <button class="filter-btn" onclick="filterProjects('ML')">ML</button>
+                <button class="filter-btn" onclick="filterProjects('Data Engineering')">Data Eng</button>
             </div>
             <div class="skills-grid" id="project-grid">[[PROJECTS_HTML]]</div>
         </section>
@@ -180,20 +174,22 @@
                 </div>
                 <div class="form-container">
                     <form action="mailto:[[EMAIL]]" method="POST" enctype="text/plain">
-                        <div class="form-group"><label style="color:white;">Name *</label><input type="text" name="Name" required style="background: rgba(0,0,0,0.5); color:white; border-color: rgba(255,255,255,0.2);"></div>
-                        <div class="form-group"><label style="color:white;">Email *</label><input type="email" name="Email" required style="background: rgba(0,0,0,0.5); color:white; border-color: rgba(255,255,255,0.2);"></div>
-                        <div class="form-group" style="margin-bottom: 25px;"><label style="color:white;">Message *</label><textarea name="Message" rows="4" required style="background: rgba(0,0,0,0.5); color:white; border-color: rgba(255,255,255,0.2);"></textarea></div>
-                        <button type="submit" class="submit-btn" style="background: linear-gradient(135deg, #8b5cf6, #3b82f6);">Send Message</button>
+                        <div class="form-group"><label>Name *</label><input type="text" name="Name" required style="background: rgba(128,128,128,0.1); border-color: rgba(128,128,128,0.3);"></div>
+                        <div class="form-group"><label>Email *</label><input type="email" name="Email" required style="background: rgba(128,128,128,0.1); border-color: rgba(128,128,128,0.3);"></div>
+                        <div class="form-group" style="margin-bottom: 25px;"><label>Message *</label><textarea name="Message" rows="4" required style="background: rgba(128,128,128,0.1); border-color: rgba(128,128,128,0.3);"></textarea></div>
+                        <button type="submit" class="submit-btn" style="background: linear-gradient(135deg, #8b5cf6, #3b82f6); color: white;">Send Message</button>
                     </form>
                 </div>
             </div>
         </section>
 
-        <footer style="background: transparent; border-top: 1px solid rgba(255,255,255,0.1);">
+        <footer style="background: transparent; border-top: 1px solid rgba(128,128,128,0.2);">
             <div class="footer-left"><p class="footer-copy">© 2026 [[NAME]]. All rights reserved.</p></div>
         </footer>
 
-    </div> <script src="script.js"></script>
+    </div> 
+
+    <script src="script.js"></script>
 
     <script>
         document.addEventListener("DOMContentLoaded", () => {
@@ -208,21 +204,19 @@
     </script>
 
     <script>
-        // 1. Scene Setup
         const scene = new THREE.Scene();
-        // Force the Three.js renderer to paint the dark background so it covers everything!
-        scene.background = new THREE.Color('#09090b'); 
+        // REMOVED scene.background so your style.css background shows through!
         
         const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-        const renderer = new THREE.WebGLRenderer({ antialias: true });
+        // ADDED alpha: true to make the 3D canvas transparent
+        const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true }); 
         
         renderer.setSize(window.innerWidth, window.innerHeight);
         renderer.setPixelRatio(window.devicePixelRatio);
         document.getElementById('canvas-container').appendChild(renderer.domElement);
 
-        // 2. GIANT FLOATING SHAPES
         const shapes = [];
-        const colors = [0x8b5cf6, 0x3b82f6, 0x10b981]; // Purple, Blue, Green
+        const colors = [0x8b5cf6, 0x3b82f6, 0x10b981];
 
         for (let i = 0; i < 20; i++) {
             let geometry;
@@ -235,14 +229,13 @@
                 color: colors[Math.floor(Math.random() * colors.length)], 
                 wireframe: true,
                 transparent: true,
-                opacity: 0.15 // Faint neon outlines
+                opacity: 0.3 // Increased opacity slightly so they look good on white backgrounds too
             });
 
             const mesh = new THREE.Mesh(geometry, material);
             
-            // Scatter them wildly across the 3D space
             mesh.position.x = (Math.random() - 0.5) * 60;
-            mesh.position.y = (Math.random() - 0.5) * 100; // Deep Y scatter for scrolling
+            mesh.position.y = (Math.random() - 0.5) * 150; 
             mesh.position.z = (Math.random() - 0.5) * 40 - 15;
             
             mesh.userData = {
@@ -254,57 +247,48 @@
             scene.add(mesh);
         }
 
-        // 3. BACKGROUND DATA PARTICLES
         const particleCount = 1000;
         const pGeo = new THREE.BufferGeometry();
         const pPos = new Float32Array(particleCount * 3);
 
         for (let i = 0; i < particleCount; i++) {
             pPos[i * 3] = (Math.random() - 0.5) * 100;     
-            pPos[i * 3 + 1] = (Math.random() - 0.5) * 200; // Very tall to cover scrolling
+            pPos[i * 3 + 1] = (Math.random() - 0.5) * 300; 
             pPos[i * 3 + 2] = (Math.random() - 0.5) * 50 - 20; 
         }
 
         pGeo.setAttribute('position', new THREE.BufferAttribute(pPos, 3));
-        const pMat = new THREE.PointsMaterial({ color: 0x60a5fa, size: 0.15, transparent: true, opacity: 0.6 });
+        // Deepened the blue slightly for better contrast in light mode
+        const pMat = new THREE.PointsMaterial({ color: 0x3b82f6, size: 0.15, transparent: true, opacity: 0.7 });
         const particles = new THREE.Points(pGeo, pMat);
         scene.add(particles);
 
         camera.position.z = 20;
 
-        // 4. INTERACTIVITY: Mouse & Scroll
         let mouseX = 0; let mouseY = 0;
-        let scrollY = 0;
 
         document.addEventListener('mousemove', (event) => {
             mouseX = (event.clientX - window.innerWidth / 2);
             mouseY = (event.clientY - window.innerHeight / 2);
         });
 
-        window.addEventListener('scroll', () => {
-            scrollY = window.scrollY;
-        });
-
-        // 5. RENDER LOOP
         function animate() {
             requestAnimationFrame(animate);
 
-            // Camera Parallax on Mouse Move
+            const currentScroll = window.scrollY || document.documentElement.scrollTop || document.body.scrollTop || 0;
+
             camera.position.x += (mouseX * 0.005 - camera.position.x) * 0.05;
             
-            // Camera Scroll Tracking! Moving down the page moves the camera DOWN in 3D space!
-            const targetCameraY = -(scrollY * 0.02) + (mouseY * 0.005);
+            const targetCameraY = -(currentScroll * 0.04) + (mouseY * 0.005);
             camera.position.y += (targetCameraY - camera.position.y) * 0.1;
             
-            camera.lookAt(scene.position.x, camera.position.y, 0); // Keep looking forward
+            camera.lookAt(scene.position.x, camera.position.y, 0); 
 
-            // Spin the giant shapes
             shapes.forEach(shape => {
                 shape.rotation.x += shape.userData.rx;
                 shape.rotation.y += shape.userData.ry;
             });
 
-            // Slowly rotate the particle starfield
             particles.rotation.y += 0.0005;
 
             renderer.render(scene, camera);
