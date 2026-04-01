@@ -342,5 +342,3 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 });
-
-
