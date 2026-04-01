@@ -4,7 +4,7 @@ import os
 print("Starting build process...")
 
 # 1. LOAD DATA
-with open('portfolio_data.json', 'r') as file:
+with open('Portfolio/portfolio_data.json', 'r') as file:
     portfolio_data = json.load(file)
 
 # 2. GENERATE DYNAMIC HTML CHUNKS
@@ -26,12 +26,38 @@ for exp in portfolio_data['experience']:
 icon_mapping = { "GenAI": "fa-brain", "ML": "fa-robot", "Data Engineering": "fa-server", "Data Viz": "fa-chart-pie" }
 
 projects_html = ""
-for i, proj in enumerate(portfolio_data['projects']):
-    direction = "left" if i % 2 == 0 else "right" 
+for proj in portfolio_data['projects']:
     cat = proj["category"]
     icon = icon_mapping.get(cat, "fa-code") 
-    projects_html += f'<div class="card {direction} new-project-card" data-category="{cat}"><div class="card-icon-header"><span class="category-badge">{cat}</span><i class="fa-solid {icon}"></i></div><div class="card-content"><h3>{proj["title"]}</h3><div class="tech">{proj["tech"]}</div><p>{proj["description"]}</p></div></div>'
     
+    github = proj.get("github_link", "")
+    website = proj.get("website_link", "")
+    overview = proj.get("overview", "")
+    
+    github_html = f'<a href="{github}" target="_blank" onclick="event.stopPropagation();" title="View Source"><i class="fa-brands fa-github"></i></a>' if github else ''
+    website_html = f'<a href="{website}" target="_blank" onclick="event.stopPropagation();" title="Live Link"><i class="fa-solid fa-arrow-up-right-from-square"></i></a>' if website else ''
+
+    projects_html += f'<div class="card new-project-card modal-trigger" style="cursor: pointer;" data-category="{cat}" data-title="{proj["title"]}" data-tech="{proj["tech"]}" data-overview="{overview}" data-github="{github}" data-website="{website}">'
+    projects_html += f'<div class="card-top-bar">'
+    projects_html += f'<div class="icon-box"><i class="fa-solid {icon}"></i></div>'
+    projects_html += f'<div class="link-icons">{github_html}{website_html}</div>'
+    projects_html += f'</div>'
+    projects_html += f'<div class="card-content">'
+    projects_html += f'<span class="category-badge-text">{cat}</span>'
+    projects_html += f'<h3>{proj["title"]}</h3>'
+    projects_html += f'<p>{proj["description"]}</p>'
+    projects_html += f'</div></div>'
+    
+# --- NEW: Beautiful Certification Cards ---
+certifications_html = '<div class="cert-grid">'
+if 'certifications' in portfolio_data:
+    for cert in portfolio_data['certifications']:
+        certifications_html += f'<div class="card cert-card cert-item" data-img="{cert.get("image", "")}">'
+        certifications_html += f'<i class="fa-solid fa-award cert-icon"></i>'
+        certifications_html += f'<div><h4 style="margin:0;">{cert["name"]}</h4><p style="margin:0; font-size:0.9rem; color:var(--text-muted);">{cert["issuer"]}</p></div>'
+        certifications_html += f'</div>'
+certifications_html += '</div>'
+
 publications_html = ""
 for pub in portfolio_data['publications']:
     publications_html += f'<div class="card right"><a href="{pub["link"]}" target="_blank" style="text-decoration: none;"><h3 class="pub-title" style="color: var(--accent); cursor: pointer;">{pub["title"]} ↗</h3></a><div class="tech">{pub["journal"]} ({pub["year"]})</div><p style="font-size: 0.95rem; color: var(--text-muted);">{pub["authors"]}</p></div>'
@@ -53,6 +79,7 @@ final_html = final_html.replace("[[EDUCATION_HTML]]", education_html)
 final_html = final_html.replace("[[SKILLS_HTML]]", skills_html)
 final_html = final_html.replace("[[EXPERIENCE_HTML]]", experience_html)
 final_html = final_html.replace("[[PROJECTS_HTML]]", projects_html)
+final_html = final_html.replace("[[CERTIFICATIONS_HTML]]", certifications_html) 
 final_html = final_html.replace("[[PUBLICATIONS_HTML]]", publications_html)
 
 # 4. SAVE TO INDEX.HTML

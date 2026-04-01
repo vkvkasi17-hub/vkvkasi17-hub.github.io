@@ -1,0 +1,146 @@
+{
+    "name": "KASI MEKA",
+    "profile_pic": "profile.jpeg",
+    "headline": "Specializing in Backend Development, GenAI Integration & Cloud Platforms",
+    "about_me": "Hi, I'm Kasi Meka. A Python Developer and Backend Engineer with over 4 years of experience specializing in backend development, data engineering, and cloud platforms (AWS, Azure, GCP). I have proven expertise in designing data pipelines, ETL/ELT processes, and scalable backend APIs using frameworks like FastAPI, Flask, and Django.<br><br>I am highly experienced in integrating Generative AI (GenAI) and Large Language Models (LLMs) into enterprise applications for chatbot evaluation, automation, and intelligent data workflows. I thrive in collaborative, Agile environments and am actively seeking an opportunity where I can contribute to innovative, data-driven projects.",
+    "education": [
+        {
+            "degree": "Master's in Information Science",
+            "school": "University of North Texas | Denton, TX",
+            "duration": "2024 - 2025",
+            "color": "#3182ce"
+        }
+    ],
+    "certifications": [
+        {
+            "name": "Claude 101",
+            "issuer": "Anthropic Education",
+            "image": "Claude 101.jpg.png"
+        },
+        {
+            "name": "Claude Code in Action",
+            "issuer": "Anthropic Education",
+            "image": "Claude Code in Action.jpg.png"
+        },
+        {
+            "name": "Building with the Claude API",
+            "issuer": "Anthropic Education",
+            "image": "Claude with the Anthropic API.jpg.png"
+        },
+        {
+            "name": "Building customized LLMs with OpenAI",
+            "issuer": "Columbia University",
+            "image": ""
+        }
+    ],
+    "experience": [
+        {
+            "role": "Senior Python Developer",
+            "company": "Cigna Health Care | Plano, TX",
+            "duration": "Jun 2024 – Present",
+            "bullets": [
+                "Developed Python services integrating Generative AI APIs to automate chatbot response evaluation.",
+                "Designed backend data workflows using Python and SQL to support scalable analytics.",
+                "Implemented automated LLM-based evaluation pipelines to assess chatbot response quality.",
+                "Managed AWS cloud infrastructure using VPC, EC2, ECS, S3, and CloudFormation.",
+                "Developed ETL pipelines from S3 to Snowflake using Python.",
+                "Built APIs using FastAPI and Hug frameworks for cross-functional data sharing.",
+                "Improved project code coverage to over 90% using automated unit testing.",
+                "Built Airflow data pipelines in GCP for enterprise ETL jobs.",
+                "Containerized applications using Docker and deployed via Jenkins CI/CD pipelines."
+            ],
+            "color": "#3182ce"
+        },
+        {
+            "role": "Python Developer",
+            "company": "Hindustan Aeronautics Limited (HAL) | Bangalore, India",
+            "duration": "Aug 2023 – Dec 2023",
+            "bullets": [
+                "Developed sensor logic using Python scripts and Unix shell scripting.",
+                "Built Python batch processors to consume and produce various feeds.",
+                "Processed massive Blob datasets using PySpark Map-Reduce.",
+                "Wrote cleaning and munging scripts for large-scale datasets."
+            ],
+            "color": "#4a5568"
+        },
+        {
+            "role": "Python Developer",
+            "company": "Cognizant (Client: MERCK) | Hyderabad, India",
+            "duration": "June 2021 - Jul 2023",
+            "bullets": [
+                "Managed automated data workflows using Python, SQL, and R.",
+                "Developed pandas scripts for complex CSV data manipulation and comparison.",
+                "Built a Django-based GUI for dynamic code documentation display.",
+                "Executed long-term technological fixes for data and system bottlenecks."
+            ],
+            "color": "#4a5568"
+        }
+    ],
+    "skills": {
+        "Languages": ["Python", "SQL", "R", "Java", "JavaScript", "TypeScript"],
+        "GenAI & Data": ["LLMs", "LangChain", "ETL/ELT", "PySpark", "Snowflake", "Pandas"],
+        "Cloud & DevOps": ["AWS", "GCP", "Azure", "Docker", "Git", "FastAPI", "Airflow", "Jenkins"]
+    },
+    "projects": [
+        {
+            "title": "AI-Powered PDF Assistant (RAG)",
+            "tech": "Python, LangChain, OpenAI, ChromaDB",
+            "description": "Built a Retrieval-Augmented Generation (RAG) script to chat with local PDF documents.",
+            "category": "GenAI",
+            "github_link": "https://github.com/vkvkasi17-hub",
+            "website_link": "",
+            "overview": "<strong>About the Project:</strong> A lightweight AI assistant that reads personal documents and answers questions accurately using RAG methodology.<br><br><strong>Implementation:</strong> Built locally using Python, LangChain, and ChromaDB for vector storage. It chunks PDF text, creates embeddings via OpenAI, and retrieves relevant context to answer user queries, demonstrating core GenAI orchestration."
+        },
+        {
+            "title": "Automated Resume Parsing API",
+            "tech": "Python, FastAPI, NLP",
+            "description": "Designed a scalable REST API using NLP models to extract key entities from unstructured resume PDFs.",
+            "category": "ML",
+            "github_link": "https://github.com/vkvkasi17-hub/AI-Resume-Parser",
+            "website_link": "https://vkvkasi17-hub.github.io/AI-Resume-Parser/",
+            "overview": "<strong>About the Project:</strong> This AI-driven tool automatically extracts and categorizes information from unstructured PDFs, instantly converting them into structured JSON data.<br><br><strong>Implementation:</strong> Built using Python and FastAPI for high-performance endpoint delivery. I integrated advanced Natural Language Processing models to identify semantic chunks like 'Skills', 'Experience', and 'Education', drastically streamlining the recruitment pipeline."
+        },
+        {
+            "title": "Automated Image Captioning Engine",
+            "tech": "Python, Hugging Face, PyTorch",
+            "description": "Implemented an ML script leveraging pre-trained vision-language models to automatically caption images.",
+            "category": "ML",
+            "github_link": "https://github.com/vkvkasi17-hub",
+            "website_link": "",
+            "overview": "<strong>About the Project:</strong> An ML tool that takes unstructured visual data (images) and automatically generates highly descriptive text captions.<br><br><strong>Implementation:</strong> Utilized Hugging Face's <code>transformers</code> library and the BLIP (Bootstrapping Language-Image Pre-training) model. The script processes raw images through a neural network to output accurate descriptions, perfect for accessibility and automated metadata tagging."
+        },
+        {
+            "title": "ODI Cricket Analytics Dashboard",
+            "tech": "Python, Tableau, Pandas",
+            "description": "Utilized Pandas to preprocess match data before designing interactive dashboards uncovering 20 years of trends.",
+            "category": "Data Viz",
+            "github_link": "https://github.com/vkvkasi17-hub",
+            "website_link": "",
+            "overview": "<strong>About the Project:</strong> A visual analytics suite that digests over two decades of One Day International (ODI) cricket statistics to find hidden performance trends.<br><br><strong>Implementation:</strong> Wrote complex Python Pandas scripts to scrape, munge, and clean messy historical CSVs. Once structured, the data was connected to Tableau to create dynamic, interactive filters allowing users to explore granular player and team statistics."
+        },
+        {
+            "title": "LA Crime Pattern Analysis",
+            "tech": "Python, Data Analytics, Tableau",
+            "description": "Extracted and cleaned crime datasets using Python to analyze graphical trends across Los Angeles.",
+            "category": "Data Viz",
+            "github_link": "https://github.com/vkvkasi17-hub",
+            "website_link": "",
+            "overview": "<strong>About the Project:</strong> A civic data project aiming to highlight geographical and temporal crime patterns in the Los Angeles area to aid predictive policing models.<br><br><strong>Implementation:</strong> Processed massive, unstructured raw municipal datasets using Python data-cleaning scripts. The refined datasets were visualized through interactive Tableau heatmaps and time-series graphs, revealing actionable safety insights."
+        }
+    ],
+    "publications": [
+        {
+            "title": "Standards, frameworks, and legislation for artificial intelligence (AI) transparency",
+            "journal": "AI and Ethics",
+            "year": "2025",
+            "authors": "Lund, B., Orhan, Z., Mannuru, N. R., Bevara, R. V. K., Porter, B., Vinaih, M. K., & Bhaskara, P. (2025). Standards, frameworks, and legislation for artificial intelligence (AI) transparency. AI and Ethics, 5(4), 3639-3655.",
+            "link": "https://link.springer.com/article/10.1007/s43681-025-00661-4"
+        }
+    ],
+    "contact": {
+        "email": "vkvkasi17@gmail.com",
+        "phone": "940-290-0996",
+        "github": "vkvkasi17-hub",
+        "linkedin": "meka-kasi-2193003b1"
+    }
+}

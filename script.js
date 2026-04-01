@@ -173,7 +173,8 @@ window.addEventListener('scroll', () => {
     const navbar = document.getElementById('navbar');
     if (currentScrollY > 20) { navbar.classList.add('scrolled'); } else { navbar.classList.remove('scrolled'); }
 
-    if (!hasCelebrated && currentScrollY >= docHeight - 50 && docHeight > 100) {
+    // FIXED: Added currentScrollY > 500 to ensure user has scrolled down before celebrating!
+    if (!hasCelebrated && currentScrollY >= docHeight - 50 && docHeight > 100 && currentScrollY > 500) {
         hasCelebrated = true; 
         var duration = 3000; var end = Date.now() + duration;
         (function frame() {
@@ -251,3 +252,93 @@ function filterProjects(category) {
     document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active')); event.target.classList.add('active');
     document.querySelectorAll('.new-project-card').forEach(project => { if (category === 'all' || project.dataset.category === category) project.classList.remove('project-hidden'); else project.classList.add('project-hidden'); });
 }
+
+// ==========================================
+// --- NEW LOGIC: MODALS & HOVER PREVIEWS ---
+// ==========================================
+
+document.addEventListener("DOMContentLoaded", () => {
+    
+    // --- 1. Certification Hover Logic ---
+    const certItems = document.querySelectorAll('.cert-item');
+    const previewImg = document.getElementById('hover-preview-img');
+
+    if (previewImg) {
+        certItems.forEach(item => {
+            item.addEventListener('mouseenter', (e) => {
+                const imgSrc = item.getAttribute('data-img');
+                if (imgSrc) {
+                    previewImg.src = imgSrc;
+                    previewImg.style.display = 'block';
+                }
+            });
+
+            item.addEventListener('mousemove', (e) => {
+                previewImg.style.left = (e.pageX + 15) + 'px';
+                previewImg.style.top = (e.pageY + 15) + 'px';
+            });
+
+            item.addEventListener('mouseleave', () => {
+                previewImg.style.display = 'none';
+                previewImg.src = '';
+            });
+        });
+    }
+
+    // --- 2. Dynamic Project Modal Logic ---
+    const modal = document.getElementById("project-modal");
+    
+    if (modal) {
+        // FIXED: Targets the specific project close button
+        const closeBtn = modal.querySelector(".project-close-btn");
+        const projectCards = document.querySelectorAll(".modal-trigger");
+
+        projectCards.forEach(card => {
+            card.addEventListener("click", () => {
+                const title = card.getAttribute("data-title");
+                const tech = card.getAttribute("data-tech");
+                const overview = card.getAttribute("data-overview");
+                const github = card.getAttribute("data-github");
+                const website = card.getAttribute("data-website");
+
+                if (overview || github || website) {
+                    document.getElementById("modal-title").innerText = title || "Project Details";
+                    document.getElementById("modal-tech").innerText = tech || "";
+                    document.getElementById("modal-overview").innerHTML = overview || "No expanded overview available.";
+
+                    const githubBtn = document.getElementById("modal-github");
+                    if (github) { 
+                        githubBtn.href = github; 
+                        githubBtn.style.display = "inline-block"; 
+                    } else { 
+                        githubBtn.style.display = "none"; 
+                    }
+
+                    const websiteBtn = document.getElementById("modal-website");
+                    if (website) { 
+                        websiteBtn.href = website; 
+                        websiteBtn.style.display = "inline-block"; 
+                    } else { 
+                        websiteBtn.style.display = "none"; 
+                    }
+
+                    modal.style.display = "block";
+                    document.body.style.overflow = "hidden"; 
+                }
+            });
+        });
+
+        const closeModal = () => {
+            modal.style.display = "none";
+            document.body.style.overflow = ""; 
+        };
+
+        if (closeBtn) closeBtn.addEventListener("click", closeModal);
+        
+        window.addEventListener("click", (event) => {
+            if (event.target === modal) { 
+                closeModal(); 
+            }
+        });
+    }
+});
