@@ -87,3 +87,4 @@ with open("index.html", "w") as file:
     file.write(final_html)
 
 print("index.html generated successfully using modular files!")
+
