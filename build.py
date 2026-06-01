@@ -8,7 +8,7 @@ with open('Portfolio/portfolio_data.json', 'r') as file:
     portfolio_data = json.load(file)
 
 # 2. GENERATE DYNAMIC HTML CHUNKS
-education_html = ""
+education_html = "" 
 for edu in portfolio_data['education']:
     education_html += f'<div class="card right"><h3 style="color: var(--accent);">{edu["degree"]}</h3><h4>{edu["school"]}</h4><div class="duration">{edu["duration"]}</div></div>'
 
