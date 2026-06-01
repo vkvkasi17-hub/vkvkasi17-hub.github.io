@@ -5,6 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>[[NAME]] | Portfolio</title>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    
+    <!-- Three.js for the Custom LLM Embedding Background -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -15,17 +19,8 @@
 
 <body class="at-top in-hero is-idle"> 
 
-    <div class="weather-container">
-        <div class="weather-sun" id="sun"></div>
-        <div class="weather-birds" id="birds">
-            <svg class="bird" viewBox="0 0 100 100"><path d="M10 50 Q 25 25 50 45 Q 75 25 90 50 Q 75 35 50 55 Q 25 35 10 50 Z"/></svg>
-            <svg class="bird" viewBox="0 0 100 100"><path d="M10 50 Q 25 25 50 45 Q 75 25 90 50 Q 75 35 50 55 Q 25 35 10 50 Z"/></svg>
-            <svg class="bird" viewBox="0 0 100 100"><path d="M10 50 Q 25 25 50 45 Q 75 25 90 50 Q 75 35 50 55 Q 25 35 10 50 Z"/></svg>
-        </div>
-        <div class="cloud-layer"></div>
-        <div class="cloud-layer cloud-layer-2"></div>
-        <canvas id="rainCanvas"></canvas>
-    </div>
+    <!-- LLM 3D Background Container -->
+    <div id="llm-3d-bg"></div>
 
     <div class="race-track" id="raceTrack">
         <div class="race-car" id="raceCar">🏎️</div>
@@ -65,7 +60,6 @@
     </nav>
 
     <header class="hero-section">
-        <canvas id="networkCanvas"></canvas>
         <div class="hero-container">
             <div class="hero-text">
                 <h1>[[NAME]]</h1>
