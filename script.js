@@ -39,15 +39,15 @@ themeToggleBtn.addEventListener('click', () => {
 
 // --- TYPEWRITER ---
 const titles = ["Python Developer", "Generative AI Engineer", "Backend Specialist", "Data Engineer", "Python Developer | Generative AI | Backend Engineer"];
-let count = 0; let index = 0; let currentText = ''; let letter = ''; let isDeleting = false;
+let countText = 0; let index = 0; let currentText = ''; let letter = ''; let isDeleting = false;
 function type() {
-    if (count === titles.length) count = 0;
-    currentText = titles[count];
+    if (countText === titles.length) countText = 0;
+    currentText = titles[countText];
     if (isDeleting) letter = currentText.slice(0, --index); else letter = currentText.slice(0, ++index);
     document.getElementById('typewriter').textContent = letter;
     let typeSpeed = isDeleting ? 30 : 70;
     if (!isDeleting && letter.length === currentText.length) { typeSpeed = 2000; isDeleting = true; } 
-    else if (isDeleting && letter.length === 0) { isDeleting = false; count++; typeSpeed = 500; }
+    else if (isDeleting && letter.length === 0) { isDeleting = false; countText++; typeSpeed = 500; }
     setTimeout(type, typeSpeed);
 }
 document.addEventListener("DOMContentLoaded", type);
@@ -76,78 +76,12 @@ raceTrack.addEventListener('touchstart', (e) => {
 window.addEventListener('touchend', () => { isDraggingCar = false; document.body.classList.remove('is-dragging-car'); });
 window.addEventListener('touchmove', (e) => { if (isDraggingCar) handleCarDrag(e.touches[0].clientY); }, {passive: true});
 
-// --- HERO NEURAL NETWORK LOGIC ---
-const netCanvas = document.getElementById('networkCanvas');
-const netCtx = netCanvas.getContext('2d');
-let netW = netCanvas.width = window.innerWidth;
-let netH = netCanvas.height = window.innerHeight;
-const netParticles = [];
-for(let i=0; i<80; i++) {
-    netParticles.push({
-        x: Math.random() * netW, y: Math.random() * netH,
-        vx: (Math.random()-0.5)*0.5, vy: (Math.random()-0.5)*0.5, radius: Math.random()*2+1
-    });
-}
-function animateNet() {
-    if(document.body.classList.contains('in-hero')) {
-        netCtx.clearRect(0,0,netW,netH);
-        const isDark = document.body.classList.contains('dark-mode');
-        const dotColor = isDark ? 'rgba(99,179,237,0.6)' : 'rgba(43,108,176,0.3)';
-        const lineRGB = isDark ? '99,179,237' : '43,108,176';
-        
-        for(let i=0; i<netParticles.length; i++) {
-            let p = netParticles[i];
-            p.x += p.vx; p.y += p.vy;
-            if(p.x<0) p.x=netW; if(p.x>netW) p.x=0;
-            if(p.y<0) p.y=netH; if(p.y>netH) p.y=0;
-            
-            netCtx.beginPath(); netCtx.arc(p.x, p.y, p.radius, 0, Math.PI*2);
-            netCtx.fillStyle = dotColor; netCtx.fill();
-            
-            for(let j=i+1; j<netParticles.length; j++) {
-                let p2 = netParticles[j];
-                let dx = p.x-p2.x, dy = p.y-p2.y;
-                let dist = Math.sqrt(dx*dx+dy*dy);
-                if(dist < 120) {
-                    netCtx.beginPath(); netCtx.strokeStyle = `rgba(${lineRGB},${0.2*(1-dist/120)})`;
-                    netCtx.lineWidth=0.8; netCtx.moveTo(p.x,p.y); netCtx.lineTo(p2.x,p2.y); netCtx.stroke();
-                }
-            }
-            let dxM = p.x - mouseX, dyM = p.y - mouseY;
-            let distM = Math.sqrt(dxM*dxM + dyM*dyM);
-            if(distM < 150) {
-                netCtx.beginPath(); netCtx.strokeStyle = `rgba(${lineRGB},${0.4*(1-distM/150)})`;
-                netCtx.lineWidth=1; netCtx.moveTo(p.x,p.y); netCtx.lineTo(mouseX,mouseY); netCtx.stroke();
-            }
-        }
-    }
-    requestAnimationFrame(animateNet);
-}
-animateNet();
-
-// --- WEATHER ENGINE (RAIN & SPLASH) LOGIC ---
-const rainCanvas = document.getElementById('rainCanvas');
-const ctx = rainCanvas.getContext('2d');
-let width = rainCanvas.width = window.innerWidth;
-let height = rainCanvas.height = window.innerHeight;
-window.addEventListener('resize', () => { 
-    width = rainCanvas.width = window.innerWidth; height = rainCanvas.height = window.innerHeight; 
-    netW = netCanvas.width = window.innerWidth; netH = netCanvas.height = window.innerHeight;
-});
-
-const drops = []; const splashes = []; 
-for(let i=0; i<350; i++) {
-    drops.push({
-        x: Math.random() * width, y: Math.random() * height,
-        speed: Math.random() * 5 + 3, length: Math.random() * 20 + 10, 
-        thickness: Math.random() * 1.5 + 0.8, opacity: Math.random() * 0.5 + 0.2
-    });
-}
-
 let lastScrollY = window.scrollY;
-let weatherTimeout;
 let hasCelebrated = false;
 let closeTimeout;
+
+// Global tracking for 3D Camera scroll interaction
+let currentScrollY = 0;
 
 function closeModal() { 
     document.getElementById('celebrationModal').classList.remove('show'); 
@@ -157,7 +91,8 @@ function closeModal() {
 
 // --- MASTER SCROLL CONTROLLER ---
 window.addEventListener('scroll', () => {
-    const currentScrollY = window.scrollY;
+    currentScrollY = window.scrollY; // Saves scroll for the 3D loop
+
     const docHeight = document.documentElement.scrollHeight - window.innerHeight;
     const heroHeight = window.innerHeight;
 
@@ -173,7 +108,6 @@ window.addEventListener('scroll', () => {
     const navbar = document.getElementById('navbar');
     if (currentScrollY > 20) { navbar.classList.add('scrolled'); } else { navbar.classList.remove('scrolled'); }
 
-    // FIXED: Added currentScrollY > 500 to ensure user has scrolled down before celebrating!
     if (!hasCelebrated && currentScrollY >= docHeight - 50 && docHeight > 100 && currentScrollY > 500) {
         hasCelebrated = true; 
         var duration = 3000; var end = Date.now() + duration;
@@ -188,44 +122,8 @@ window.addEventListener('scroll', () => {
             closeTimeout = setTimeout(() => { closeModal(); }, 5000); 
         }, 500);
     }
-
-    document.body.classList.add('is-scrolling'); document.body.classList.remove('is-idle');
-    clearTimeout(weatherTimeout);
-    weatherTimeout = setTimeout(() => {
-        document.body.classList.remove('is-scrolling'); document.body.classList.add('is-idle');
-    }, 300); 
 });
 window.dispatchEvent(new Event('scroll'));
-
-function animateRain() {
-    if(document.body.classList.contains('past-hero')) {
-        ctx.clearRect(0, 0, width, height);
-        const isDark = document.body.classList.contains('dark-mode');
-        const colorRGB = isDark ? '200, 230, 255' : '100, 150, 200'; 
-
-        if (document.body.classList.contains('is-idle')) {
-            for(let drop of drops) {
-                drop.y += drop.speed; drop.x += 0.5; 
-                if(drop.y > height - 10) { 
-                    splashes.push({ x: drop.x, y: height - 10, radius: 1, maxRadius: Math.random() * 8 + 4, opacity: drop.opacity });
-                    drop.y = -50; drop.x = Math.random() * width; 
-                }
-                if(drop.x > width + 20) { drop.x = -20; }
-                ctx.beginPath(); ctx.strokeStyle = `rgba(${colorRGB}, ${drop.opacity})`; ctx.lineWidth = drop.thickness;
-                ctx.moveTo(drop.x, drop.y); ctx.lineTo(drop.x + 1, drop.y + drop.length); ctx.stroke();
-            }
-            for(let i = splashes.length - 1; i >= 0; i--) {
-                let s = splashes[i];
-                ctx.beginPath(); ctx.strokeStyle = `rgba(${colorRGB}, ${s.opacity})`; ctx.lineWidth = 1;
-                ctx.ellipse(s.x, s.y, s.radius * 2, s.radius, 0, 0, Math.PI * 2); ctx.stroke();
-                s.radius += 0.5; s.opacity -= 0.02; 
-                if (s.opacity <= 0) splashes.splice(i, 1); 
-            }
-        }
-    }
-    requestAnimationFrame(animateRain);
-}
-animateRain();
 
 // --- PREDICTIVE RPS LOGIC ---
 const userScoreEl = document.getElementById('userScore'); const aiScoreEl = document.getElementById('aiScore'); const gameLog = document.getElementById('gameLog');
@@ -254,12 +152,11 @@ function filterProjects(category) {
 }
 
 // ==========================================
-// --- NEW LOGIC: MODALS & HOVER PREVIEWS ---
+// --- MODALS & HOVER PREVIEWS ---
 // ==========================================
 
 document.addEventListener("DOMContentLoaded", () => {
     
-    // --- 1. Certification Hover Logic ---
     const certItems = document.querySelectorAll('.cert-item');
     const previewImg = document.getElementById('hover-preview-img');
 
@@ -285,11 +182,9 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // --- 2. Dynamic Project Modal Logic ---
     const modal = document.getElementById("project-modal");
     
     if (modal) {
-        // FIXED: Targets the specific project close button
         const closeBtn = modal.querySelector(".project-close-btn");
         const projectCards = document.querySelectorAll(".modal-trigger");
 
@@ -341,4 +236,169 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
     }
+});
+
+// ==========================================
+// --- IMMERSIVE NEURAL LANDSCAPE ENGINE ---
+// ==========================================
+window.addEventListener('DOMContentLoaded', () => {
+    if (typeof THREE === 'undefined' || !document.getElementById('llm-3d-bg')) return;
+
+    const bgContainer = document.getElementById('llm-3d-bg');
+    const scene = new THREE.Scene();
+
+    // Setup dynamic fog to hide the edges of the terrain and create depth
+    const colorLight = new THREE.Color(0xf8fafc);
+    const colorDark = new THREE.Color(0x0b0f19);
+    const initialFogColor = document.body.classList.contains('dark-mode') ? colorDark : colorLight;
+    scene.fog = new THREE.FogExp2(initialFogColor, 0.0015);
+
+    // Setup the camera deeply inside the terrain for an immersive feel
+    const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 1, 4000);
+    const baseCameraZ = 800;
+    const baseCameraY = 120;
+    camera.position.set(0, baseCameraY, baseCameraZ);
+
+    const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setPixelRatio(window.devicePixelRatio);
+    bgContainer.appendChild(renderer.domElement);
+
+    // Create a MASSIVE terrain plane (4000x4000) to fill the entire screen space
+    const geometry = new THREE.PlaneGeometry(4000, 4000, 160, 160);
+    geometry.rotateX(-Math.PI / 2); // Lay it flat like a floor
+
+    const positions = geometry.attributes.position.array;
+    const colors = new Float32Array(positions.length);
+    geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+
+    // Theme Colors
+    const color1 = new THREE.Color('#306998'); // Python Blue
+    const color2 = new THREE.Color('#00E5FF'); // AI Cyan
+    const color3 = new THREE.Color('#48BB78'); // Data Green
+    const color4 = new THREE.Color('#FFE873'); // Python Yellow
+
+    // Pre-calculate heights and colors
+    for (let i = 0; i < positions.length; i += 3) {
+        const x = positions[i];
+        const z = positions[i + 2];
+        
+        // Complex mathematical noise to create realistic terrain mountains/valleys
+        const y = Math.sin(x * 0.0015) * Math.cos(z * 0.0015) * 200 +
+                  Math.sin(x * 0.005) * Math.cos(z * 0.005) * 50;
+        
+        positions[i + 1] = y;
+
+        // Map colors based on the elevation (y-axis)
+        let mixRatio = (y + 250) / 500; 
+        mixRatio = Math.max(0, Math.min(1, mixRatio)); 
+
+        let finalColor = new THREE.Color();
+        if (mixRatio < 0.33) {
+            finalColor.lerpColors(color1, color2, mixRatio / 0.33);
+        } else if (mixRatio < 0.66) {
+            finalColor.lerpColors(color2, color3, (mixRatio - 0.33) / 0.33);
+        } else {
+            finalColor.lerpColors(color3, color4, (mixRatio - 0.66) / 0.34);
+        }
+
+        colors[i] = finalColor.r;
+        colors[i + 1] = finalColor.g;
+        colors[i + 2] = finalColor.b;
+    }
+
+    // Material 1: The glowing particles
+    const canvas = document.createElement('canvas');
+    canvas.width = 32; canvas.height = 32;
+    const context = canvas.getContext('2d');
+    context.beginPath();
+    context.arc(16, 16, 14, 0, Math.PI * 2);
+    context.fillStyle = '#ffffff';
+    context.fill();
+    const texture = new THREE.CanvasTexture(canvas);
+
+    const pointMaterial = new THREE.PointsMaterial({
+        size: 5,
+        map: texture,
+        vertexColors: true,
+        transparent: true,
+        opacity: 0.9,
+        alphaTest: 0.1
+    });
+    const points = new THREE.Points(geometry, pointMaterial);
+    scene.add(points);
+
+    // Material 2: The high-tech cyber wireframe
+    const wireframeMaterial = new THREE.LineBasicMaterial({
+        vertexColors: true,
+        transparent: true,
+        opacity: 0.15
+    });
+    const wireframe = new THREE.LineSegments(new THREE.WireframeGeometry(geometry), wireframeMaterial);
+    scene.add(wireframe);
+
+    // Mouse tracking for slight panning
+    let targetXMouse = 0;
+    let targetYMouse = 0;
+    let windowHalfX = window.innerWidth / 2;
+    let windowHalfY = window.innerHeight / 2;
+
+    document.addEventListener('mousemove', (event) => {
+        targetXMouse = event.clientX - windowHalfX;
+        targetYMouse = event.clientY - windowHalfY;
+    });
+
+    window.addEventListener('resize', () => {
+        windowHalfX = window.innerWidth / 2;
+        windowHalfY = window.innerHeight / 2;
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+    });
+
+    // Smooth scroll tracker
+    let smoothedScrollY = 0;
+    let clock = 0;
+
+    function animate() {
+        requestAnimationFrame(animate);
+        clock += 0.01; // Internal time for continuous flowing animation
+
+        // Smoothly interpolate the global window scroll
+        smoothedScrollY += (currentScrollY - smoothedScrollY) * 0.1;
+        const maxScroll = (document.documentElement.scrollHeight - window.innerHeight) || 1;
+        const scrollPercent = smoothedScrollY / maxScroll;
+
+        // 3D CINEMATIC MOVEMENT
+        // The camera physically flies forward up to 2500 pixels deep into the landscape
+        const targetCamZ = baseCameraZ - (scrollPercent * 2500); 
+        // The camera dips slightly as it flies forward to stay close to the data surface
+        const targetCamY = baseCameraY - (scrollPercent * 80);
+
+        // Blend Mouse interaction with Scroll interaction
+        camera.position.x += (targetXMouse * 0.5 - camera.position.x) * 0.05;
+        camera.position.y += (-(targetYMouse * 0.2) + targetCamY - camera.position.y) * 0.05;
+        camera.position.z += (targetCamZ - camera.position.z) * 0.05;
+        
+        // Always look straight ahead to see the fog/horizon
+        camera.lookAt(camera.position.x, camera.position.y - 50, camera.position.z - 500);
+
+        // Continuously undulate the terrain to make it feel alive
+        const pos = geometry.attributes.position.array;
+        for (let i = 0; i < pos.length; i += 3) {
+            const x = pos[i];
+            const z = pos[i + 2];
+            pos[i + 1] = Math.sin(x * 0.0015 + clock * 0.5) * Math.cos(z * 0.0015 + clock * 0.5) * 200 +
+                         Math.sin(x * 0.005 - clock * 0.3) * Math.cos(z * 0.005 - clock * 0.3) * 50;
+        }
+        geometry.attributes.position.needsUpdate = true;
+
+        // Smoothly adapt the 3D fog color when the user changes Light/Dark modes!
+        const targetFogColor = document.body.classList.contains('dark-mode') ? colorDark : colorLight;
+        scene.fog.color.lerp(targetFogColor, 0.05);
+
+        renderer.render(scene, camera);
+    }
+
+    animate();
 });
