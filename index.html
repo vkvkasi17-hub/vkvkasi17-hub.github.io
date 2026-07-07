@@ -1,219 +1,216 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>[[NAME]] | Portfolio</title>
-    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
-    
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+<!DOCTYPE html> 
+<html lang="en"> 
+<head> 
+<meta charset="UTF-8"> 
+<meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+<title>KASI MEKA | Portfolio</title> 
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script> 
+<!-- Three.js for the Custom LLM Embedding Background --> 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script> 
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Fira+Code:wght@400;600&display=swap" rel="stylesheet">
-    
-    <link rel="stylesheet" href="style.css">
-</head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"> 
+<link rel="preconnect" href="https://fonts.googleapis.com"> 
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> 
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Fira+Code:wght@400;600&display=swap" rel="stylesheet"> 
+<link rel="stylesheet" href="style.css"> 
+</head> 
 
-<body class="at-top in-hero is-idle"> 
+<body class="at-top in-hero is-idle"> 
 
-    <div id="llm-3d-bg"></div>
+<!-- LLM 3D Background Container --> 
+<div id="llm-3d-bg"></div> 
 
-    <div class="race-track" id="raceTrack">
-        <div class="race-car" id="raceCar">🏎️</div>
-    </div>
+<div class="race-track" id="raceTrack"> 
+<div class="race-car" id="raceCar">🏎️</div> 
+</div> 
 
-    <div class="custom-cursor" id="customCursor"></div>
+<div class="custom-cursor" id="customCursor"></div> 
 
-    <div id="darkModeToast" class="toast-popup">
-        👋 Welcome! Would you like to view the site in <b>Dark Mode</b>? 
-        <br><button onclick="document.getElementById('themeToggle').click(); this.parentElement.classList.remove('show');" class="toast-btn">Switch to Dark Mode</button>
-    </div>
+<div id="darkModeToast" class="toast-popup"> 
+👋 Welcome! Would you like to view the site in <b>Dark Mode</b>? 
+<br><button onclick="document.getElementById('themeToggle').click(); this.parentElement.classList.remove('show');" class="toast-btn">Switch to Dark Mode</button> 
+</div> 
 
-    <div class="modal-overlay" id="celebrationModal">
-        <div class="celeb-modal-content">
-            <h2>🎉 Thank You! 🎉</h2>
-            <p>You reached the bottom of my website! I think you are impressed with my portfolio. Thanks for visiting!</p>
-            <div class="progress-container"><div class="progress-bar" id="modalProgressBar"></div></div>
-            <button class="celeb-close-btn" onclick="closeModal()">Close</button>
-        </div>
-    </div>
+<div class="modal-overlay" id="celebrationModal"> 
+<div class="celeb-modal-content"> 
+<h2>🎉 Thank You! 🎉</h2> 
+<p>You reached the bottom of my website! I think you are impressed with my portfolio. Thanks for visiting!</p> 
+<div class="progress-container"><div class="progress-bar" id="modalProgressBar"></div></div> 
+<button class="celeb-close-btn" onclick="closeModal()">Close</button> 
+</div> 
+</div> 
 
-    <nav id="navbar">
-        <div class="nav-left"><a href="#" class="logo">KM</a></div>
-        <div class="nav-right-group">
-            <div class="nav-links">
-                <a href="#about">About</a>
-                <a href="#experience">Experience</a>
-                <a href="#education">Education</a>
-                <a href="#certifications">Certifications</a>
-                <a href="#skills">Skills</a>
-                <a href="#projects">Projects</a>
-                <a href="#game">AI Bot</a>
-                <a href="#contact">Contact</a>
-            </div>
-            <button id="themeToggle" class="theme-toggle-btn" aria-label="Toggle Dark Mode"><i class="fa-solid fa-moon"></i></button>
-        </div>
-    </nav>
+<nav id="navbar"> 
+<div class="nav-left"><a href="#" class="logo">KM</a></div> 
+<div class="nav-right-group"> 
+<div class="nav-links"> 
+<a href="#about">About</a> 
+<a href="#experience">Experience</a> 
+<a href="#education">Education</a> 
+<a href="#certifications">Certifications</a> 
+<a href="#skills">Skills</a> 
+<a href="#projects">Projects</a> 
+<a href="#game">AI Bot</a> 
+<a href="#contact">Contact</a> 
+</div> 
+<button id="themeToggle" class="theme-toggle-btn" aria-label="Toggle Dark Mode"><i class="fa-solid fa-moon"></i></button> 
+</div> 
+</nav> 
 
-    <header class="hero-section">
-        <div class="hero-container">
-            <div class="hero-text">
-                <h1>[[NAME]]</h1>
-                <div class="typewriter-text"><span id="typewriter"></span><span class="cursor">&nbsp;</span></div>
-                <p class="hero-desc">[[HEADLINE]]</p>
-                <div class="hero-ctas">
-                    <a href="#projects" class="btn-primary">View Projects</a>
-                    <a href="#contact" class="btn-secondary">Contact Me</a>
-                </div>
-                <div class="hero-socials">
-                    <a href="https://www.linkedin.com/in/[[LINKEDIN]]/" target="_blank"><i class="fa-brands fa-linkedin-in"></i></a>
-                    <a href="https://github.com/[[GITHUB]]" target="_blank"><i class="fa-brands fa-github"></i></a>
-                    <a href="mailto:[[EMAIL]]"><i class="fa-regular fa-envelope"></i></a>
-                </div>
-            </div>
-            <div class="hero-visual">
-                <div class="image-wrapper"><img src="[[PROFILE_PIC]]" class="profile-img-large" onerror="this.style.display='none'"></div>
-            </div>
-        </div>
-        <div class="marquee-container">
-            <div class="marquee-content">
-                <span>Python • AWS • LangChain • FastAPI • Snowflake • Docker • SQL • GCP • Data Engineering • Machine Learning • </span>
-                <span>Python • AWS • LangChain • FastAPI • Snowflake • Docker • SQL • GCP • Data Engineering • Machine Learning • </span>
-            </div>
-        </div>
-    </header>
+<header class="hero-section"> 
+<div class="hero-container"> 
+<div class="hero-text"> 
+<h1>KASI MEKA</h1> 
+<div class="typewriter-text"><span id="typewriter"></span><span class="cursor">&nbsp;</span></div> 
+<p class="hero-desc">Specializing in Backend Development, GenAI Integration & Cloud Platforms</p> 
+<div class="hero-ctas"> 
+<a href="#projects" class="btn-primary">View Projects</a> 
+<a href="#contact" class="btn-secondary">Contact Me</a> 
+</div> 
+<div class="hero-socials"> 
+<a href="https://www.linkedin.com/in/kasi-meka-2193003b1/" target="_blank"><i class="fa-brands fa-linkedin-in"></i></a> 
+<a href="https://github.com/vkvkasi17-hub" target="_blank"><i class="fa-brands fa-github"></i></a> 
+<a href="mailto:vkvkasi17@gmail.com"><i class="fa-regular fa-envelope"></i></a> 
+</div> 
+</div> 
+<div class="hero-visual"> 
+<div class="image-wrapper"><img src="profile.jpeg" class="profile-img-large" onerror="this.style.display='none'"></div> 
+</div> 
+</div> 
+<div class="marquee-container"> 
+<div class="marquee-content"> 
+<span>Python • AWS • LangChain • FastAPI • Snowflake • Docker • SQL • GCP • Data Engineering • Machine Learning • </span> 
+<span>Python • AWS • LangChain • FastAPI • Snowflake • Docker • SQL • GCP • Data Engineering • Machine Learning • </span> 
+</div> 
+</div> 
+</header> 
 
-    <section id="about" class="container book-page">
-        <span class="section-title">About Me</span>
-        <div class="title-underline"></div>
-        <div class="card"><p style="margin:0; font-size: 1.15rem;">[[ABOUT_ME]]</p></div>
-    </section>
+<section id="about" class="container book-page"> 
+<span class="section-title">About Me</span> 
+<div class="title-underline"></div> 
+<div class="card"><p style="margin:0; font-size: 1.15rem;">Hi, I'm Kasi Meka. A Python Developer and Backend Engineer with over 4 years of experience specializing in backend development, data engineering, and cloud platforms (AWS, Azure, GCP). I have proven expertise in designing data pipelines, ETL/ELT processes, and scalable backend APIs using frameworks like FastAPI, Flask, and Django.<br><br>I am highly experienced in integrating Generative AI (GenAI) and Large Language Models (LLMs) into enterprise applications for chatbot evaluation, automation, and intelligent data workflows. I thrive in collaborative, Agile environments and am actively seeking an opportunity where I can contribute to innovative, data-driven projects.</p></div> 
+</section> 
 
-    <section id="experience" class="container book-page">
-        <span class="section-title">Professional Experience</span>
-        <div class="title-underline"></div>
-        [[EXPERIENCE_HTML]] 
-    </section>
+<section id="experience" class="container book-page"> 
+<span class="section-title">Professional Experience</span> 
+<div class="title-underline"></div> 
+<div class="card left" style="border-left: 5px solid #3182ce;"><h3 style="color: #3182ce;">Senior Python Developer</h3><h4>Cigna Health Care | Plano, TX</h4><div class="duration">Jun 2024 – Present</div><ul><li>Developed Python services integrating Generative AI APIs to automate chatbot response evaluation.</li><li>Designed backend data workflows using Python and SQL to support scalable analytics.</li><li>Implemented automated LLM-based evaluation pipelines to assess chatbot response quality.</li><li>Managed AWS cloud infrastructure using VPC, EC2, ECS, S3, and CloudFormation.</li><li>Developed ETL pipelines from S3 to Snowflake using Python.</li><li>Built APIs using FastAPI and Hug frameworks for cross-functional data sharing.</li><li>Improved project code coverage to over 90% using automated unit testing.</li><li>Built Airflow data pipelines in GCP for enterprise ETL jobs.</li><li>Containerized applications using Docker and deployed via Jenkins CI/CD pipelines.</li></ul></div><div class="card left" style="border-left: 5px solid #4a5568;"><h3 style="color: #4a5568;">Python Developer</h3><h4>Hindustan Aeronautics Limited (HAL) | Bangalore, India</h4><div class="duration">Aug 2023 – Dec 2023</div><ul><li>Developed sensor logic using Python scripts and Unix shell scripting.</li><li>Built Python batch processors to consume and produce various feeds.</li><li>Processed massive Blob datasets using PySpark Map-Reduce.</li><li>Wrote cleaning and munging scripts for large-scale datasets.</li></ul></div><div class="card left" style="border-left: 5px solid #4a5568;"><h3 style="color: #4a5568;">Python Developer</h3><h4>Cognizant (Client: MERCK) | Hyderabad, India</h4><div class="duration">June 2021 - Jul 2023</div><ul><li>Managed automated data workflows using Python, SQL, and R.</li><li>Developed pandas scripts for complex CSV data manipulation and comparison.</li><li>Built a Django-based GUI for dynamic code documentation display.</li><li>Executed long-term technological fixes for data and system bottlenecks.</li></ul></div> 
+</section> 
 
-    <section id="education" class="container book-page">
-        <span class="section-title">Education</span>
-        <div class="title-underline"></div>
-        [[EDUCATION_HTML]]
-    </section>
+<section id="education" class="container book-page"> 
+<span class="section-title">Education</span> 
+<div class="title-underline"></div> 
+<div class="card right"><h3 style="color: var(--accent);">Master's in Information Science</h3><h4>University of North Texas | Denton, TX</h4><div class="duration">2024 - 2025</div></div> 
+</section> 
 
-    <section id="certifications" class="container book-page">
-        <span class="section-title">Licenses & Certifications</span>
-        <div class="title-underline"></div>
-        [[CERTIFICATIONS_HTML]]
-    </section>
+<section id="certifications" class="container book-page"> 
+<span class="section-title">Licenses & Certifications</span> 
+<div class="title-underline"></div> 
+<div class="cert-grid"><div class="card cert-card cert-item" data-img="Claude 101.jpg.png"><i class="fa-solid fa-award cert-icon"></i><div><h4 style="margin:0;">Claude 101</h4><p style="margin:0; font-size:0.9rem; color:var(--text-muted);">Anthropic Education</p></div></div><div class="card cert-card cert-item" data-img="Claude Code in Action.jpg.png"><i class="fa-solid fa-award cert-icon"></i><div><h4 style="margin:0;">Claude Code in Action</h4><p style="margin:0; font-size:0.9rem; color:var(--text-muted);">Anthropic Education</p></div></div><div class="card cert-card cert-item" data-img="Claude with the Anthropic API.jpg.png"><i class="fa-solid fa-award cert-icon"></i><div><h4 style="margin:0;">Building with the Claude API</h4><p style="margin:0; font-size:0.9rem; color:var(--text-muted);">Anthropic Education</p></div></div><div class="card cert-card cert-item" data-img=""><i class="fa-solid fa-award cert-icon"></i><div><h4 style="margin:0;">Building customized LLMs with OpenAI</h4><p style="margin:0; font-size:0.9rem; color:var(--text-muted);">Columbia University</p></div></div></div> 
+</section> 
 
-    <img id="hover-preview-img" src="" alt="Certificate Preview">
+<img id="hover-preview-img" src="" alt="Certificate Preview"> 
 
-    <section id="skills" class="container book-page">
-        <span class="section-title">Technical Expertise</span>
-        <div class="title-underline"></div>
-        <p style="text-align: center; color: var(--text-muted); margin-bottom: 20px;"><i>* Click a skill to pop it! *</i></p>
-        [[SKILLS_HTML]]
-    </section>
+<section id="skills" class="container book-page"> 
+<span class="section-title">Technical Expertise</span> 
+<div class="title-underline"></div> 
+<p style="text-align: center; color: var(--text-muted); margin-bottom: 20px;"><i>* Click a skill to pop it! *</i></p> 
+<div class='skills-grid'><div class='card bottom'><h3>Languages</h3><div class='tag-container'><span class='tag skill-tag'>Python</span><span class='tag skill-tag'>SQL</span><span class='tag skill-tag'>R</span><span class='tag skill-tag'>Java</span><span class='tag skill-tag'>JavaScript</span><span class='tag skill-tag'>TypeScript</span></div></div><div class='card bottom'><h3>GenAI & Data</h3><div class='tag-container'><span class='tag skill-tag'>LLMs</span><span class='tag skill-tag'>LangChain</span><span class='tag skill-tag'>ETL/ELT</span><span class='tag skill-tag'>PySpark</span><span class='tag skill-tag'>Snowflake</span><span class='tag skill-tag'>Pandas</span></div></div><div class='card bottom'><h3>Cloud & DevOps</h3><div class='tag-container'><span class='tag skill-tag'>AWS</span><span class='tag skill-tag'>GCP</span><span class='tag skill-tag'>Azure</span><span class='tag skill-tag'>Docker</span><span class='tag skill-tag'>Git</span><span class='tag skill-tag'>FastAPI</span><span class='tag skill-tag'>Airflow</span><span class='tag skill-tag'>Jenkins</span></div></div></div> 
+</section> 
 
-    <section id="projects" class="container book-page">
-        <span class="section-title">Featured Research & Projects</span>
-        <div class="title-underline"></div>
-        <div class="filter-container">
-            <button class="filter-btn active" onclick="filterProjects('all')">All</button>
-            <button class="filter-btn" onclick="filterProjects('GenAI')">GenAI</button>
-            <button class="filter-btn" onclick="filterProjects('ML')">ML</button>
-            <button class="filter-btn" onclick="filterProjects('Data Engineering')">Data Eng</button>
-            <button class="filter-btn" onclick="filterProjects('Data Viz')">Data Viz</button>
-        </div>
-        <div class="skills-grid" id="project-grid">
-            [[PROJECTS_HTML]]
-        </div>
-    </section>
-    
-    <section id="publications" class="container book-page">
-        <span class="section-title">Research & Publications</span>
-        <div class="title-underline"></div>
-        [[PUBLICATIONS_HTML]]
-    </section>
+<section id="projects" class="container book-page"> 
+<span class="section-title">Featured Research & Projects</span> 
+<div class="title-underline"></div> 
+<div class="filter-container"> 
+<button class="filter-btn active" onclick="filterProjects('all')">All</button> 
+<button class="filter-btn" onclick="filterProjects('GenAI')">GenAI</button> 
+<button class="filter-btn" onclick="filterProjects('ML')">ML</button> 
+<button class="filter-btn" onclick="filterProjects('Data Engineering')">Data Eng</button> 
+<button class="filter-btn" onclick="filterProjects('Data Viz')">Data Viz</button> 
+</div> 
+<div class="skills-grid" id="project-grid"><div class="card new-project-card modal-trigger" style="cursor: pointer;" data-category="GenAI" data-title="AI-Powered PDF Assistant (RAG)" data-tech="Python, LangChain, OpenAI, ChromaDB" data-overview="<strong>About the Project:</strong> A lightweight AI assistant that reads personal documents and answers questions accurately using RAG methodology.<br><br><strong>Implementation:</strong> Built locally using Python, LangChain, and ChromaDB for vector storage. It chunks PDF text, creates embeddings via OpenAI, and retrieves relevant context to answer user queries, demonstrating core GenAI orchestration." data-github="https://github.com/vkvkasi17-hub" data-website=""><div class="card-top-bar"><div class="icon-box"><i class="fa-solid fa-brain"></i></div><div class="link-icons"><a href="https://github.com/vkvkasi17-hub" target="_blank" onclick="event.stopPropagation();" title="View Source"><i class="fa-brands fa-github"></i></a></div></div><div class="card-content"><span class="category-badge-text">GenAI</span><h3>AI-Powered PDF Assistant (RAG)</h3><p>Built a Retrieval-Augmented Generation (RAG) script to chat with local PDF documents.</p></div></div><div class="card new-project-card modal-trigger" style="cursor: pointer;" data-category="ML" data-title="Automated Resume Parsing API" data-tech="Python, FastAPI, NLP" data-overview="<strong>About the Project:</strong> This AI-driven tool automatically extracts and categorizes information from unstructured PDFs, instantly converting them into structured JSON data.<br><br><strong>Implementation:</strong> Built using Python and FastAPI for high-performance endpoint delivery. I integrated advanced Natural Language Processing models to identify semantic chunks like 'Skills', 'Experience', and 'Education', drastically streamlining the recruitment pipeline." data-github="https://github.com/vkvkasi17-hub/AI-Resume-Parser" data-website="https://vkvkasi17-hub.github.io/AI-Resume-Parser/"><div class="card-top-bar"><div class="icon-box"><i class="fa-solid fa-robot"></i></div><div class="link-icons"><a href="https://github.com/vkvkasi17-hub/AI-Resume-Parser" target="_blank" onclick="event.stopPropagation();" title="View Source"><i class="fa-brands fa-github"></i></a><a href="https://vkvkasi17-hub.github.io/AI-Resume-Parser/" target="_blank" onclick="event.stopPropagation();" title="Live Link"><i class="fa-solid fa-arrow-up-right-from-square"></i></a></div></div><div class="card-content"><span class="category-badge-text">ML</span><h3>Automated Resume Parsing API</h3><p>Designed a scalable REST API using NLP models to extract key entities from unstructured resume PDFs.</p></div></div><div class="card new-project-card modal-trigger" style="cursor: pointer;" data-category="ML" data-title="Automated Image Captioning Engine" data-tech="Python, Hugging Face, PyTorch" data-overview="<strong>About the Project:</strong> An ML tool that takes unstructured visual data (images) and automatically generates highly descriptive text captions.<br><br><strong>Implementation:</strong> Utilized Hugging Face's <code>transformers</code> library and the BLIP (Bootstrapping Language-Image Pre-training) model. The script processes raw images through a neural network to output accurate descriptions, perfect for accessibility and automated metadata tagging." data-github="https://github.com/vkvkasi17-hub" data-website=""><div class="card-top-bar"><div class="icon-box"><i class="fa-solid fa-robot"></i></div><div class="link-icons"><a href="https://github.com/vkvkasi17-hub" target="_blank" onclick="event.stopPropagation();" title="View Source"><i class="fa-brands fa-github"></i></a></div></div><div class="card-content"><span class="category-badge-text">ML</span><h3>Automated Image Captioning Engine</h3><p>Implemented an ML script leveraging pre-trained vision-language models to automatically caption images.</p></div></div><div class="card new-project-card modal-trigger" style="cursor: pointer;" data-category="Data Viz" data-title="ODI Cricket Analytics Dashboard" data-tech="Python, Tableau, Pandas" data-overview="<strong>About the Project:</strong> A visual analytics suite that digests over two decades of One Day International (ODI) cricket statistics to find hidden performance trends.<br><br><strong>Implementation:</strong> Wrote complex Python Pandas scripts to scrape, munge, and clean messy historical CSVs. Once structured, the data was connected to Tableau to create dynamic, interactive filters allowing users to explore granular player and team statistics." data-github="https://github.com/vkvkasi17-hub" data-website=""><div class="card-top-bar"><div class="icon-box"><i class="fa-solid fa-chart-pie"></i></div><div class="link-icons"><a href="https://github.com/vkvkasi17-hub" target="_blank" onclick="event.stopPropagation();" title="View Source"><i class="fa-brands fa-github"></i></a></div></div><div class="card-content"><span class="category-badge-text">Data Viz</span><h3>ODI Cricket Analytics Dashboard</h3><p>Utilized Pandas to preprocess match data before designing interactive dashboards uncovering 20 years of trends.</p></div></div><div class="card new-project-card modal-trigger" style="cursor: pointer;" data-category="Data Viz" data-title="LA Crime Pattern Analysis" data-tech="Python, Data Analytics, Tableau" data-overview="<strong>About the Project:</strong> A civic data project aiming to highlight geographical and temporal crime patterns in the Los Angeles area to aid predictive policing models.<br><br><strong>Implementation:</strong> Processed massive, unstructured raw municipal datasets using Python data-cleaning scripts. The refined datasets were visualized through interactive Tableau heatmaps and time-series graphs, revealing actionable safety insights." data-github="https://github.com/vkvkasi17-hub" data-website=""><div class="card-top-bar"><div class="icon-box"><i class="fa-solid fa-chart-pie"></i></div><div class="link-icons"><a href="https://github.com/vkvkasi17-hub" target="_blank" onclick="event.stopPropagation();" title="View Source"><i class="fa-brands fa-github"></i></a></div></div><div class="card-content"><span class="category-badge-text">Data Viz</span><h3>LA Crime Pattern Analysis</h3><p>Extracted and cleaned crime datasets using Python to analyze graphical trends across Los Angeles.</p></div></div></div> 
+</section> 
+<section id="publications" class="container book-page"> 
+<span class="section-title">Research & Publications</span> 
+<div class="title-underline"></div> 
+<div class="card right"><a href="https://link.springer.com/article/10.1007/s43681-025-00661-4" target="_blank" style="text-decoration: none;"><h3 class="pub-title" style="color: var(--accent); cursor: pointer;">Standards, frameworks, and legislation for artificial intelligence (AI) transparency ↗</h3></a><div class="tech">AI and Ethics (2025)</div><p style="font-size: 0.95rem; color: var(--text-muted);">Lund, B., Orhan, Z., Mannuru, N. R., Bevara, R. V. K., Porter, B., Vinaih, M. K., & Bhaskara, P. (2025). Standards, frameworks, and legislation for artificial intelligence (AI) transparency. AI and Ethics, 5(4), 3639-3655.</p></div> 
+</section> 
 
-    <section id="game" class="container book-page">
-        <span class="section-title">Beat the AI 🤖</span>
-        <div class="title-underline"></div>
-        <div class="game-container">
-            <h3 style="margin-top: 0;">Predictive Rock-Paper-Scissors</h3>
-            <p style="color: var(--text-muted); margin-bottom: 20px;">This bot uses a simple <b>Markov Chain</b> algorithm to learn your patterns and predict your next move.</p>
-            <div class="score-board">
-                <div>You: <span id="userScore" class="user-score">0</span></div>
-                <div>AI: <span id="aiScore" class="ai-score">0</span></div>
-            </div>
-            <div id="gameLog" class="game-log"><div style="color: var(--text-muted); font-size: 1.1rem;">Make your move below to start the algorithm.</div></div>
-            <div style="display: flex; justify-content: center; gap: 15px; flex-wrap: wrap;">
-                <button class="rps-btn" onclick="playRPS('rock')">✊ Rock</button>
-                <button class="rps-btn" onclick="playRPS('paper')">✋ Paper</button>
-                <button class="rps-btn" onclick="playRPS('scissors')">✌️ Scissors</button>
-            </div>
-        </div>
-    </section>
+<section id="game" class="container book-page"> 
+<span class="section-title">Beat the AI 🤖</span> 
+<div class="title-underline"></div> 
+<div class="game-container"> 
+<h3 style="margin-top: 0;">Predictive Rock-Paper-Scissors</h3> 
+<p style="color: var(--text-muted); margin-bottom: 20px;">This bot uses a simple <b>Markov Chain</b> algorithm to learn your patterns and predict your next move.</p> 
+<div class="score-board"> 
+<div>You: <span id="userScore" class="user-score">0</span></div> 
+<div>AI: <span id="aiScore" class="ai-score">0</span></div> 
+</div> 
+<div id="gameLog" class="game-log"><div style="color: var(--text-muted); font-size: 1.1rem;">Make your move below to start the algorithm.</div></div> 
+<div style="display: flex; justify-content: center; gap: 15px; flex-wrap: wrap;"> 
+<button class="rps-btn" onclick="playRPS('rock')">✊ Rock</button> 
+<button class="rps-btn" onclick="playRPS('paper')">✋ Paper</button> 
+<button class="rps-btn" onclick="playRPS('scissors')">✌️ Scissors</button> 
+</div> 
+</div> 
+</section> 
 
-    <section id="contact" class="container book-page">
-        <span class="section-title">Contact Me</span>
-        <div class="title-underline"></div>
-        <div class="contact-wrapper">
-            <div class="interactive-terminal">
-                <div class="term-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="term-title">contact_kasi.py</span></div>
-                <div class="term-body">
-                    <p><span class="prompt">>>></span> import developer</p>
-                    <p><span class="prompt">>>></span> kasi = developer.get("[[NAME]]")</p>
-                    <p><span class="prompt">>>></span> kasi.contact()</p>
-                    <div class="term-output">
-                        {<br>&nbsp;&nbsp;"email": "<a href='mailto:[[EMAIL]]'>[[EMAIL]]</a>",<br>&nbsp;&nbsp;"phone": "[[PHONE]]",<br>&nbsp;&nbsp;"github": "<a href='https://github.com/[[GITHUB]]' target='_blank'>/[[GITHUB]]</a>",<br>&nbsp;&nbsp;"status": "Available for Full-Time Opportunities"<br>}
-                    </div>
-                    <p><span class="prompt">>>></span> <span class="cursor" style="background-color: white;">&nbsp;</span></p>
-                </div>
-            </div>
-            <div class="form-container">
-                <form action="https://api.web3forms.com/submit" method="POST">
-                    <input type="hidden" name="access_key" value="YOUR_ACCESS_KEY_HERE">
-                    <input type="hidden" name="subject" value="New Portfolio Submission from [[NAME]]">
-                    <input type="hidden" name="redirect" value="https://web3forms.com/success">
+<section id="contact" class="container book-page"> 
+<span class="section-title">Contact Me</span> 
+<div class="title-underline"></div> 
+<div class="contact-wrapper"> 
+<div class="interactive-terminal"> 
+<div class="term-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="term-title">contact_kasi.py</span></div> 
+<div class="term-body"> 
+<p><span class="prompt">>>></span> import developer</p> 
+<p><span class="prompt">>>></span> kasi = developer.get("Kasi Meka")</p> 
+<p><span class="prompt">>>></span> kasi.contact()</p> 
+<div class="term-output"> 
+{<br>&nbsp;&nbsp;"email": "<a href='mailto:vkvkasi17@gmail.com'>vkvkasi17@gmail.com</a>",<br>&nbsp;&nbsp;"phone": "940-290-0996",<br>&nbsp;&nbsp;"github": "<a href='https://github.com/vkvkasi17-hub' target='_blank'>/vkvkasi17-hub</a>",<br>&nbsp;&nbsp;"status": "Available for 2026 Internships"<br>} 
+</div> 
+<p><span class="prompt">>>></span> <span class="cursor" style="background-color: white;">&nbsp;</span></p> 
+</div> 
+</div> 
+<div class="form-container"> 
+<form action="https://api.web3forms.com/submit" method="POST"> 
+<input type="hidden" name="access_key" value="YOUR_ACCESS_KEY_HERE"> 
+<input type="hidden" name="subject" value="New Portfolio Submission from Kasi Meka"> 
+<input type="hidden" name="redirect" value="https://web3forms.com/success"> 
 
-                    <div class="form-group"><label>Name *</label><input type="text" name="name" required placeholder="John Doe"></div>
-                    <div class="form-group"><label>Email *</label><input type="email" name="email" required placeholder="john@example.com"></div>
-                    <div class="form-group" style="margin-bottom: 25px;"><label>Message *</label><textarea name="message" rows="4" required placeholder="Hello Kasi, I am reaching out regarding..."></textarea></div>
-                    <button type="submit" class="submit-btn">Send Message</button>
-                </form>
-            </div>
-        </div>
-    </section>
+<div class="form-group"><label>Name *</label><input type="text" name="name" required placeholder="John Doe"></div> 
+<div class="form-group"><label>Email *</label><input type="email" name="email" required placeholder="john@example.com"></div> 
+<div class="form-group" style="margin-bottom: 25px;"><label>Message *</label><textarea name="message" rows="4" required placeholder="Hello Kasi, I am reaching out regarding..."></textarea></div> 
+<button type="submit" class="submit-btn">Send Message</button> 
+</form> 
+</div> 
+</div> 
+</section> 
 
-    <footer>
-        <div class="footer-left">
-            <a href="#" class="footer-logo logo">KM</a>
-            <p class="footer-copy">© 2026 [[NAME]]. All rights reserved.</p>
-        </div>
-        <div class="footer-icons">
-            <a href="https://linkedin.com/in/[[LINKEDIN]]" target="_blank"><i class="fa-brands fa-linkedin-in"></i></a>
-            <a href="https://github.com/[[GITHUB]]" target="_blank"><i class="fa-brands fa-github"></i></a>
-            <a href="mailto:[[EMAIL]]"><i class="fa-regular fa-envelope"></i></a>
-        </div>
-    </footer>
+<footer> 
+<div class="footer-left"> 
+<a href="#" class="footer-logo logo">KM</a> 
+<p class="footer-copy">© 2026 KASI MEKA. All rights reserved.</p> 
+</div> 
+<div class="footer-icons"> 
+<a href="https://linkedin.com/in/meka-kasi-2193003b1" target="_blank"><i class="fa-brands fa-linkedin-in"></i></a> 
+<a href="https://github.com/vkvkasi17-hub" target="_blank"><i class="fa-brands fa-github"></i></a> 
+<a href="mailto:vkvkasi17@gmail.com"><i class="fa-regular fa-envelope"></i></a> 
+</div> 
+</footer> 
 
-    <div id="project-modal" class="modal">
-        <div class="project-modal-content">
-            <button class="project-close-btn">&times;</button>
-            <h2 id="modal-title"></h2>
-            <p><strong>Tech:</strong> <span id="modal-tech"></span></p>
-            <div id="modal-overview" style="margin: 15px 0; line-height: 1.6;"></div>
-            <div class="modal-links">
-                <a href="#" id="modal-github" target="_blank" class="btn">View on GitHub</a>
-                <a href="#" id="modal-website" target="_blank" class="btn">Live Website</a>
-            </div>
-        </div>
-    </div>
+<div id="project-modal" class="modal"> 
+<div class="project-modal-content"> 
+<button class="project-close-btn">&times;</button> 
+<h2 id="modal-title"></h2> 
+<p><strong>Tech:</strong> <span id="modal-tech"></span></p> 
+<div id="modal-overview" style="margin: 15px 0; line-height: 1.6;"></div> 
+<div class="modal-links"> 
+<a href="#" id="modal-github" target="_blank" class="btn">View on GitHub</a> 
+<a href="#" id="modal-website" target="_blank" class="btn">Live Website</a> 
+</div> 
+</div> 
+</div> 
 
-    <script src="script.js"></script>
-</body>
-</html> 
+<script src="script.js"></script> 
+</body> 
+</html> 
