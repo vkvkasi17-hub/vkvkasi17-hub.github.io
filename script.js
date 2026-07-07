@@ -38,7 +38,7 @@ themeToggleBtn.addEventListener('click', () => {
 });
 
 // --- TYPEWRITER ---
-const titles = ["Python Developer", "Generative AI Engineer", "Backend Specialist", "Data Engineer", "Python Developer | Generative AI | Backend Engineer"];
+const titles = ["ETL Developer", "Python Backend Developer", "GenAI Integration Specialist", "Cloud Platforms Engineer", "Python Developer | Backend & GenAI Systems"];
 let countText = 0; let index = 0; let currentText = ''; let letter = ''; let isDeleting = false;
 function type() {
     if (countText === titles.length) countText = 0;
@@ -104,7 +104,7 @@ window.addEventListener('scroll', () => {
     else if (currentScrollY < lastScrollY) { raceCar.style.transform = 'translateX(-50%) rotate(90deg)'; }
     lastScrollY = currentScrollY;
 
-    if (!isDraggingCar) { raceCar.style.top = `${(currentScrollY / docHeight) * 95}%`; }
+    if (!isDraggingCar) { raceCar.style.top = `${(currentScrollY / (docHeight || 1)) * 95}%`; }
     const navbar = document.getElementById('navbar');
     if (currentScrollY > 20) { navbar.classList.add('scrolled'); } else { navbar.classList.remove('scrolled'); }
 
@@ -146,17 +146,16 @@ function playRPS(userMove) {
     userScoreEl.innerText = uScore; aiScoreEl.innerText = aScore;
     gameLog.innerHTML = `<div style="font-size: 1.1rem; color: var(--text-main); margin-bottom: 15px;">You <span style="font-size: 2.5rem; margin: 0 15px;">${emojis[userMove]}</span> <span style="color: var(--text-muted);">vs</span> <span style="font-size: 2.5rem; margin: 0 15px;">${emojis[aiMove]}</span> AI</div><div style="font-weight: bold; font-size: 1.3rem; color: ${resultColor};">${resultText}</div>`;
 }
+
 function filterProjects(category) {
-    document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active')); event.target.classList.add('active');
+    document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active')); if(event) event.target.classList.add('active');
     document.querySelectorAll('.new-project-card').forEach(project => { if (category === 'all' || project.dataset.category === category) project.classList.remove('project-hidden'); else project.classList.add('project-hidden'); });
 }
 
 // ==========================================
 // --- MODALS & HOVER PREVIEWS ---
 // ==========================================
-
 document.addEventListener("DOMContentLoaded", () => {
-    
     const certItems = document.querySelectorAll('.cert-item');
     const previewImg = document.getElementById('hover-preview-img');
 
@@ -223,16 +222,16 @@ document.addEventListener("DOMContentLoaded", () => {
             });
         });
 
-        const closeModal = () => {
+        const closeProjectModal = () => {
             modal.style.display = "none";
             document.body.style.overflow = ""; 
         };
 
-        if (closeBtn) closeBtn.addEventListener("click", closeModal);
+        if (closeBtn) closeBtn.addEventListener("click", closeProjectModal);
         
         window.addEventListener("click", (event) => {
             if (event.target === modal) { 
-                closeModal(); 
+                closeProjectModal(); 
             }
         });
     }
@@ -308,14 +307,14 @@ window.addEventListener('DOMContentLoaded', () => {
     }
 
     // Material 1: The glowing particles
-    const canvas = document.createElement('canvas');
-    canvas.width = 32; canvas.height = 32;
-    const context = canvas.getContext('2d');
+    const particleCanvas = document.createElement('canvas');
+    particleCanvas.width = 32; particleCanvas.height = 32;
+    const context = particleCanvas.getContext('2d');
     context.beginPath();
     context.arc(16, 16, 14, 0, Math.PI * 2);
     context.fillStyle = '#ffffff';
     context.fill();
-    const texture = new THREE.CanvasTexture(canvas);
+    const texture = new THREE.CanvasTexture(particleCanvas);
 
     const pointMaterial = new THREE.PointsMaterial({
         size: 5,
@@ -360,8 +359,8 @@ window.addEventListener('DOMContentLoaded', () => {
     let smoothedScrollY = 0;
     let clock = 0;
 
-    function animate() {
-        requestAnimationFrame(animate);
+    function animate3D() {
+        requestAnimationFrame(animate3D);
         clock += 0.01; // Internal time for continuous flowing animation
 
         // Smoothly interpolate the global window scroll
@@ -399,6 +398,6 @@ window.addEventListener('DOMContentLoaded', () => {
 
         renderer.render(scene, camera);
     }
-
-    animate();
+ 
+    animate3D();
 });

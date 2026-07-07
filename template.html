@@ -6,7 +6,6 @@
     <title>[[NAME]] | Portfolio</title>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     
-    <!-- Three.js for the Custom LLM Embedding Background -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -19,7 +18,6 @@
 
 <body class="at-top in-hero is-idle"> 
 
-    <!-- LLM 3D Background Container -->
     <div id="llm-3d-bg"></div>
 
     <div class="race-track" id="raceTrack">
@@ -130,7 +128,9 @@
             <button class="filter-btn" onclick="filterProjects('Data Engineering')">Data Eng</button>
             <button class="filter-btn" onclick="filterProjects('Data Viz')">Data Viz</button>
         </div>
-        <div class="skills-grid" id="project-grid">[[PROJECTS_HTML]]</div>
+        <div class="skills-grid" id="project-grid">
+            [[PROJECTS_HTML]]
+        </div>
     </section>
     
     <section id="publications" class="container book-page">
@@ -166,10 +166,10 @@
                 <div class="term-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="term-title">contact_kasi.py</span></div>
                 <div class="term-body">
                     <p><span class="prompt">>>></span> import developer</p>
-                    <p><span class="prompt">>>></span> kasi = developer.get("Kasi Meka")</p>
+                    <p><span class="prompt">>>></span> kasi = developer.get("[[NAME]]")</p>
                     <p><span class="prompt">>>></span> kasi.contact()</p>
                     <div class="term-output">
-                        {<br>&nbsp;&nbsp;"email": "<a href='mailto:[[EMAIL]]'>[[EMAIL]]</a>",<br>&nbsp;&nbsp;"phone": "[[PHONE]]",<br>&nbsp;&nbsp;"github": "<a href='https://github.com/[[GITHUB]]' target='_blank'>/[[GITHUB]]</a>",<br>&nbsp;&nbsp;"status": "Available for 2026 Internships"<br>}
+                        {<br>&nbsp;&nbsp;"email": "<a href='mailto:[[EMAIL]]'>[[EMAIL]]</a>",<br>&nbsp;&nbsp;"phone": "[[PHONE]]",<br>&nbsp;&nbsp;"github": "<a href='https://github.com/[[GITHUB]]' target='_blank'>/[[GITHUB]]</a>",<br>&nbsp;&nbsp;"status": "Available for Full-Time Opportunities"<br>}
                     </div>
                     <p><span class="prompt">>>></span> <span class="cursor" style="background-color: white;">&nbsp;</span></p>
                 </div>
@@ -177,11 +177,12 @@
             <div class="form-container">
                 <form action="https://api.web3forms.com/submit" method="POST">
                     <input type="hidden" name="access_key" value="YOUR_ACCESS_KEY_HERE">
-                    <input type="hidden" name="subject" value="New Portfolio Submission from Kasi Meka">
+                    <input type="hidden" name="subject" value="New Portfolio Submission from [[NAME]]">
                     <input type="hidden" name="redirect" value="https://web3forms.com/success">
 
                     <div class="form-group"><label>Name *</label><input type="text" name="name" required placeholder="John Doe"></div>
                     <div class="form-group"><label>Email *</label><input type="email" name="email" required placeholder="john@example.com"></div>
+                    <div class="form-group" style="margin-bottom: 25px;"><label>Message *</label><textarea name="message" rows="4" required placeholder="Hello Kasi, I am reaching out regarding..."></textarea></div>
                     <div class="form-group" style="margin-bottom: 25px;"><label>Message *</label><textarea name="message" rows="4" required placeholder="Hello Kasi, I am reaching out regarding..."></textarea></div>
                     <button type="submit" class="submit-btn">Send Message</button>
                 </form>
@@ -190,7 +191,7 @@
     </section>
 
     <footer>
-        <div class="footer-left">
+        <div class="footer-left"> 
             <a href="#" class="footer-logo logo">KM</a>
             <p class="footer-copy">© 2026 [[NAME]]. All rights reserved.</p>
         </div>

@@ -3,7 +3,7 @@ import os
 
 print("Starting build process...")
 
-# 1. LOAD DATA
+# 1. LOAD DATA - Targeting the proper folder structure
 with open('Portfolio/portfolio_data.json', 'r') as file:
     portfolio_data = json.load(file)
 
@@ -21,7 +21,36 @@ skills_html += "</div>"
 experience_html = ""
 for exp in portfolio_data['experience']:
     bullets = "".join([f"<li>{b}</li>" for b in exp['bullets']])
-    experience_html += f'<div class="card left" style="border-left: 5px solid {exp["color"]};"><h3 style="color: {exp["color"]};">{exp["role"]}</h3><h4>{exp["company"]}</h4><div class="duration">{exp["duration"]}</div><ul>{bullets}</ul></div>'
+    
+    # Check if optional environment tools are configured for the target box
+    env_footer_html = ""
+    if 'environment' in exp and exp['environment']:
+        tags_html = "".join([f'<span class="env-tag" style="background: var(--bg-main, #0B0F19); border: 1px solid var(--border-color, #223150); color: var(--text-muted, #94A3B8); padding: 3px 10px; border-radius: 6px; font-size: 0.75rem; margin-right: 5px; display: inline-block;">{tag.strip()}</span>' for tag in exp['environment'].split(',')])
+        env_footer_html = f"""
+        <div class="exp-env-footer" style="margin-top: 15px; padding-top: 15px; border-top: 1px dashed var(--border-color, #223150); display: flex; flex-direction: column; gap: 8px;">
+            <span class="env-label" style="font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-primary, #F0F4F8);">Environment & Tools:</span>
+            <div class="env-tags-container" style="display: flex; flex-wrap: wrap; gap: 6px;">
+                {tags_html}
+            </div>
+        </div>
+        """
+
+    # Generates custom-styled workspace layout container box preserving animation structures
+    experience_html += f"""
+    <div class="card left" style="border-left: 5px solid {exp["color"]}; background: var(--card-bg); padding: 30px; border-radius: 0 12px 12px 0; box-shadow: 0 4px 20px rgba(0,0,0,0.15); margin-bottom: 25px;">
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 10px; margin-bottom: 15px;">
+            <div>
+                <h3 style="color: {exp["color"]}; font-family: 'Space Grotesk', sans-serif; font-size: 1.35rem; font-weight: 600; margin: 0;">{exp["role"]}</h3>
+                <h4 style="color: var(--text-muted); font-size: 0.95rem; margin: 4px 0 0 0;">{exp["company"]}</h4>
+            </div>
+            <div class="duration" style="background: rgba(56, 189, 248, 0.1); color: var(--accent); padding: 4px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: 600; border: 1px solid rgba(56, 189, 248, 0.2);">{exp["duration"]}</div>
+        </div>
+        <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 10px; font-family: 'JetBrains Mono', monospace; font-size: 0.88rem; color: var(--text-muted);">
+            {bullets}
+        </ul>
+        {env_footer_html}
+    </div>
+    """
 
 icon_mapping = { "GenAI": "fa-brain", "ML": "fa-robot", "Data Engineering": "fa-server", "Data Viz": "fa-chart-pie" }
 
@@ -86,4 +115,4 @@ final_html = final_html.replace("[[PUBLICATIONS_HTML]]", publications_html)
 with open("index.html", "w") as file:
     file.write(final_html)
 
-print("index.html generated successfully using modular files!")
+print("index.html generated successfully using modular files!") 

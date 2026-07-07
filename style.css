@@ -85,7 +85,7 @@ nav.scrolled .logo { transform: scale(0.9); }
 .card { background: var(--card-bg); border: 1px solid var(--border); padding: 40px; border-radius: 12px; margin-bottom: 25px; box-shadow: 0 4px 6px rgba(0,0,0,0.02); transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease, border-color 0.4s ease; }
 .card:hover { transform: translateY(-10px) scale(1.01); box-shadow: 0 20px 40px rgba(66, 153, 225, 0.15); border-color: var(--accent); z-index: 10; position: relative; }
 
-/* --- EXPERIENCE SECTION FONT CHANGED TO CALIBRI --- */
+/* --- EXPERIENCE SECTION STYLING --- */
 #experience .card p, #experience .card h3, #experience .card h4 { font-family: 'Calibri', 'Segoe UI', sans-serif; }
 #experience ul li { font-family: 'Calibri', 'Segoe UI', sans-serif; font-size: 1.05rem; line-height: 1.7; letter-spacing: 0.3px; }
 
@@ -144,6 +144,7 @@ body.dark-mode .icon-box { background: #1e293b; }
 .term-output { color: #fbd38d; margin: 15px 0 15px 25px; line-height: 1.6; }
 .term-output a { color: #63b3ed; text-decoration: none; }
 
+.form-container { background: var(--card-bg); padding: 35px; border: 1px solid var(--border); border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.02); transition: background-color 0.4s ease, border-color 0.4s ease; }
 .form-container { background: var(--card-bg); padding: 35px; border: 1px solid var(--border); border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.02); transition: background-color 0.4s ease, border-color 0.4s ease; }
 .form-group { display: flex; flex-direction: column; text-align: left; margin-bottom: 20px; }
 .form-group label { margin-bottom: 8px; font-weight: 600; color: var(--text-main); font-size: 1rem; }
