@@ -14,7 +14,7 @@ body.dark-mode {
     --tag-text: #e2e8f0; --term-bg: #000000; --term-border: #1e293b;
     --project-header-bg: #1e293b; --logo-color: #63b3ed; 
 }
- 
+
 * { box-sizing: border-box; }
 ::-webkit-scrollbar { width: 0px; background: transparent; }
 html { scrollbar-width: none; overflow-x: hidden; scroll-padding-top: 80px; scroll-behavior: smooth;}
