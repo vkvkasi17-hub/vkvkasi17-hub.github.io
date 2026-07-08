@@ -1,19 +1,10 @@
 import json
 import os
-import shutil
 
 print("Starting build process...")
 
-# 1. PATH RESOLUTION DETECTOR
-data_path = 'portfolio_data.json'
-template_path = 'template.html'
-
-# If running from outer directory context, look for files natively
-if not os.path.exists(data_path):
-    data_path = 'Portfolio/portfolio_data.json'
-    template_path = 'Portfolio/template.html'
-
-with open(data_path, 'r') as file:
+# 1. LOAD DATA
+with open('portfolio_data.json', 'r') as file:
     portfolio_data = json.load(file)
 
 # 2. GENERATE DYNAMIC HTML CHUNKS
@@ -31,27 +22,15 @@ experience_html = ""
 for exp in portfolio_data['experience']:
     bullets = "".join([f"<li>{b}</li>" for b in exp['bullets']])
     
-    env_block_html = ""
-    if 'environment' in exp and exp['environment']:
-        tags_markup = "".join([f'<span class="env-tag" style="background: var(--tag-bg); border: 1px solid var(--border); color: var(--tag-text); padding: 3px 10px; border-radius: 6px; font-size: 0.75rem; margin-right: 5px; display: inline-block; font-family: \'Fira Code\', monospace;">{tag.strip()}</span>' for tag in exp['environment'].split(',')])
-        env_block_html = f"""
-        <div class="exp-env-footer" style="margin-top: 15px; padding-top: 15px; border-top: 1px dashed var(--border); display: flex; flex-direction: column; gap: 8px;">
-            <span class="env-label" style="font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-main); font-family: \'Inter\', sans-serif;">Environment & Tools:</span>
-            <div class="env-tags-container" style="display: flex; flex-wrap: wrap; gap: 6px;">
-                {tags_markup}
-            </div>
-        </div>
-        """
-
+    # Original exact card generation code block
     experience_html += f"""
-    <div class="card left" style="border-left: 5px solid {exp["color"]}; font-family: 'Inter', sans-serif;">
-        <h3 style="color: {exp["color"]}; font-family: 'Inter', sans-serif; font-weight: 800; font-size: 1.45rem; margin-top: 0; margin-bottom: 5px;">{exp["role"]}</h3>
-        <h4 style="font-family: 'Inter', sans-serif; font-weight: 600; font-size: 1.1rem; color: var(--text-main); margin: 0 0 10px 0;">{exp["company"]}</h4>
-        <div class="duration" style="font-family: 'Inter', sans-serif; font-size: 0.95rem; color: var(--text-muted); margin-bottom: 15px; font-style: italic;">{exp["duration"]}</div>
-        <ul style="font-family: 'Inter', sans-serif; font-size: 1.05rem; line-height: 1.7; color: var(--text-muted); padding-left: 20px;">
+    <div class="card left" style="border-left: 5px solid {exp["color"]};">
+        <h3 style="color: {exp["color"]};">{exp["role"]}</h3>
+        <h4>{exp["company"]}</h4>
+        <div class="duration">{exp["duration"]}</div>
+        <ul>
             {bullets}
         </ul>
-        {env_block_html}
     </div>
     """
 
@@ -94,7 +73,7 @@ for pub in portfolio_data['publications']:
     publications_html += f'<div class="card right"><a href="{pub["link"]}" target="_blank" style="text-decoration: none;"><h3 class="pub-title" style="color: var(--accent); cursor: pointer;">{pub["title"]} ↗</h3></a><div class="tech">{pub["journal"]} ({pub["year"]})</div><p style="font-size: 0.95rem; color: var(--text-muted);">{pub["authors"]}</p></div>'
 
 # 3. LOAD TEMPLATE AND INJECT DATA
-with open(template_path, 'r') as file:
+with open('template.html', 'r') as file:
     final_html = file.read()
 
 final_html = final_html.replace("[[NAME]]", portfolio_data["name"])
@@ -113,13 +92,8 @@ final_html = final_html.replace("[[PROJECTS_HTML]]", projects_html)
 final_html = final_html.replace("[[CERTIFICATIONS_HTML]]", certifications_html) 
 final_html = final_html.replace("[[PUBLICATIONS_HTML]]", publications_html)
 
-# 4. SAVE TO THE BASE PATH
+# 4. SAVE TO INDEX.HTML
 with open("index.html", "w") as file:
     file.write(final_html)
-
-# 5. AUTOMATED DUAL-ZONE SYNC TO NESTED INNER FOLDER
-if os.path.exists("portfolio") and os.path.isdir("portfolio"):
-    shutil.copy2("index.html", "portfolio/index.html")
-    print("Dual-Sync Active: Synced updates down to subfolder structure!")
 
 print("index.html generated successfully using modular files!")

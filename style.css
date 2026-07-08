@@ -20,7 +20,7 @@ body.dark-mode {
 html { scrollbar-width: none; overflow-x: hidden; scroll-padding-top: 80px; scroll-behavior: smooth;}
 body { font-family: 'Inter', sans-serif; margin: 0; padding-top: 80px; background-color: var(--bg); color: var(--text-main); line-height: 1.6; overflow-x: hidden; transition: background-color 0.4s ease, color 0.4s ease; cursor: none; }
 a, button, input, textarea { cursor: none; }
-
+ 
 body.at-top .marquee-container { opacity: 0 !important; visibility: hidden !important; pointer-events: none; }
 
 .race-track { position: fixed; top: 0; right: 0; width: 50px; height: 100vh; background: transparent; z-index: 999999; cursor: grab; transition: opacity 0.5s ease; }
