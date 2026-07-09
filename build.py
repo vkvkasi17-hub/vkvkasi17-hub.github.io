@@ -20,84 +20,36 @@ skills_html += "</div>"
 
 # --- NEW EXPERIENCE BLOCK LAYOUT ---
 # This injects the new shapes and right-aligned flexbox directly into the HTML
-experience_html = """
-<style>
-    .exp-card {
-        background: var(--card-bg);
-        border: 1px solid var(--border);
-        border-radius: 16px; /* New rounded block shape */
-        padding: 30px 30px 30px 40px;
-        margin-bottom: 30px;
-        box-shadow: 0 8px 25px rgba(0,0,0,0.05);
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-        position: relative;
-        overflow: hidden;
-    }
-    .exp-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 12px 35px rgba(0,0,0,0.1);
-    }
-    .exp-header {
-        display: flex;
-        justify-content: space-between; /* Pushes the date to the right */
-        align-items: flex-start;
-        flex-wrap: wrap;
-        gap: 15px;
-        margin-bottom: 20px;
-        border-bottom: 1px solid var(--border);
-        padding-bottom: 20px;
-    }
-    .exp-title {
-        font-size: 1.6rem;
-        font-weight: 800;
-        margin: 0 0 5px 0;
-        letter-spacing: -0.5px;
-        font-family: 'Inter', sans-serif;
-    }
-    .exp-company {
-        font-size: 1.15rem;
-        font-weight: 600;
-        margin: 0;
-        color: var(--text-main);
-    }
-    .exp-date {
-        font-family: 'Fira Code', monospace; /* Tech font for dates */
-        font-size: 0.9rem;
-        font-weight: 600;
-        color: var(--text-muted);
-        background: var(--bg);
-        padding: 8px 16px;
-        border-radius: 20px; /* Pill shape */
-        border: 1px solid var(--border);
-        display: flex;
-        align-items: center;
-        white-space: nowrap;
-        height: fit-content;
-    }
-    .exp-bullets {
-        list-style: none;
-        padding: 0;
-        margin: 0;
-    }
-    .exp-bullets li {
-        position: relative;
-        padding-left: 25px;
-        margin-bottom: 12px;
-        color: var(--text-muted);
-        font-size: 1.05rem;
-        line-height: 1.7;
-    }
-    .exp-bullets li::before {
-        content: '▹';
-        position: absolute;
-        left: 0;
-        top: 0;
-        font-weight: bold;
-        font-size: 1.2rem;
-    }
-</style>
-"""
-
+experience_html = ""
+for exp in portfolio_data['experience']:
+    # Adds a little breathing room under each bullet point
+    bullets = "".join([f"<li style='margin-bottom: 10px;'>{b}</li>" for b in exp['bullets']])
+    
+    # Grab the color for the accent bar
+    color = exp.get("color", "#3182ce")
+    
+    experience_html += f"""
+    <div class="card" style="border-radius: 16px; border: 1px solid var(--border); padding: 30px; position: relative; overflow: hidden; margin-bottom: 30px;">
+        <div style="position: absolute; left: 0; top: 0; width: 6px; height: 100%; background: {color};"></div>
+        
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; border-bottom: 1px solid var(--border); padding-bottom: 15px; margin-bottom: 15px; gap: 15px;">
+            
+            <div style="flex: 1; min-width: 250px;">
+                <h3 style="color: {color}; margin: 0; font-size: 1.5rem; font-weight: 800; font-family: 'Inter', sans-serif;">{exp["role"]}</h3>
+                <h4 style="margin: 5px 0 0 0; font-size: 1.1rem; color: var(--text-main); font-weight: 600;">{exp["company"]}</h4>
+            </div>
+            
+            <div style="background: var(--bg); border: 1px solid var(--border); border-radius: 20px; padding: 6px 16px; font-size: 0.85rem; font-weight: 600; color: var(--text-muted); font-family: 'Fira Code', monospace; white-space: nowrap; height: fit-content;">
+                {exp["duration"]}
+            </div>
+            
+        </div>
+        
+        <ul style="margin: 0; padding-left: 20px; color: var(--text-muted); font-size: 1.05rem; line-height: 1.7;">
+            {bullets}
+        </ul>
+    </div>
+    """
 for exp in portfolio_data['experience']:
     bullets = "".join([f"<li>{b}</li>" for b in exp['bullets']])
     color = exp.get("color", "var(--accent)")

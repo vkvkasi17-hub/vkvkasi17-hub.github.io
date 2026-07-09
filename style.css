@@ -13,7 +13,7 @@ body.dark-mode {
 --border: #2d3748; --form-border: #4a5568; --tag-bg: #1e293b;
 --tag-text: #e2e8f0; --term-bg: #000000; --term-border: #1e293b;
 --project-header-bg: #1e293b; --logo-color: #63b3ed;
-}
+} 
 
 * { box-sizing: border-box; }
 ::-webkit-scrollbar { width: 0px; background: transparent; }

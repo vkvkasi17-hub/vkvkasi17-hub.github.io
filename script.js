@@ -1,5 +1,5 @@
 // --- CUSTOM CURSOR ---
-const cursor = document.getElementById('customCursor');
+const cursor = document.getElementById('customCursor'); 
 let mouseX = window.innerWidth/2; let mouseY = window.innerHeight/2;
 document.addEventListener('mousemove', (e) => { 
     mouseX = e.clientX; mouseY = e.clientY;
