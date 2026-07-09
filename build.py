@@ -18,22 +18,21 @@ for cat, items in portfolio_data['skills'].items():
     skills_html += f"<div class='card bottom'><h3>{cat}</h3><div class='tag-container'>{skill_tags}</div></div>"
 skills_html += "</div>"
 
-# --- NEW EXPERIENCE BLOCK LAYOUT ---
-# This injects the new shapes and right-aligned flexbox directly into the HTML
+# --- THE ALL-NEW EXPERIENCE LOOP ---
+# This loops through EVERY experience in your JSON and applies the right-aligned dates
 experience_html = ""
 for exp in portfolio_data['experience']:
-    # Adds a little breathing room under each bullet point
+    # This grabs every single bullet point so nothing is ever missed
     bullets = "".join([f"<li style='margin-bottom: 10px;'>{b}</li>" for b in exp['bullets']])
     
-    # Grab the color for the accent bar
-    color = exp.get("color", "#3182ce")
+    color = exp.get("color", "var(--accent)")
     
     experience_html += f"""
     <div class="card" style="border-radius: 16px; border: 1px solid var(--border); padding: 30px; position: relative; overflow: hidden; margin-bottom: 30px;">
+        
         <div style="position: absolute; left: 0; top: 0; width: 6px; height: 100%; background: {color};"></div>
         
         <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; border-bottom: 1px solid var(--border); padding-bottom: 15px; margin-bottom: 15px; gap: 15px;">
-            
             <div style="flex: 1; min-width: 250px;">
                 <h3 style="color: {color}; margin: 0; font-size: 1.5rem; font-weight: 800; font-family: 'Inter', sans-serif;">{exp["role"]}</h3>
                 <h4 style="margin: 5px 0 0 0; font-size: 1.1rem; color: var(--text-main); font-weight: 600;">{exp["company"]}</h4>
@@ -42,32 +41,12 @@ for exp in portfolio_data['experience']:
             <div style="background: var(--bg); border: 1px solid var(--border); border-radius: 20px; padding: 6px 16px; font-size: 0.85rem; font-weight: 600; color: var(--text-muted); font-family: 'Fira Code', monospace; white-space: nowrap; height: fit-content;">
                 {exp["duration"]}
             </div>
-            
         </div>
         
         <ul style="margin: 0; padding-left: 20px; color: var(--text-muted); font-size: 1.05rem; line-height: 1.7;">
             {bullets}
         </ul>
-    </div>
-    """
-for exp in portfolio_data['experience']:
-    bullets = "".join([f"<li>{b}</li>" for b in exp['bullets']])
-    color = exp.get("color", "var(--accent)")
-    
-    experience_html += f"""
-    <div class="exp-card">
-        <div style="position: absolute; top: 0; left: 0; width: 6px; height: 100%; background: {color};"></div>
         
-        <div class="exp-header">
-            <div>
-                <h3 class="exp-title" style="color: {color};">{exp["role"]}</h3>
-                <h4 class="exp-company">{exp["company"]}</h4>
-            </div>
-            <div class="exp-date">{exp["duration"]}</div>
-        </div>
-        <ul class="exp-bullets">
-            {bullets}
-        </ul>
     </div>
     """
 
