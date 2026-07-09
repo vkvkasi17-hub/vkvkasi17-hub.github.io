@@ -195,6 +195,7 @@ footer { flex-direction: column; gap: 20px; text-align: center; }
 .container { padding: 30px 15px; }
 .book-page { transform: none; opacity: 1; transition: none; }
 .project-modal-content { width: 90%; margin: 5vh auto; padding: 25px; }
+
 }
 
 /* ==========================================
@@ -218,3 +219,7 @@ opacity: 0.45;
 body.dark-mode #llm-3d-bg {
 opacity: 0.9;
 }
+
+body.at-top .marquee-container { opacity: 0 !important; visibility: hidden !important; pointer-events: none; }
+.race-track { right: 15px !important; z-index: 99999999 !important; }
+.race-car { opacity: 1 !important; visibility: visible !important; }
