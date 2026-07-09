@@ -48,7 +48,7 @@ icon_mapping = { "GenAI": "fa-brain", "ML": "fa-robot", "Data Engineering": "fa-
 projects_html = ""
 for proj in portfolio_data['projects']:
     cat = proj["category"]
-    icon = icon_mapping.get(cat, "fa-code")  
+    icon = icon_mapping.get(cat, "fa-code") 
     
     github = proj.get("github_link", "")
     website = proj.get("website_link", "")
