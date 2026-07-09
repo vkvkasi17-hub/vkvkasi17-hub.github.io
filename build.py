@@ -20,15 +20,24 @@ skills_html += "</div>"
 
 experience_html = ""
 for exp in portfolio_data['experience']:
-    bullets = "".join([f"<li>{b}</li>" for b in exp['bullets']])
+    # Added margin-bottom to each bullet point for breathable spacing
+    bullets = "".join([f"<li style='margin-bottom: 8px;'>{b}</li>" for b in exp['bullets']])
     
-    # Original exact card generation code block
+    # Modern Premium Card Layout with Flexbox, Icons, and Pill Badges
     experience_html += f"""
-    <div class="card left" style="border-left: 5px solid {exp["color"]};">
-        <h3 style="color: {exp["color"]};">{exp["role"]}</h3>
-        <h4>{exp["company"]}</h4>
-        <div class="duration">{exp["duration"]}</div>
-        <ul>
+    <div class="card left" style="border-left: 5px solid {exp["color"]}; padding: 25px 30px;">
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 15px; margin-bottom: 15px; border-bottom: 1px solid var(--border); padding-bottom: 15px;">
+            <div style="flex: 1; min-width: 250px;">
+                <h3 style="color: {exp["color"]}; margin: 0; font-size: 1.5rem; font-weight: 800; letter-spacing: -0.5px;">{exp["role"]}</h3>
+                <h4 style="margin: 8px 0 0 0; font-size: 1.1rem; color: var(--text-main); font-weight: 600;">
+                    <i class="fa-regular fa-building" style="margin-right: 8px; color: var(--text-muted);"></i>{exp["company"]}
+                </h4>
+            </div>
+            <div style="font-size: 0.85rem; font-weight: 600; color: var(--text-muted); background: var(--nav-bg); padding: 8px 16px; border-radius: 20px; border: 1px solid var(--border); display: flex; align-items: center; gap: 8px; white-space: nowrap; height: fit-content;">
+                <i class="fa-regular fa-calendar-alt"></i> {exp["duration"]}
+            </div>
+        </div>
+        <ul style="margin: 0; padding-left: 20px; color: var(--text-muted); line-height: 1.8; font-size: 1.05rem;">
             {bullets}
         </ul>
     </div>
