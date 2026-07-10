@@ -402,3 +402,19 @@ window.addEventListener('DOMContentLoaded', () => {
 
     animate3D();
 });
+
+document.addEventListener('DOMContentLoaded', () => {
+    const expCards = document.querySelectorAll('.exp-card');
+    
+    expCards.forEach(card => {
+        card.addEventListener('click', function() {
+            // Add a temporary 'clicked' class for extra visual flare
+            this.classList.add('pulse-effect');
+            
+            // Remove it after the animation finishes
+            setTimeout(() => {
+                this.classList.remove('pulse-effect');
+            }, 300);
+        });
+    });
+});

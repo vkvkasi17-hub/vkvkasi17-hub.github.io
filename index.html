@@ -84,109 +84,135 @@
     <section id="about" class="container book-page">
         <span class="section-title">About Me</span>
         <div class="title-underline"></div>
-        <div class="card"><p style="margin:0; font-size: 1.15rem;">Hi, I'm Kasi Meka. A Python, ETL Developer and Backend Engineer with over 4 years of experience specializing in backend development, data engineering, ETL pipelines, and cloud platforms (AWS, Azure, GCP). I have proven expertise in designing data pipelines, ETL/ELT processes, and scalable backend APIs using frameworks like FastAPI, Flask, and Django.<br><br>I am highly experienced in integrating Generative AI (GenAI) and Large Language Models (LLMs) into enterprise applications for chatbot evaluation, automation, and intelligent data workflows. I thrive in collaborative, Agile environments and am actively seeking an opportunity where I can contribute to innovative, data-driven projects.</p></div>
+        <div class="card" style="padding: 45px 40px; text-align: center; position: relative; overflow: hidden;">
+            
+            <div style="position: absolute; top: -20px; left: 10px; font-size: 10rem; color: var(--accent); opacity: 0.1; line-height: 1;">"</div>
+            
+            <p style="margin:0; font-size: 1.3rem; line-height: 1.9; font-weight: 400; color: var(--text-main); position: relative; z-index: 1;">
+                Hi, I'm Kasi Meka. A Python, ETL Developer and Backend Engineer with over 4 years of experience specializing in backend development, data engineering, ETL pipelines, and cloud platforms (AWS, Azure, GCP). I have proven expertise in designing data pipelines, ETL/ELT processes, and scalable backend APIs using frameworks like FastAPI, Flask, and Django.<br><br>I am highly experienced in integrating Generative AI (GenAI) and Large Language Models (LLMs) into enterprise applications for chatbot evaluation, automation, and intelligent data workflows. I thrive in collaborative, Agile environments and am actively seeking an opportunity where I can contribute to innovative, data-driven projects.
+            </p>
+            
+            <div style="position: absolute; bottom: -70px; right: 10px; font-size: 10rem; color: var(--accent); opacity: 0.1; line-height: 1;">"</div>
+        </div>
     </section>
 
     <section id="experience" class="container book-page">
         <span class="section-title">Professional Experience</span>
         <div class="title-underline"></div>
+        <div class="experience-container" style="display: flex; flex-direction: column; gap: 35px;">
+    <div class="card exp-card-grid" style="padding: 40px; background: var(--card-bg); border-radius: 20px; border: 1px solid var(--border); display: grid; grid-template-columns: 32% 68%; gap: 35px; align-items: start; position: relative; overflow: hidden;">
         
-    <div class="card" style="border-radius: 16px; border: 1px solid var(--border); padding: 30px; position: relative; overflow: hidden; margin-bottom: 30px;">
-        
-        <div style="position: absolute; left: 0; top: 0; width: 6px; height: 100%; background: #3182ce;"></div>
-        
-        <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; border-bottom: 1px solid var(--border); padding-bottom: 15px; margin-bottom: 15px; gap: 15px;">
-            <div style="flex: 1; min-width: 250px;">
-                <h3 style="color: #3182ce; margin: 0; font-size: 1.5rem; font-weight: 800; font-family: 'Inter', sans-serif;">ETL Developer</h3>
-                <h4 style="margin: 5px 0 0 0; font-size: 1.1rem; color: var(--text-main); font-weight: 600;">Walt Disney | Orlando, Florida</h4>
+        <div style="border-right: 1px solid var(--border); padding-right: 25px; height: 100%; display: flex; flex-direction: column; min-height: 340px; position: relative; z-index: 1;">
+            <div style="position: relative; z-index: 2;">
+                <h3 style="margin: 0; font-size: 1.65rem; font-weight: 800; color: var(--text-main); line-height: 1.2;">ETL Developer</h3>
+                
+                <h4 style="margin: 8px 0 15px 0; font-size: 1.2rem; color: var(--accent); font-weight: 600;">Walt Disney | Orlando, Florida</h4>
+                
+                <div style="display: inline-flex; align-items: center; font-size: 0.9rem; font-weight: 600; color: var(--text-muted); background: rgba(49, 130, 206, 0.06); padding: 6px 14px; border-radius: 8px; border: 1px solid rgba(49, 130, 206, 0.15);">
+                    <i class="fa-regular fa-calendar" style="margin-right: 8px; color: var(--accent);"></i> June 2026 – Present
+                </div>
             </div>
             
-            <div style="background: var(--bg); border: 1px solid var(--border); border-radius: 20px; padding: 6px 16px; font-size: 0.85rem; font-weight: 600; color: var(--text-muted); font-family: 'Fira Code', monospace; white-space: nowrap; height: fit-content;">
-                June 2026 – Present
-            </div>
+            
+        <div style="display: flex; justify-content: center; align-items: center; width: 100%; margin-top: auto; margin-bottom: auto; padding-top: 20px; z-index: 1;">
+            <img src="disney-logo.jpeg" 
+                 style="width: 220px; height: auto; pointer-events: none; mix-blend-mode: multiply;" />
         </div>
         
-        <ul style="margin: 0; padding-left: 20px; color: var(--text-muted); font-size: 1.05rem; line-height: 1.7;">
-            <li style='margin-bottom: 10px;'>Developed and managed a multi-tiered Snowflake architecture (Base, Application Data, Consumption, and Presentation layers) to transform raw platform data into user-ready analytics views.</li><li style='margin-bottom: 10px;'>Built and refined a metadata-driven Python framework to standardize complex marketing campaign strings using Regex lookups and automated string parsing.</li><li style='margin-bottom: 10px;'>Implemented a centralized ERRORS process to manage manual overrides and handle data exceptions, applying corrections directly to master data when standard Regex logic is insufficient.</li><li style='margin-bottom: 10px;'>Replaced manual view workarounds by engineering an automated schema evolution process that dynamically executes ALTER TABLE operations on locked historical snapshots, ensuring seamless UNION ALL execution between legacy and live datasets.</li><li style='margin-bottom: 10px;'>Standardized mismatched database column names while actively retaining legacy columns and executing data migration scripts to prevent breaking downstream reporting.</li><li style='margin-bottom: 10px;'>Managed automated data ingestion via API and Globalscape (FTP), utilizing metadata-driven Python processes to validate file structures and ensure data quality before loading into Snowflake.</li><li style='margin-bottom: 10px;'>Proposed and designed a 'Magnitude of Change Dashboard' powered by taxonomy history tables to provide stakeholders with self-service visibility into dimension changes over time.</li><li style='margin-bottom: 10px;'>Actively participated in weekly taxonomy syncs, sprint planning, and architecture review meetings to review technical flow diagrams, mapping documents, and system designs.</li>
-        </ul>
+        </div>
+        
+        <div style="margin: 0; padding-left: 5px; position: relative; z-index: 2;">
+            <ul style="margin: 0; padding: 0; list-style: none; color: var(--text-muted); font-size: 1.1rem; line-height: 1.8;">
+                <li style='margin-bottom: 14px; position: relative; padding-left: 24px;'><span style='position: absolute; left: 0; color: var(--accent);'>•</span>Developed and managed a multi-tiered Snowflake architecture (Base, Application Data, Consumption, and Presentation layers) to transform raw platform data into user-ready analytics views.</li><li style='margin-bottom: 14px; position: relative; padding-left: 24px;'><span style='position: absolute; left: 0; color: var(--accent);'>•</span>Built and refined a metadata-driven Python framework to standardize complex marketing campaign strings using Regex lookups and automated string parsing.</li><li style='margin-bottom: 14px; position: relative; padding-left: 24px;'><span style='position: absolute; left: 0; color: var(--accent);'>•</span>Implemented a centralized ERRORS process to manage manual overrides and handle data exceptions, applying corrections directly to master data when standard Regex logic is insufficient.</li><li style='margin-bottom: 14px; position: relative; padding-left: 24px;'><span style='position: absolute; left: 0; color: var(--accent);'>•</span>Replaced manual view workarounds by engineering an automated schema evolution process that dynamically executes ALTER TABLE operations on locked historical snapshots, ensuring seamless UNION ALL execution between legacy and live datasets.</li><li style='margin-bottom: 14px; position: relative; padding-left: 24px;'><span style='position: absolute; left: 0; color: var(--accent);'>•</span>Standardized mismatched database column names while actively retaining legacy columns and executing data migration scripts to prevent breaking downstream reporting.</li><li style='margin-bottom: 14px; position: relative; padding-left: 24px;'><span style='position: absolute; left: 0; color: var(--accent);'>•</span>Managed automated data ingestion via API and Globalscape (FTP), utilizing metadata-driven Python processes to validate file structures and ensure data quality before loading into Snowflake.</li><li style='margin-bottom: 14px; position: relative; padding-left: 24px;'><span style='position: absolute; left: 0; color: var(--accent);'>•</span>Proposed and designed a 'Magnitude of Change Dashboard' powered by taxonomy history tables to provide stakeholders with self-service visibility into dimension changes over time.</li><li style='margin-bottom: 14px; position: relative; padding-left: 24px;'><span style='position: absolute; left: 0; color: var(--accent);'>•</span>Actively participated in weekly taxonomy syncs, sprint planning, and architecture review meetings to review technical flow diagrams, mapping documents, and system designs.</li>
+            </ul>
+        </div>
         
     </div>
     
-    <div class="card" style="border-radius: 16px; border: 1px solid var(--border); padding: 30px; position: relative; overflow: hidden; margin-bottom: 30px;">
+    <div class="card exp-card-grid" style="padding: 40px; background: var(--card-bg); border-radius: 20px; border: 1px solid var(--border); display: grid; grid-template-columns: 32% 68%; gap: 35px; align-items: start; position: relative; overflow: hidden;">
         
-        <div style="position: absolute; left: 0; top: 0; width: 6px; height: 100%; background: #3182ce;"></div>
-        
-        <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; border-bottom: 1px solid var(--border); padding-bottom: 15px; margin-bottom: 15px; gap: 15px;">
-            <div style="flex: 1; min-width: 250px;">
-                <h3 style="color: #3182ce; margin: 0; font-size: 1.5rem; font-weight: 800; font-family: 'Inter', sans-serif;">Senior Python Developer</h3>
-                <h4 style="margin: 5px 0 0 0; font-size: 1.1rem; color: var(--text-main); font-weight: 600;">Cigna Health Care | Plano, TX</h4>
+        <div style="border-right: 1px solid var(--border); padding-right: 25px; height: 100%; display: flex; flex-direction: column; min-height: 340px; position: relative; z-index: 1;">
+            <div style="position: relative; z-index: 2;">
+                <h3 style="margin: 0; font-size: 1.65rem; font-weight: 800; color: var(--text-main); line-height: 1.2;">Senior Python Developer</h3>
+                
+                <h4 style="margin: 8px 0 15px 0; font-size: 1.2rem; color: var(--accent); font-weight: 600;">Cigna Health Care | Plano, TX</h4>
+                
+                <div style="display: inline-flex; align-items: center; font-size: 0.9rem; font-weight: 600; color: var(--text-muted); background: rgba(49, 130, 206, 0.06); padding: 6px 14px; border-radius: 8px; border: 1px solid rgba(49, 130, 206, 0.15);">
+                    <i class="fa-regular fa-calendar" style="margin-right: 8px; color: var(--accent);"></i> June 2024 – June 2026
+                </div>
             </div>
             
-            <div style="background: var(--bg); border: 1px solid var(--border); border-radius: 20px; padding: 6px 16px; font-size: 0.85rem; font-weight: 600; color: var(--text-muted); font-family: 'Fira Code', monospace; white-space: nowrap; height: fit-content;">
-                June 2024 – June 2026
-            </div>
+            
         </div>
         
-        <ul style="margin: 0; padding-left: 20px; color: var(--text-muted); font-size: 1.05rem; line-height: 1.7;">
-            <li style='margin-bottom: 10px;'>Developed Python services integrating Generative AI APIs to automate chatbot response evaluation.</li><li style='margin-bottom: 10px;'>Designed backend data workflows using Python and SQL to support scalable analytics.</li><li style='margin-bottom: 10px;'>Implemented automated LLM-based evaluation pipelines to assess chatbot response quality.</li><li style='margin-bottom: 10px;'>Managed AWS cloud infrastructure using VPC, EC2, ECS, S3, and CloudFormation.</li><li style='margin-bottom: 10px;'>Developed ETL pipelines from S3 to Snowflake using Python.</li><li style='margin-bottom: 10px;'>Built APIs using FastAPI and Hug frameworks for cross-functional data sharing.</li><li style='margin-bottom: 10px;'>Improved project code coverage to over 90% using automated unit testing.</li><li style='margin-bottom: 10px;'>Built Airflow data pipelines in GCP for enterprise ETL jobs.</li><li style='margin-bottom: 10px;'>Containerized applications using Docker and deployed via Jenkins CI/CD pipelines.</li>
-        </ul>
+        <div style="margin: 0; padding-left: 5px; position: relative; z-index: 2;">
+            <ul style="margin: 0; padding: 0; list-style: none; color: var(--text-muted); font-size: 1.1rem; line-height: 1.8;">
+                <li style='margin-bottom: 14px; position: relative; padding-left: 24px;'><span style='position: absolute; left: 0; color: var(--accent);'>•</span>Developed Python services integrating Generative AI APIs to automate chatbot response evaluation.</li><li style='margin-bottom: 14px; position: relative; padding-left: 24px;'><span style='position: absolute; left: 0; color: var(--accent);'>•</span>Designed backend data workflows using Python and SQL to support scalable analytics.</li><li style='margin-bottom: 14px; position: relative; padding-left: 24px;'><span style='position: absolute; left: 0; color: var(--accent);'>•</span>Implemented automated LLM-based evaluation pipelines to assess chatbot response quality.</li><li style='margin-bottom: 14px; position: relative; padding-left: 24px;'><span style='position: absolute; left: 0; color: var(--accent);'>•</span>Managed AWS cloud infrastructure using VPC, EC2, ECS, S3, and CloudFormation.</li><li style='margin-bottom: 14px; position: relative; padding-left: 24px;'><span style='position: absolute; left: 0; color: var(--accent);'>•</span>Developed ETL pipelines from S3 to Snowflake using Python.</li><li style='margin-bottom: 14px; position: relative; padding-left: 24px;'><span style='position: absolute; left: 0; color: var(--accent);'>•</span>Built APIs using FastAPI and Hug frameworks for cross-functional data sharing.</li><li style='margin-bottom: 14px; position: relative; padding-left: 24px;'><span style='position: absolute; left: 0; color: var(--accent);'>•</span>Improved project code coverage to over 90% using automated unit testing.</li><li style='margin-bottom: 14px; position: relative; padding-left: 24px;'><span style='position: absolute; left: 0; color: var(--accent);'>•</span>Built Airflow data pipelines in GCP for enterprise ETL jobs.</li><li style='margin-bottom: 14px; position: relative; padding-left: 24px;'><span style='position: absolute; left: 0; color: var(--accent);'>•</span>Containerized applications using Docker and deployed via Jenkins CI/CD pipelines.</li>
+            </ul>
+        </div>
         
     </div>
     
-    <div class="card" style="border-radius: 16px; border: 1px solid var(--border); padding: 30px; position: relative; overflow: hidden; margin-bottom: 30px;">
+    <div class="card exp-card-grid" style="padding: 40px; background: var(--card-bg); border-radius: 20px; border: 1px solid var(--border); display: grid; grid-template-columns: 32% 68%; gap: 35px; align-items: start; position: relative; overflow: hidden;">
         
-        <div style="position: absolute; left: 0; top: 0; width: 6px; height: 100%; background: #4a5568;"></div>
-        
-        <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; border-bottom: 1px solid var(--border); padding-bottom: 15px; margin-bottom: 15px; gap: 15px;">
-            <div style="flex: 1; min-width: 250px;">
-                <h3 style="color: #4a5568; margin: 0; font-size: 1.5rem; font-weight: 800; font-family: 'Inter', sans-serif;">Python Developer</h3>
-                <h4 style="margin: 5px 0 0 0; font-size: 1.1rem; color: var(--text-main); font-weight: 600;">Hindustan Aeronautics Limited (HAL) | Bangalore, India</h4>
+        <div style="border-right: 1px solid var(--border); padding-right: 25px; height: 100%; display: flex; flex-direction: column; min-height: 340px; position: relative; z-index: 1;">
+            <div style="position: relative; z-index: 2;">
+                <h3 style="margin: 0; font-size: 1.65rem; font-weight: 800; color: var(--text-main); line-height: 1.2;">Python Developer</h3>
+                
+                <h4 style="margin: 8px 0 15px 0; font-size: 1.2rem; color: var(--accent); font-weight: 600;">Hindustan Aeronautics Limited (HAL) | Bangalore, India</h4>
+                
+                <div style="display: inline-flex; align-items: center; font-size: 0.9rem; font-weight: 600; color: var(--text-muted); background: rgba(49, 130, 206, 0.06); padding: 6px 14px; border-radius: 8px; border: 1px solid rgba(49, 130, 206, 0.15);">
+                    <i class="fa-regular fa-calendar" style="margin-right: 8px; color: var(--accent);"></i> Aug 2023 – Dec 2023
+                </div>
             </div>
             
-            <div style="background: var(--bg); border: 1px solid var(--border); border-radius: 20px; padding: 6px 16px; font-size: 0.85rem; font-weight: 600; color: var(--text-muted); font-family: 'Fira Code', monospace; white-space: nowrap; height: fit-content;">
-                Aug 2023 – Dec 2023
-            </div>
+            
         </div>
         
-        <ul style="margin: 0; padding-left: 20px; color: var(--text-muted); font-size: 1.05rem; line-height: 1.7;">
-            <li style='margin-bottom: 10px;'>Developed sensor logic using Python scripts and Unix shell scripting.</li><li style='margin-bottom: 10px;'>Built Python batch processors to consume and produce various feeds.</li><li style='margin-bottom: 10px;'>Processed massive Blob datasets using PySpark Map-Reduce.</li><li style='margin-bottom: 10px;'>Wrote cleaning and munging scripts for large-scale datasets.</li>
-        </ul>
+        <div style="margin: 0; padding-left: 5px; position: relative; z-index: 2;">
+            <ul style="margin: 0; padding: 0; list-style: none; color: var(--text-muted); font-size: 1.1rem; line-height: 1.8;">
+                <li style='margin-bottom: 14px; position: relative; padding-left: 24px;'><span style='position: absolute; left: 0; color: var(--accent);'>•</span>Developed sensor logic using Python scripts and Unix shell scripting.</li><li style='margin-bottom: 14px; position: relative; padding-left: 24px;'><span style='position: absolute; left: 0; color: var(--accent);'>•</span>Built Python batch processors to consume and produce various feeds.</li><li style='margin-bottom: 14px; position: relative; padding-left: 24px;'><span style='position: absolute; left: 0; color: var(--accent);'>•</span>Processed massive Blob datasets using PySpark Map-Reduce.</li><li style='margin-bottom: 14px; position: relative; padding-left: 24px;'><span style='position: absolute; left: 0; color: var(--accent);'>•</span>Wrote cleaning and munging scripts for large-scale datasets.</li>
+            </ul>
+        </div>
         
     </div>
     
-    <div class="card" style="border-radius: 16px; border: 1px solid var(--border); padding: 30px; position: relative; overflow: hidden; margin-bottom: 30px;">
+    <div class="card exp-card-grid" style="padding: 40px; background: var(--card-bg); border-radius: 20px; border: 1px solid var(--border); display: grid; grid-template-columns: 32% 68%; gap: 35px; align-items: start; position: relative; overflow: hidden;">
         
-        <div style="position: absolute; left: 0; top: 0; width: 6px; height: 100%; background: #4a5568;"></div>
-        
-        <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; border-bottom: 1px solid var(--border); padding-bottom: 15px; margin-bottom: 15px; gap: 15px;">
-            <div style="flex: 1; min-width: 250px;">
-                <h3 style="color: #4a5568; margin: 0; font-size: 1.5rem; font-weight: 800; font-family: 'Inter', sans-serif;">Python Developer</h3>
-                <h4 style="margin: 5px 0 0 0; font-size: 1.1rem; color: var(--text-main); font-weight: 600;">Cognizant (Client: MERCK) | Hyderabad, India</h4>
+        <div style="border-right: 1px solid var(--border); padding-right: 25px; height: 100%; display: flex; flex-direction: column; min-height: 340px; position: relative; z-index: 1;">
+            <div style="position: relative; z-index: 2;">
+                <h3 style="margin: 0; font-size: 1.65rem; font-weight: 800; color: var(--text-main); line-height: 1.2;">Python Developer</h3>
+                
+                <h4 style="margin: 8px 0 15px 0; font-size: 1.2rem; color: var(--accent); font-weight: 600;">Cognizant (Client: MERCK) | Hyderabad, India</h4>
+                
+                <div style="display: inline-flex; align-items: center; font-size: 0.9rem; font-weight: 600; color: var(--text-muted); background: rgba(49, 130, 206, 0.06); padding: 6px 14px; border-radius: 8px; border: 1px solid rgba(49, 130, 206, 0.15);">
+                    <i class="fa-regular fa-calendar" style="margin-right: 8px; color: var(--accent);"></i> June 2021 - Jul 2023
+                </div>
             </div>
             
-            <div style="background: var(--bg); border: 1px solid var(--border); border-radius: 20px; padding: 6px 16px; font-size: 0.85rem; font-weight: 600; color: var(--text-muted); font-family: 'Fira Code', monospace; white-space: nowrap; height: fit-content;">
-                June 2021 - Jul 2023
-            </div>
+            
         </div>
         
-        <ul style="margin: 0; padding-left: 20px; color: var(--text-muted); font-size: 1.05rem; line-height: 1.7;">
-            <li style='margin-bottom: 10px;'>Managed automated data workflows using Python, SQL, and R.</li><li style='margin-bottom: 10px;'>Developed pandas scripts for complex CSV data manipulation and comparison.</li><li style='margin-bottom: 10px;'>Built a Django-based GUI for dynamic code documentation display.</li><li style='margin-bottom: 10px;'>Executed long-term technological fixes for data and system bottlenecks.</li>
-        </ul>
+        <div style="margin: 0; padding-left: 5px; position: relative; z-index: 2;">
+            <ul style="margin: 0; padding: 0; list-style: none; color: var(--text-muted); font-size: 1.1rem; line-height: 1.8;">
+                <li style='margin-bottom: 14px; position: relative; padding-left: 24px;'><span style='position: absolute; left: 0; color: var(--accent);'>•</span>Managed automated data workflows using Python, SQL, and R.</li><li style='margin-bottom: 14px; position: relative; padding-left: 24px;'><span style='position: absolute; left: 0; color: var(--accent);'>•</span>Developed pandas scripts for complex CSV data manipulation and comparison.</li><li style='margin-bottom: 14px; position: relative; padding-left: 24px;'><span style='position: absolute; left: 0; color: var(--accent);'>•</span>Built a Django-based GUI for dynamic code documentation display.</li><li style='margin-bottom: 14px; position: relative; padding-left: 24px;'><span style='position: absolute; left: 0; color: var(--accent);'>•</span>Executed long-term technological fixes for data and system bottlenecks.</li>
+            </ul>
+        </div>
         
     </div>
-    
+    </div>
     </section>
 
     <section id="education" class="container book-page">
         <span class="section-title">Education</span>
         <div class="title-underline"></div>
-        <div class="card right"><h3 style="color: var(--accent);">Master's in Information Science</h3><h4>University of North Texas | Denton, TX</h4><div class="duration">2024 - 2025</div></div>
+        <div class="card"><h3 style="color: var(--accent); margin-top:0; font-size: 1.5rem;">Master's in Information Science</h3><h4 style="margin:5px 0; font-size: 1.15rem;">University of North Texas | Denton, TX</h4><div style="font-weight:600; color:var(--text-muted); font-size: 1.05rem;">2024 - 2025</div></div>
     </section>
 
     <section id="certifications" class="container book-page">
         <span class="section-title">Licenses & Certifications</span>
         <div class="title-underline"></div>
-        <div class="cert-grid"><div class="card cert-card cert-item" data-img="Claude 101.jpg.png"><i class="fa-solid fa-award cert-icon"></i><div><h4 style="margin:0;">Claude 101</h4><p style="margin:0; font-size:0.9rem; color:var(--text-muted);">Anthropic Education</p></div></div><div class="card cert-card cert-item" data-img="Claude Code in Action.jpg.png"><i class="fa-solid fa-award cert-icon"></i><div><h4 style="margin:0;">Claude Code in Action</h4><p style="margin:0; font-size:0.9rem; color:var(--text-muted);">Anthropic Education</p></div></div><div class="card cert-card cert-item" data-img="Claude with the Anthropic API.jpg.png"><i class="fa-solid fa-award cert-icon"></i><div><h4 style="margin:0;">Building with the Claude API</h4><p style="margin:0; font-size:0.9rem; color:var(--text-muted);">Anthropic Education</p></div></div><div class="card cert-card cert-item" data-img=""><i class="fa-solid fa-award cert-icon"></i><div><h4 style="margin:0;">Building customized LLMs with OpenAI</h4><p style="margin:0; font-size:0.9rem; color:var(--text-muted);">Columbia University</p></div></div></div>
+        <div class="cert-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px;"><div class="card cert-card cert-item" data-img="Claude 101.jpg.png" style="display:flex; align-items:center; gap:20px; padding:25px;"><i class="fa-solid fa-award cert-icon" style="font-size:2.5rem; color:var(--accent);"></i><div><h4 style="margin:0; font-size:1.3rem;">Claude 101</h4><p style="margin:0; font-size:1.05rem; color:var(--text-muted);">Anthropic Education</p></div></div><div class="card cert-card cert-item" data-img="Claude Code in Action.jpg.png" style="display:flex; align-items:center; gap:20px; padding:25px;"><i class="fa-solid fa-award cert-icon" style="font-size:2.5rem; color:var(--accent);"></i><div><h4 style="margin:0; font-size:1.3rem;">Claude Code in Action</h4><p style="margin:0; font-size:1.05rem; color:var(--text-muted);">Anthropic Education</p></div></div><div class="card cert-card cert-item" data-img="Claude with the Anthropic API.jpg.png" style="display:flex; align-items:center; gap:20px; padding:25px;"><i class="fa-solid fa-award cert-icon" style="font-size:2.5rem; color:var(--accent);"></i><div><h4 style="margin:0; font-size:1.3rem;">Building with the Claude API</h4><p style="margin:0; font-size:1.05rem; color:var(--text-muted);">Anthropic Education</p></div></div><div class="card cert-card cert-item" data-img="" style="display:flex; align-items:center; gap:20px; padding:25px;"><i class="fa-solid fa-award cert-icon" style="font-size:2.5rem; color:var(--accent);"></i><div><h4 style="margin:0; font-size:1.3rem;">Building customized LLMs with OpenAI</h4><p style="margin:0; font-size:1.05rem; color:var(--text-muted);">Columbia University</p></div></div></div>
     </section>
 
     <img id="hover-preview-img" src="" alt="Certificate Preview">
@@ -195,7 +221,7 @@
         <span class="section-title">Technical Expertise</span>
         <div class="title-underline"></div>
         <p style="text-align: center; color: var(--text-muted); margin-bottom: 20px;"><i>* Click a skill to pop it! *</i></p>
-        <div class='skills-grid'><div class='card bottom'><h3>Languages</h3><div class='tag-container'><span class='tag skill-tag'>Python</span><span class='tag skill-tag'>SQL</span><span class='tag skill-tag'>R</span><span class='tag skill-tag'>Java</span><span class='tag skill-tag'>JavaScript</span><span class='tag skill-tag'>TypeScript</span></div></div><div class='card bottom'><h3>GenAI & Data</h3><div class='tag-container'><span class='tag skill-tag'>LLMs</span><span class='tag skill-tag'>LangChain</span><span class='tag skill-tag'>ETL/ELT</span><span class='tag skill-tag'>PySpark</span><span class='tag skill-tag'>Snowflake</span><span class='tag skill-tag'>Pandas</span></div></div><div class='card bottom'><h3>Cloud & DevOps</h3><div class='tag-container'><span class='tag skill-tag'>AWS</span><span class='tag skill-tag'>GCP</span><span class='tag skill-tag'>Azure</span><span class='tag skill-tag'>Docker</span><span class='tag skill-tag'>Git</span><span class='tag skill-tag'>FastAPI</span><span class='tag skill-tag'>Airflow</span><span class='tag skill-tag'>Jenkins</span></div></div></div>
+        <div class='skills-grid'><div class='card'><h3 style='font-size: 1.4rem;'>Languages</h3><div class='tag-container'><span class='tag skill-tag'>Python</span><span class='tag skill-tag'>SQL</span><span class='tag skill-tag'>R</span><span class='tag skill-tag'>Java</span><span class='tag skill-tag'>JavaScript</span><span class='tag skill-tag'>TypeScript</span></div></div><div class='card'><h3 style='font-size: 1.4rem;'>GenAI & Data</h3><div class='tag-container'><span class='tag skill-tag'>LLMs</span><span class='tag skill-tag'>LangChain</span><span class='tag skill-tag'>ETL/ELT</span><span class='tag skill-tag'>PySpark</span><span class='tag skill-tag'>Snowflake</span><span class='tag skill-tag'>Pandas</span></div></div><div class='card'><h3 style='font-size: 1.4rem;'>Cloud & DevOps</h3><div class='tag-container'><span class='tag skill-tag'>AWS</span><span class='tag skill-tag'>GCP</span><span class='tag skill-tag'>Azure</span><span class='tag skill-tag'>Docker</span><span class='tag skill-tag'>Git</span><span class='tag skill-tag'>FastAPI</span><span class='tag skill-tag'>Airflow</span><span class='tag skill-tag'>Jenkins</span></div></div></div>
     </section>
 
     <section id="projects" class="container book-page">
@@ -208,13 +234,13 @@
             <button class="filter-btn" onclick="filterProjects('Data Engineering')">Data Eng</button>
             <button class="filter-btn" onclick="filterProjects('Data Viz')">Data Viz</button>
         </div>
-        <div class="skills-grid" id="project-grid"><div class="card new-project-card modal-trigger" style="cursor: pointer;" data-category="GenAI" data-title="AI-Powered PDF Assistant (RAG)" data-tech="Python, LangChain, OpenAI, ChromaDB" data-overview="<strong>About the Project:</strong> A lightweight AI assistant that reads personal documents and answers questions accurately using RAG methodology.<br><br><strong>Implementation:</strong> Built locally using Python, LangChain, and ChromaDB for vector storage. It chunks PDF text, creates embeddings via OpenAI, and retrieves relevant context to answer user queries, demonstrating core GenAI orchestration." data-github="https://github.com/vkvkasi17-hub" data-website=""><div class="card-top-bar"><div class="icon-box"><i class="fa-solid fa-brain"></i></div><div class="link-icons"><a href="https://github.com/vkvkasi17-hub" target="_blank" onclick="event.stopPropagation();" title="View Source"><i class="fa-brands fa-github"></i></a></div></div><div class="card-content"><span class="category-badge-text">GenAI</span><h3>AI-Powered PDF Assistant (RAG)</h3><p>Built a Retrieval-Augmented Generation (RAG) script to chat with local PDF documents.</p></div></div><div class="card new-project-card modal-trigger" style="cursor: pointer;" data-category="ML" data-title="Automated Resume Parsing API" data-tech="Python, FastAPI, NLP" data-overview="<strong>About the Project:</strong> This AI-driven tool automatically extracts and categorizes information from unstructured PDFs, instantly converting them into structured JSON data.<br><br><strong>Implementation:</strong> Built using Python and FastAPI for high-performance endpoint delivery. I integrated advanced Natural Language Processing models to identify semantic chunks like 'Skills', 'Experience', and 'Education', drastically streamlining the recruitment pipeline." data-github="https://github.com/vkvkasi17-hub/AI-Resume-Parser" data-website="https://vkvkasi17-hub.github.io/AI-Resume-Parser/"><div class="card-top-bar"><div class="icon-box"><i class="fa-solid fa-robot"></i></div><div class="link-icons"><a href="https://github.com/vkvkasi17-hub/AI-Resume-Parser" target="_blank" onclick="event.stopPropagation();" title="View Source"><i class="fa-brands fa-github"></i></a><a href="https://vkvkasi17-hub.github.io/AI-Resume-Parser/" target="_blank" onclick="event.stopPropagation();" title="Live Link"><i class="fa-solid fa-arrow-up-right-from-square"></i></a></div></div><div class="card-content"><span class="category-badge-text">ML</span><h3>Automated Resume Parsing API</h3><p>Designed a scalable REST API using NLP models to extract key entities from unstructured resume PDFs.</p></div></div><div class="card new-project-card modal-trigger" style="cursor: pointer;" data-category="ML" data-title="Automated Image Captioning Engine" data-tech="Python, Hugging Face, PyTorch" data-overview="<strong>About the Project:</strong> An ML tool that takes unstructured visual data (images) and automatically generates highly descriptive text captions.<br><br><strong>Implementation:</strong> Utilized Hugging Face's <code>transformers</code> library and the BLIP (Bootstrapping Language-Image Pre-training) model. The script processes raw images through a neural network to output accurate descriptions, perfect for accessibility and automated metadata tagging." data-github="https://github.com/vkvkasi17-hub" data-website=""><div class="card-top-bar"><div class="icon-box"><i class="fa-solid fa-robot"></i></div><div class="link-icons"><a href="https://github.com/vkvkasi17-hub" target="_blank" onclick="event.stopPropagation();" title="View Source"><i class="fa-brands fa-github"></i></a></div></div><div class="card-content"><span class="category-badge-text">ML</span><h3>Automated Image Captioning Engine</h3><p>Implemented an ML script leveraging pre-trained vision-language models to automatically caption images.</p></div></div><div class="card new-project-card modal-trigger" style="cursor: pointer;" data-category="Data Viz" data-title="ODI Cricket Analytics Dashboard" data-tech="Python, Tableau, Pandas" data-overview="<strong>About the Project:</strong> A visual analytics suite that digests over two decades of One Day International (ODI) cricket statistics to find hidden performance trends.<br><br><strong>Implementation:</strong> Wrote complex Python Pandas scripts to scrape, munge, and clean messy historical CSVs. Once structured, the data was connected to Tableau to create dynamic, interactive filters allowing users to explore granular player and team statistics." data-github="https://github.com/vkvkasi17-hub" data-website=""><div class="card-top-bar"><div class="icon-box"><i class="fa-solid fa-chart-pie"></i></div><div class="link-icons"><a href="https://github.com/vkvkasi17-hub" target="_blank" onclick="event.stopPropagation();" title="View Source"><i class="fa-brands fa-github"></i></a></div></div><div class="card-content"><span class="category-badge-text">Data Viz</span><h3>ODI Cricket Analytics Dashboard</h3><p>Utilized Pandas to preprocess match data before designing interactive dashboards uncovering 20 years of trends.</p></div></div><div class="card new-project-card modal-trigger" style="cursor: pointer;" data-category="Data Viz" data-title="LA Crime Pattern Analysis" data-tech="Python, Data Analytics, Tableau" data-overview="<strong>About the Project:</strong> A civic data project aiming to highlight geographical and temporal crime patterns in the Los Angeles area to aid predictive policing models.<br><br><strong>Implementation:</strong> Processed massive, unstructured raw municipal datasets using Python data-cleaning scripts. The refined datasets were visualized through interactive Tableau heatmaps and time-series graphs, revealing actionable safety insights." data-github="https://github.com/vkvkasi17-hub" data-website=""><div class="card-top-bar"><div class="icon-box"><i class="fa-solid fa-chart-pie"></i></div><div class="link-icons"><a href="https://github.com/vkvkasi17-hub" target="_blank" onclick="event.stopPropagation();" title="View Source"><i class="fa-brands fa-github"></i></a></div></div><div class="card-content"><span class="category-badge-text">Data Viz</span><h3>LA Crime Pattern Analysis</h3><p>Extracted and cleaned crime datasets using Python to analyze graphical trends across Los Angeles.</p></div></div></div>
+        <div class="skills-grid" id="project-grid"><div class="card new-project-card modal-trigger" style="cursor: pointer; padding: 35px;" data-category="GenAI" data-title="AI-Powered PDF Assistant (RAG)" data-tech="Python, LangChain, OpenAI, ChromaDB" data-overview="<strong>About the Project:</strong> A lightweight AI assistant that reads personal documents and answers questions accurately using RAG methodology.<br><br><strong>Implementation:</strong> Built locally using Python, LangChain, and ChromaDB for vector storage. It chunks PDF text, creates embeddings via OpenAI, and retrieves relevant context to answer user queries, demonstrating core GenAI orchestration." data-github="https://github.com/vkvkasi17-hub" data-website=""><div class="card-top-bar" style="margin-bottom:20px;"><div class="icon-box"><i class="fa-solid fa-brain"></i></div><div class="link-icons"><a href="https://github.com/vkvkasi17-hub" target="_blank" onclick="event.stopPropagation();" title="View Source"><i class="fa-brands fa-github"></i></a></div></div><div class="card-content"><span class="category-badge-text" style="display:inline-block; margin-bottom:12px; font-weight:600; font-size: 1rem;">GenAI</span><h3 style="margin:0 0 12px 0; font-size:1.5rem;">AI-Powered PDF Assistant (RAG)</h3><p style="margin:0; font-size:1.1rem; color:var(--text-muted);">Built a Retrieval-Augmented Generation (RAG) script to chat with local PDF documents.</p></div></div><div class="card new-project-card modal-trigger" style="cursor: pointer; padding: 35px;" data-category="ML" data-title="Automated Resume Parsing API" data-tech="Python, FastAPI, NLP" data-overview="<strong>About the Project:</strong> This AI-driven tool automatically extracts and categorizes information from unstructured PDFs, instantly converting them into structured JSON data.<br><br><strong>Implementation:</strong> Built using Python and FastAPI for high-performance endpoint delivery. I integrated advanced Natural Language Processing models to identify semantic chunks like 'Skills', 'Experience', and 'Education', drastically streamlining the recruitment pipeline." data-github="https://github.com/vkvkasi17-hub/AI-Resume-Parser" data-website="https://vkvkasi17-hub.github.io/AI-Resume-Parser/"><div class="card-top-bar" style="margin-bottom:20px;"><div class="icon-box"><i class="fa-solid fa-robot"></i></div><div class="link-icons"><a href="https://github.com/vkvkasi17-hub/AI-Resume-Parser" target="_blank" onclick="event.stopPropagation();" title="View Source"><i class="fa-brands fa-github"></i></a><a href="https://vkvkasi17-hub.github.io/AI-Resume-Parser/" target="_blank" onclick="event.stopPropagation();" title="Live Link"><i class="fa-solid fa-arrow-up-right-from-square"></i></a></div></div><div class="card-content"><span class="category-badge-text" style="display:inline-block; margin-bottom:12px; font-weight:600; font-size: 1rem;">ML</span><h3 style="margin:0 0 12px 0; font-size:1.5rem;">Automated Resume Parsing API</h3><p style="margin:0; font-size:1.1rem; color:var(--text-muted);">Designed a scalable REST API using NLP models to extract key entities from unstructured resume PDFs.</p></div></div><div class="card new-project-card modal-trigger" style="cursor: pointer; padding: 35px;" data-category="ML" data-title="Automated Image Captioning Engine" data-tech="Python, Hugging Face, PyTorch" data-overview="<strong>About the Project:</strong> An ML tool that takes unstructured visual data (images) and automatically generates highly descriptive text captions.<br><br><strong>Implementation:</strong> Utilized Hugging Face's <code>transformers</code> library and the BLIP (Bootstrapping Language-Image Pre-training) model. The script processes raw images through a neural network to output accurate descriptions, perfect for accessibility and automated metadata tagging." data-github="https://github.com/vkvkasi17-hub" data-website=""><div class="card-top-bar" style="margin-bottom:20px;"><div class="icon-box"><i class="fa-solid fa-robot"></i></div><div class="link-icons"><a href="https://github.com/vkvkasi17-hub" target="_blank" onclick="event.stopPropagation();" title="View Source"><i class="fa-brands fa-github"></i></a></div></div><div class="card-content"><span class="category-badge-text" style="display:inline-block; margin-bottom:12px; font-weight:600; font-size: 1rem;">ML</span><h3 style="margin:0 0 12px 0; font-size:1.5rem;">Automated Image Captioning Engine</h3><p style="margin:0; font-size:1.1rem; color:var(--text-muted);">Implemented an ML script leveraging pre-trained vision-language models to automatically caption images.</p></div></div><div class="card new-project-card modal-trigger" style="cursor: pointer; padding: 35px;" data-category="Data Viz" data-title="ODI Cricket Analytics Dashboard" data-tech="Python, Tableau, Pandas" data-overview="<strong>About the Project:</strong> A visual analytics suite that digests over two decades of One Day International (ODI) cricket statistics to find hidden performance trends.<br><br><strong>Implementation:</strong> Wrote complex Python Pandas scripts to scrape, munge, and clean messy historical CSVs. Once structured, the data was connected to Tableau to create dynamic, interactive filters allowing users to explore granular player and team statistics." data-github="https://github.com/vkvkasi17-hub" data-website=""><div class="card-top-bar" style="margin-bottom:20px;"><div class="icon-box"><i class="fa-solid fa-chart-pie"></i></div><div class="link-icons"><a href="https://github.com/vkvkasi17-hub" target="_blank" onclick="event.stopPropagation();" title="View Source"><i class="fa-brands fa-github"></i></a></div></div><div class="card-content"><span class="category-badge-text" style="display:inline-block; margin-bottom:12px; font-weight:600; font-size: 1rem;">Data Viz</span><h3 style="margin:0 0 12px 0; font-size:1.5rem;">ODI Cricket Analytics Dashboard</h3><p style="margin:0; font-size:1.1rem; color:var(--text-muted);">Utilized Pandas to preprocess match data before designing interactive dashboards uncovering 20 years of trends.</p></div></div><div class="card new-project-card modal-trigger" style="cursor: pointer; padding: 35px;" data-category="Data Viz" data-title="LA Crime Pattern Analysis" data-tech="Python, Data Analytics, Tableau" data-overview="<strong>About the Project:</strong> A civic data project aiming to highlight geographical and temporal crime patterns in the Los Angeles area to aid predictive policing models.<br><br><strong>Implementation:</strong> Processed massive, unstructured raw municipal datasets using Python data-cleaning scripts. The refined datasets were visualized through interactive Tableau heatmaps and time-series graphs, revealing actionable safety insights." data-github="https://github.com/vkvkasi17-hub" data-website=""><div class="card-top-bar" style="margin-bottom:20px;"><div class="icon-box"><i class="fa-solid fa-chart-pie"></i></div><div class="link-icons"><a href="https://github.com/vkvkasi17-hub" target="_blank" onclick="event.stopPropagation();" title="View Source"><i class="fa-brands fa-github"></i></a></div></div><div class="card-content"><span class="category-badge-text" style="display:inline-block; margin-bottom:12px; font-weight:600; font-size: 1rem;">Data Viz</span><h3 style="margin:0 0 12px 0; font-size:1.5rem;">LA Crime Pattern Analysis</h3><p style="margin:0; font-size:1.1rem; color:var(--text-muted);">Extracted and cleaned crime datasets using Python to analyze graphical trends across Los Angeles.</p></div></div></div>
     </section>
     
     <section id="publications" class="container book-page">
         <span class="section-title">Research & Publications</span>
         <div class="title-underline"></div>
-        <div class="card right"><a href="https://link.springer.com/article/10.1007/s43681-025-00661-4" target="_blank" style="text-decoration: none;"><h3 class="pub-title" style="color: var(--accent); cursor: pointer;">Standards, frameworks, and legislation for artificial intelligence (AI) transparency ↗</h3></a><div class="tech">AI and Ethics (2025)</div><p style="font-size: 0.95rem; color: var(--text-muted);">Lund, B., Orhan, Z., Mannuru, N. R., Bevara, R. V. K., Porter, B., Vinaih, M. K., & Bhaskara, P. (2025). Standards, frameworks, and legislation for artificial intelligence (AI) transparency. AI and Ethics, 5(4), 3639-3655.</p></div>
+        <div class="card"><a href="https://link.springer.com/article/10.1007/s43681-025-00661-4" target="_blank" style="text-decoration: none;"><h3 class="pub-title" style="color: var(--accent); margin:0 0 8px 0; font-size: 1.5rem;">Standards, frameworks, and legislation for artificial intelligence (AI) transparency ↗</h3></a><div class="tech" style="font-weight:600; margin-bottom:12px; font-size: 1.1rem;">AI and Ethics (2025)</div><p style="margin:0; font-size: 1.1rem; color: var(--text-muted);">Lund, B., Orhan, Z., Mannuru, N. R., Bevara, R. V. K., Porter, B., Vinaih, M. K., & Bhaskara, P. (2025). Standards, frameworks, and legislation for artificial intelligence (AI) transparency. AI and Ethics, 5(4), 3639-3655.</p></div>
     </section>
 
     <section id="game" class="container book-page">
@@ -293,5 +319,36 @@
     </div>
 
     <script src="script.js"></script>
+
+<script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const skillTags = document.querySelectorAll('.skill-tag');
+            skillTags.forEach(tag => {
+                tag.addEventListener('click', function(e) {
+                    // Reset animation so it can be clicked multiple times
+                    this.classList.remove('pop-anim');
+                    void this.offsetWidth; 
+                    
+                    // Trigger the Jelly Pop CSS
+                    this.classList.add('pop-anim');
+                    
+                    // Fire mini confetti from the exact mouse click location
+                    if(typeof confetti !== 'undefined') {
+                        const rect = this.getBoundingClientRect();
+                        const xPos = (rect.left + (rect.width / 2)) / window.innerWidth;
+                        const yPos = (rect.top + (rect.height / 2)) / window.innerHeight;
+                        
+                        confetti({
+                            particleCount: 20,
+                            spread: 50,
+                            origin: { x: xPos, y: yPos },
+                            colors: ['#3182ce', '#ffffff', '#63b3ed'],
+                            disableForReducedMotion: true
+                        });
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 </html>

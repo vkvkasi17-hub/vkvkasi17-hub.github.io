@@ -84,7 +84,16 @@
     <section id="about" class="container book-page">
         <span class="section-title">About Me</span>
         <div class="title-underline"></div>
-        <div class="card"><p style="margin:0; font-size: 1.15rem;">[[ABOUT_ME]]</p></div>
+        <div class="card" style="padding: 45px 40px; text-align: center; position: relative; overflow: hidden;">
+            
+            <div style="position: absolute; top: -20px; left: 10px; font-size: 10rem; color: var(--accent); opacity: 0.1; line-height: 1;">"</div>
+            
+            <p style="margin:0; font-size: 1.3rem; line-height: 1.9; font-weight: 400; color: var(--text-main); position: relative; z-index: 1;">
+                [[ABOUT_ME]]
+            </p>
+            
+            <div style="position: absolute; bottom: -70px; right: 10px; font-size: 10rem; color: var(--accent); opacity: 0.1; line-height: 1;">"</div>
+        </div>
     </section>
 
     <section id="experience" class="container book-page">
@@ -209,5 +218,36 @@
     </div>
 
     <script src="script.js"></script>
+
+<script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const skillTags = document.querySelectorAll('.skill-tag');
+            skillTags.forEach(tag => {
+                tag.addEventListener('click', function(e) {
+                    // Reset animation so it can be clicked multiple times
+                    this.classList.remove('pop-anim');
+                    void this.offsetWidth; 
+                    
+                    // Trigger the Jelly Pop CSS
+                    this.classList.add('pop-anim');
+                    
+                    // Fire mini confetti from the exact mouse click location
+                    if(typeof confetti !== 'undefined') {
+                        const rect = this.getBoundingClientRect();
+                        const xPos = (rect.left + (rect.width / 2)) / window.innerWidth;
+                        const yPos = (rect.top + (rect.height / 2)) / window.innerHeight;
+                        
+                        confetti({
+                            particleCount: 20,
+                            spread: 50,
+                            origin: { x: xPos, y: yPos },
+                            colors: ['#3182ce', '#ffffff', '#63b3ed'],
+                            disableForReducedMotion: true
+                        });
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 </html>

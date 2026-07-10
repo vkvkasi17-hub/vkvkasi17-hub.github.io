@@ -3,7 +3,7 @@
 --text-main: #1a202c; --text-muted: #4a5568; --accent: #4299e1;
 --card-bg: #ffffff; --border: #e2e8f0; --form-border: #cbd5e0;
 --submit-btn: #df9e38; --tag-bg: #f1f5f9; --tag-text: #334155;
---term-bg: #1a202c; --term-border: #2d3748; --project-header-bg: #f1f5f9;
+--term-bg: #07090b; --term-border: #2d3748; --project-header-bg: #f1f5f9;
 --logo-color: #2b6cb0;
 }
 
@@ -249,3 +249,147 @@ body.at-top .marquee-container { opacity: 0 !important; visibility: hidden !impo
 .timeline-bullets { list-style-type: none; padding: 0; margin: 0; }
 .timeline-bullets li { position: relative; padding-left: 20px; margin-bottom: 12px; color: var(--text-muted); line-height: 1.6; font-size: 1.05rem; }
 .timeline-bullets li::before { content: '▹'; position: absolute; left: 0; color: var(--accent); font-weight: bold; font-size: 1.2rem; }
+
+/* ==========================================
+   GLOBAL UI OVERRIDE: FONTS, OPACITY & ANIMATIONS
+   ========================================== */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+
+/* 1. Force the exact same font everywhere */
+body, h1, h2, h3, h4, h5, p, span, div, li, a, button {
+    font-family: 'Poppins', sans-serif !important;
+}
+
+/* 2. Unified Solid Blocks with Bounce Animation */
+.card, .exp-card, .cert-card, .new-project-card {
+    background: var(--card-bg) !important; /* Solid color, 100% opacity */
+    backdrop-filter: none !important; /* Removes the glass transparency */
+    border-radius: 24px !important;
+    border: 1px solid var(--border) !important;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.06) !important;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important; /* Bouncy animation math */
+}
+
+/* 3. The Hover Animation for ALL blocks */
+.card:hover, .exp-card:hover, .cert-card:hover, .new-project-card:hover {
+    transform: translateY(-10px) scale(1.02) !important; /* Lifts and slightly enlarges */
+    box-shadow: 0 20px 40px rgba(0,0,0,0.12) !important;
+    border-color: var(--accent) !important;
+}
+
+/* 4. Page Load Fade-In Animation */
+@keyframes fadeUp {
+    from { opacity: 0; transform: translateY(40px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+.container {
+    animation: fadeUp 1s ease-out forwards;
+}
+
+/* --- UPSCALE LAYOUT TO FILL SCREEN --- */
+.container { 
+    max-width: 1150px !important; /* Widens the entire page content */
+} 
+body { 
+    font-size: 1.1rem; /* Bumps up the default text size globally */
+}
+.section-title { 
+    font-size: 3.2rem !important; /* Makes headers massive and bold */
+}
+
+/* --- DEEPER, MORE DRAMATIC HOVER ANIMATIONS --- */
+.card, .exp-card, .cert-card, .new-project-card {
+    transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
+}
+.card:hover, .exp-card:hover, .cert-card:hover, .new-project-card:hover {
+    transform: translateY(-16px) scale(1.03) !important; /* Huge lift and slight zoom */
+    box-shadow: 0 35px 60px rgba(0,0,0,0.12) !important; /* Deep, wide shadow */
+    border-color: var(--accent) !important;
+}
+
+/* --- SKILL JELLY-POP ANIMATION --- */
+@keyframes jellyPop {
+    0% { transform: scale(1); }
+    30% { transform: scale(1.25) rotate(-5deg); }
+    40% { transform: scale(0.85) rotate(5deg); }
+    50% { transform: scale(1.15) rotate(-3deg); }
+    65% { transform: scale(0.95) rotate(2deg); }
+    75% { transform: scale(1.05) rotate(-1deg); }
+    100% { transform: scale(1); }
+}
+.skill-tag { transition: all 0.2s ease; cursor: pointer; user-select: none; }
+.skill-tag.pop-anim {
+    animation: jellyPop 0.6s cubic-bezier(0.25, 1, 0.5, 1) !important;
+    background: var(--accent) !important;
+    color: white !important;
+    border-color: var(--accent) !important;
+    box-shadow: 0 10px 20px rgba(49, 130, 206, 0.4);
+}
+
+/* --- CLEAN STACKING EFFECT --- */
+.experience-container {
+    position: relative;
+    padding-bottom: 50px; /* Space at the end of the stack */
+}
+
+.exp-card {
+    position: sticky;
+    top: 100px; /* Pins 100px from the top */
+    z-index: 1;
+    margin-bottom: 20px;
+    background: var(--card-bg) !important;
+}
+
+/* This makes sure the cards don't look like they are 'inside' each other */
+.exp-card:nth-child(1) { top: 100px; }
+.exp-card:nth-child(2) { top: 120px; }
+.exp-card:nth-child(3) { top: 140px; }
+.exp-card:nth-child(4) { top: 160px; }
+
+/* --- CLICK INTERACTION --- */
+.exp-card {
+    cursor: pointer;
+    transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.2s ease !important;
+}
+
+.exp-card:active {
+    transform: scale(0.98) !important; /* Shrink effect on click */
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2) !important;
+    border-color: var(--accent) !important;
+}
+
+.pulse-effect {
+    animation: pulse 0.3s ease-out;
+}
+
+@keyframes pulse {
+    0% { outline: 0px solid var(--accent); }
+    50% { outline: 4px solid rgba(49, 130, 206, 0.4); }
+    100% { outline: 0px solid transparent; }
+}
+
+/* --- OPTION 2 SPLIT-GRID STYLES --- */
+.exp-card-grid {
+    transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1), box-shadow 0.4s ease, border-color 0.4s ease !important;
+}
+
+.exp-card-grid:hover {
+    transform: translateY(-8px) !important; /* Elegant vertical lift */
+    box-shadow: 0 20px 40px rgba(0,0,0,0.15) !important;
+    border-color: var(--accent) !important;
+}
+
+/* Responsive adjustment for small/mobile screens */
+@media (max-width: 768px) {
+    .exp-card-grid {
+        grid-template-columns: 1fr !important; /* Collapses into a single column on mobile */
+        gap: 20px !important;
+    }
+    .exp-card-grid div:first-child {
+        border-right: none !important;
+        border-bottom: 1px solid var(--border) !important;
+        padding-right: 0 !important;
+        padding-bottom: 20px !important;
+        height: auto !important;
+    }
+}
