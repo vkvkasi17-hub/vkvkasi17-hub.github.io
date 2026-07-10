@@ -100,102 +100,129 @@
         <span class="section-title">Professional Experience</span>
         <div class="title-underline"></div>
         <div class="experience-container" style="display: flex; flex-direction: column; gap: 35px;">
-    <div class="card exp-card-grid" style="padding: 40px; background: var(--card-bg); border-radius: 20px; border: 1px solid var(--border); display: grid; grid-template-columns: 32% 68%; gap: 35px; align-items: start; position: relative; overflow: hidden;">
+    <div class="card exp-card-grid" style="padding: 35px 40px; background: var(--card-bg); border-radius: 20px; border: 1px solid var(--border); display: grid; grid-template-columns: 32% 68%; gap: 35px; align-items: stretch; position: relative; overflow: hidden;">
         
-        <div style="border-right: 1px solid var(--border); padding-right: 25px; height: 100%; display: flex; flex-direction: column; min-height: 340px; position: relative; z-index: 1;">
-            <div style="position: relative; z-index: 2;">
-                <h3 style="margin: 0; font-size: 1.65rem; font-weight: 800; color: var(--text-main); line-height: 1.2;">ETL Developer</h3>
+        <div style="border-right: 1px solid var(--border); padding-right: 25px; display: flex; flex-direction: column; justify-content: space-between; position: relative; z-index: 1;">
+            <div>
+                <h3 style="margin: 0; font-size: 1.6rem; font-weight: 800; color: var(--text-main); line-height: 1.2;">ETL Developer</h3>
                 
-                <h4 style="margin: 8px 0 15px 0; font-size: 1.2rem; color: var(--accent); font-weight: 600;">Walt Disney | Orlando, Florida</h4>
+                <h4 style="margin: 6px 0 12px 0; font-size: 1.15rem; color: var(--accent); font-weight: 600;">Walt Disney | Orlando, Florida</h4>
                 
-                <div style="display: inline-flex; align-items: center; font-size: 0.9rem; font-weight: 600; color: var(--text-muted); background: rgba(49, 130, 206, 0.06); padding: 6px 14px; border-radius: 8px; border: 1px solid rgba(49, 130, 206, 0.15);">
-                    <i class="fa-regular fa-calendar" style="margin-right: 8px; color: var(--accent);"></i> June 2026 – Present
+                <div style="display: inline-flex; align-items: center; font-size: 0.85rem; font-weight: 600; color: var(--text-muted); background: rgba(49, 130, 206, 0.06); padding: 5px 12px; border-radius: 8px; border: 1px solid rgba(49, 130, 206, 0.15);">
+                    <i class="fa-regular fa-calendar" style="margin-right: 6px; color: var(--accent);"></i> June 2026 – Present
                 </div>
             </div>
             
             
-        <div style="display: flex; justify-content: center; align-items: center; width: 100%; margin-top: auto; margin-bottom: auto; padding-top: 20px; z-index: 1;">
+        <div style="display: flex; flex: 1; justify-content: center; align-items: center; width: 100%; min-height: 220px; z-index: 1;">
             <img src="disney-logo.jpeg" 
-                 style="width: 220px; height: auto; pointer-events: none; mix-blend-mode: multiply;" />
+                 style="width: 280px; height: auto; pointer-events: none; mix-blend-mode: multiply;" />
+        </div>
+        <div style="margin-top: auto; padding-top: 15px; border-top: 1px dashed var(--border);">
+            <div style="font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted); font-weight: 700; margin-bottom: 10px;">Technologies Handled</div>
+            <div style="display: flex; flex-wrap: wrap;">
+                <button class='tech-badge-btn'>Python</button><button class='tech-badge-btn'>Snowflake</button><button class='tech-badge-btn'>SQL</button><button class='tech-badge-btn'>ETL</button><button class='tech-badge-btn'>Airflow</button><button class='tech-badge-btn'>API Integration</button>
+            </div>
         </div>
         
         </div>
         
-        <div style="margin: 0; padding-left: 5px; position: relative; z-index: 2;">
-            <ul style="margin: 0; padding: 0; list-style: none; color: var(--text-muted); font-size: 1.1rem; line-height: 1.8;">
-                <li style='margin-bottom: 14px; position: relative; padding-left: 24px;'><span style='position: absolute; left: 0; color: var(--accent);'>•</span>Developed and managed a multi-tiered Snowflake architecture (Base, Application Data, Consumption, and Presentation layers) to transform raw platform data into user-ready analytics views.</li><li style='margin-bottom: 14px; position: relative; padding-left: 24px;'><span style='position: absolute; left: 0; color: var(--accent);'>•</span>Built and refined a metadata-driven Python framework to standardize complex marketing campaign strings using Regex lookups and automated string parsing.</li><li style='margin-bottom: 14px; position: relative; padding-left: 24px;'><span style='position: absolute; left: 0; color: var(--accent);'>•</span>Implemented a centralized ERRORS process to manage manual overrides and handle data exceptions, applying corrections directly to master data when standard Regex logic is insufficient.</li><li style='margin-bottom: 14px; position: relative; padding-left: 24px;'><span style='position: absolute; left: 0; color: var(--accent);'>•</span>Replaced manual view workarounds by engineering an automated schema evolution process that dynamically executes ALTER TABLE operations on locked historical snapshots, ensuring seamless UNION ALL execution between legacy and live datasets.</li><li style='margin-bottom: 14px; position: relative; padding-left: 24px;'><span style='position: absolute; left: 0; color: var(--accent);'>•</span>Standardized mismatched database column names while actively retaining legacy columns and executing data migration scripts to prevent breaking downstream reporting.</li><li style='margin-bottom: 14px; position: relative; padding-left: 24px;'><span style='position: absolute; left: 0; color: var(--accent);'>•</span>Managed automated data ingestion via API and Globalscape (FTP), utilizing metadata-driven Python processes to validate file structures and ensure data quality before loading into Snowflake.</li><li style='margin-bottom: 14px; position: relative; padding-left: 24px;'><span style='position: absolute; left: 0; color: var(--accent);'>•</span>Proposed and designed a 'Magnitude of Change Dashboard' powered by taxonomy history tables to provide stakeholders with self-service visibility into dimension changes over time.</li><li style='margin-bottom: 14px; position: relative; padding-left: 24px;'><span style='position: absolute; left: 0; color: var(--accent);'>•</span>Actively participated in weekly taxonomy syncs, sprint planning, and architecture review meetings to review technical flow diagrams, mapping documents, and system designs.</li>
+        <div style="margin: 0; padding-left: 5px; display: flex; align-items: center; position: relative; z-index: 2;">
+            <ul style="margin: 0; padding: 0; list-style: none; color: var(--text-muted); font-size: 1.05rem; line-height: 1.75; width: 100%;">
+                <li style='margin-bottom: 12px; position: relative; padding-left: 24px;'><span style='position: absolute; left: 0; color: var(--accent);'>•</span>Developed and managed a multi-tiered Snowflake architecture (Base, Application Data, Consumption, and Presentation layers) to transform raw platform data into user-ready analytics views.</li><li style='margin-bottom: 12px; position: relative; padding-left: 24px;'><span style='position: absolute; left: 0; color: var(--accent);'>•</span>Built and refined a metadata-driven Python framework to standardize complex marketing campaign strings using Regex lookups and automated string parsing.</li><li style='margin-bottom: 12px; position: relative; padding-left: 24px;'><span style='position: absolute; left: 0; color: var(--accent);'>•</span>Implemented a centralized ERRORS process to manage manual overrides and handle data exceptions, applying corrections directly to master data when standard Regex logic is insufficient.</li><li style='margin-bottom: 12px; position: relative; padding-left: 24px;'><span style='position: absolute; left: 0; color: var(--accent);'>•</span>Replaced manual view workarounds by engineering an automated schema evolution process that dynamically executes ALTER TABLE operations on locked historical snapshots, ensuring seamless UNION ALL execution between legacy and live datasets.</li><li style='margin-bottom: 12px; position: relative; padding-left: 24px;'><span style='position: absolute; left: 0; color: var(--accent);'>•</span>Standardized mismatched database column names while actively retaining legacy columns and executing data migration scripts to prevent breaking downstream reporting.</li><li style='margin-bottom: 12px; position: relative; padding-left: 24px;'><span style='position: absolute; left: 0; color: var(--accent);'>•</span>Managed automated data ingestion via API and Globalscape (FTP), utilizing metadata-driven Python processes to validate file structures and ensure data quality before loading into Snowflake.</li><li style='margin-bottom: 12px; position: relative; padding-left: 24px;'><span style='position: absolute; left: 0; color: var(--accent);'>•</span>Proposed and designed a 'Magnitude of Change Dashboard' powered by taxonomy history tables to provide stakeholders with self-service visibility into dimension changes over time.</li><li style='margin-bottom: 12px; position: relative; padding-left: 24px;'><span style='position: absolute; left: 0; color: var(--accent);'>•</span>Actively participated in weekly taxonomy syncs, sprint planning, and architecture review meetings to review technical flow diagrams, mapping documents, and system designs.</li>
             </ul>
         </div>
         
     </div>
     
-    <div class="card exp-card-grid" style="padding: 40px; background: var(--card-bg); border-radius: 20px; border: 1px solid var(--border); display: grid; grid-template-columns: 32% 68%; gap: 35px; align-items: start; position: relative; overflow: hidden;">
+    <div class="card exp-card-grid" style="padding: 35px 40px; background: var(--card-bg); border-radius: 20px; border: 1px solid var(--border); display: grid; grid-template-columns: 32% 68%; gap: 35px; align-items: stretch; position: relative; overflow: hidden;">
         
-        <div style="border-right: 1px solid var(--border); padding-right: 25px; height: 100%; display: flex; flex-direction: column; min-height: 340px; position: relative; z-index: 1;">
-            <div style="position: relative; z-index: 2;">
-                <h3 style="margin: 0; font-size: 1.65rem; font-weight: 800; color: var(--text-main); line-height: 1.2;">Senior Python Developer</h3>
+        <div style="border-right: 1px solid var(--border); padding-right: 25px; display: flex; flex-direction: column; justify-content: space-between; position: relative; z-index: 1;">
+            <div>
+                <h3 style="margin: 0; font-size: 1.6rem; font-weight: 800; color: var(--text-main); line-height: 1.2;">Senior Python Developer</h3>
                 
-                <h4 style="margin: 8px 0 15px 0; font-size: 1.2rem; color: var(--accent); font-weight: 600;">Cigna Health Care | Plano, TX</h4>
+                <h4 style="margin: 6px 0 12px 0; font-size: 1.15rem; color: var(--accent); font-weight: 600;">Cigna Health Care | Plano, TX</h4>
                 
-                <div style="display: inline-flex; align-items: center; font-size: 0.9rem; font-weight: 600; color: var(--text-muted); background: rgba(49, 130, 206, 0.06); padding: 6px 14px; border-radius: 8px; border: 1px solid rgba(49, 130, 206, 0.15);">
-                    <i class="fa-regular fa-calendar" style="margin-right: 8px; color: var(--accent);"></i> June 2024 – June 2026
+                <div style="display: inline-flex; align-items: center; font-size: 0.85rem; font-weight: 600; color: var(--text-muted); background: rgba(49, 130, 206, 0.06); padding: 5px 12px; border-radius: 8px; border: 1px solid rgba(49, 130, 206, 0.15);">
+                    <i class="fa-regular fa-calendar" style="margin-right: 6px; color: var(--accent);"></i> June 2024 – June 2026
                 </div>
             </div>
             
             
+        <div style="margin-top: auto; padding-top: 20px;">
+            <div style="font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted); font-weight: 700; margin-bottom: 10px;">Technologies Handled</div>
+            <div style="display: flex; flex-wrap: wrap;">
+                <button class='tech-badge-btn'>Python</button><button class='tech-badge-btn'>FastAPI</button><button class='tech-badge-btn'>AWS</button><button class='tech-badge-btn'>Snowflake</button><button class='tech-badge-btn'>Docker</button><button class='tech-badge-btn'>GCP</button><button class='tech-badge-btn'>Airflow</button><button class='tech-badge-btn'>LLM Eval</button>
+            </div>
         </div>
         
-        <div style="margin: 0; padding-left: 5px; position: relative; z-index: 2;">
-            <ul style="margin: 0; padding: 0; list-style: none; color: var(--text-muted); font-size: 1.1rem; line-height: 1.8;">
-                <li style='margin-bottom: 14px; position: relative; padding-left: 24px;'><span style='position: absolute; left: 0; color: var(--accent);'>•</span>Developed Python services integrating Generative AI APIs to automate chatbot response evaluation.</li><li style='margin-bottom: 14px; position: relative; padding-left: 24px;'><span style='position: absolute; left: 0; color: var(--accent);'>•</span>Designed backend data workflows using Python and SQL to support scalable analytics.</li><li style='margin-bottom: 14px; position: relative; padding-left: 24px;'><span style='position: absolute; left: 0; color: var(--accent);'>•</span>Implemented automated LLM-based evaluation pipelines to assess chatbot response quality.</li><li style='margin-bottom: 14px; position: relative; padding-left: 24px;'><span style='position: absolute; left: 0; color: var(--accent);'>•</span>Managed AWS cloud infrastructure using VPC, EC2, ECS, S3, and CloudFormation.</li><li style='margin-bottom: 14px; position: relative; padding-left: 24px;'><span style='position: absolute; left: 0; color: var(--accent);'>•</span>Developed ETL pipelines from S3 to Snowflake using Python.</li><li style='margin-bottom: 14px; position: relative; padding-left: 24px;'><span style='position: absolute; left: 0; color: var(--accent);'>•</span>Built APIs using FastAPI and Hug frameworks for cross-functional data sharing.</li><li style='margin-bottom: 14px; position: relative; padding-left: 24px;'><span style='position: absolute; left: 0; color: var(--accent);'>•</span>Improved project code coverage to over 90% using automated unit testing.</li><li style='margin-bottom: 14px; position: relative; padding-left: 24px;'><span style='position: absolute; left: 0; color: var(--accent);'>•</span>Built Airflow data pipelines in GCP for enterprise ETL jobs.</li><li style='margin-bottom: 14px; position: relative; padding-left: 24px;'><span style='position: absolute; left: 0; color: var(--accent);'>•</span>Containerized applications using Docker and deployed via Jenkins CI/CD pipelines.</li>
+        </div>
+        
+        <div style="margin: 0; padding-left: 5px; display: flex; align-items: center; position: relative; z-index: 2;">
+            <ul style="margin: 0; padding: 0; list-style: none; color: var(--text-muted); font-size: 1.05rem; line-height: 1.75; width: 100%;">
+                <li style='margin-bottom: 12px; position: relative; padding-left: 24px;'><span style='position: absolute; left: 0; color: var(--accent);'>•</span>Developed Python services integrating Generative AI APIs to automate chatbot response evaluation.</li><li style='margin-bottom: 12px; position: relative; padding-left: 24px;'><span style='position: absolute; left: 0; color: var(--accent);'>•</span>Designed backend data workflows using Python and SQL to support scalable analytics.</li><li style='margin-bottom: 12px; position: relative; padding-left: 24px;'><span style='position: absolute; left: 0; color: var(--accent);'>•</span>Implemented automated LLM-based evaluation pipelines to assess chatbot response quality.</li><li style='margin-bottom: 12px; position: relative; padding-left: 24px;'><span style='position: absolute; left: 0; color: var(--accent);'>•</span>Managed AWS cloud infrastructure using VPC, EC2, ECS, S3, and CloudFormation.</li><li style='margin-bottom: 12px; position: relative; padding-left: 24px;'><span style='position: absolute; left: 0; color: var(--accent);'>•</span>Developed ETL pipelines from S3 to Snowflake using Python.</li><li style='margin-bottom: 12px; position: relative; padding-left: 24px;'><span style='position: absolute; left: 0; color: var(--accent);'>•</span>Built APIs using FastAPI and Hug frameworks for cross-functional data sharing.</li><li style='margin-bottom: 12px; position: relative; padding-left: 24px;'><span style='position: absolute; left: 0; color: var(--accent);'>•</span>Improved project code coverage to over 90% using automated unit testing.</li><li style='margin-bottom: 12px; position: relative; padding-left: 24px;'><span style='position: absolute; left: 0; color: var(--accent);'>•</span>Built Airflow data pipelines in GCP for enterprise ETL jobs.</li><li style='margin-bottom: 12px; position: relative; padding-left: 24px;'><span style='position: absolute; left: 0; color: var(--accent);'>•</span>Containerized applications using Docker and deployed via Jenkins CI/CD pipelines.</li>
             </ul>
         </div>
         
     </div>
     
-    <div class="card exp-card-grid" style="padding: 40px; background: var(--card-bg); border-radius: 20px; border: 1px solid var(--border); display: grid; grid-template-columns: 32% 68%; gap: 35px; align-items: start; position: relative; overflow: hidden;">
+    <div class="card exp-card-grid" style="padding: 35px 40px; background: var(--card-bg); border-radius: 20px; border: 1px solid var(--border); display: grid; grid-template-columns: 32% 68%; gap: 35px; align-items: stretch; position: relative; overflow: hidden;">
         
-        <div style="border-right: 1px solid var(--border); padding-right: 25px; height: 100%; display: flex; flex-direction: column; min-height: 340px; position: relative; z-index: 1;">
-            <div style="position: relative; z-index: 2;">
-                <h3 style="margin: 0; font-size: 1.65rem; font-weight: 800; color: var(--text-main); line-height: 1.2;">Python Developer</h3>
+        <div style="border-right: 1px solid var(--border); padding-right: 25px; display: flex; flex-direction: column; justify-content: space-between; position: relative; z-index: 1;">
+            <div>
+                <h3 style="margin: 0; font-size: 1.6rem; font-weight: 800; color: var(--text-main); line-height: 1.2;">Python Developer</h3>
                 
-                <h4 style="margin: 8px 0 15px 0; font-size: 1.2rem; color: var(--accent); font-weight: 600;">Hindustan Aeronautics Limited (HAL) | Bangalore, India</h4>
+                <h4 style="margin: 6px 0 12px 0; font-size: 1.15rem; color: var(--accent); font-weight: 600;">Hindustan Aeronautics Limited (HAL) | Bangalore, India</h4>
                 
-                <div style="display: inline-flex; align-items: center; font-size: 0.9rem; font-weight: 600; color: var(--text-muted); background: rgba(49, 130, 206, 0.06); padding: 6px 14px; border-radius: 8px; border: 1px solid rgba(49, 130, 206, 0.15);">
-                    <i class="fa-regular fa-calendar" style="margin-right: 8px; color: var(--accent);"></i> Aug 2023 – Dec 2023
+                <div style="display: inline-flex; align-items: center; font-size: 0.85rem; font-weight: 600; color: var(--text-muted); background: rgba(49, 130, 206, 0.06); padding: 5px 12px; border-radius: 8px; border: 1px solid rgba(49, 130, 206, 0.15);">
+                    <i class="fa-regular fa-calendar" style="margin-right: 6px; color: var(--accent);"></i> Aug 2023 – Dec 2023
                 </div>
             </div>
             
             
+        <div style="margin-top: auto; padding-top: 20px;">
+            <div style="font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted); font-weight: 700; margin-bottom: 10px;">Technologies Handled</div>
+            <div style="display: flex; flex-wrap: wrap;">
+                <button class='tech-badge-btn'>Python</button><button class='tech-badge-btn'>PySpark</button><button class='tech-badge-btn'>Unix Shell</button><button class='tech-badge-btn'>Map-Reduce</button><button class='tech-badge-btn'>Blob Data</button>
+            </div>
         </div>
         
-        <div style="margin: 0; padding-left: 5px; position: relative; z-index: 2;">
-            <ul style="margin: 0; padding: 0; list-style: none; color: var(--text-muted); font-size: 1.1rem; line-height: 1.8;">
-                <li style='margin-bottom: 14px; position: relative; padding-left: 24px;'><span style='position: absolute; left: 0; color: var(--accent);'>•</span>Developed sensor logic using Python scripts and Unix shell scripting.</li><li style='margin-bottom: 14px; position: relative; padding-left: 24px;'><span style='position: absolute; left: 0; color: var(--accent);'>•</span>Built Python batch processors to consume and produce various feeds.</li><li style='margin-bottom: 14px; position: relative; padding-left: 24px;'><span style='position: absolute; left: 0; color: var(--accent);'>•</span>Processed massive Blob datasets using PySpark Map-Reduce.</li><li style='margin-bottom: 14px; position: relative; padding-left: 24px;'><span style='position: absolute; left: 0; color: var(--accent);'>•</span>Wrote cleaning and munging scripts for large-scale datasets.</li>
+        </div>
+        
+        <div style="margin: 0; padding-left: 5px; display: flex; align-items: center; position: relative; z-index: 2;">
+            <ul style="margin: 0; padding: 0; list-style: none; color: var(--text-muted); font-size: 1.05rem; line-height: 1.75; width: 100%;">
+                <li style='margin-bottom: 12px; position: relative; padding-left: 24px;'><span style='position: absolute; left: 0; color: var(--accent);'>•</span>Developed sensor logic using Python scripts and Unix shell scripting.</li><li style='margin-bottom: 12px; position: relative; padding-left: 24px;'><span style='position: absolute; left: 0; color: var(--accent);'>•</span>Built Python batch processors to consume and produce various feeds.</li><li style='margin-bottom: 12px; position: relative; padding-left: 24px;'><span style='position: absolute; left: 0; color: var(--accent);'>•</span>Processed massive Blob datasets using PySpark Map-Reduce.</li><li style='margin-bottom: 12px; position: relative; padding-left: 24px;'><span style='position: absolute; left: 0; color: var(--accent);'>•</span>Wrote cleaning and munging scripts for large-scale datasets.</li>
             </ul>
         </div>
         
     </div>
     
-    <div class="card exp-card-grid" style="padding: 40px; background: var(--card-bg); border-radius: 20px; border: 1px solid var(--border); display: grid; grid-template-columns: 32% 68%; gap: 35px; align-items: start; position: relative; overflow: hidden;">
+    <div class="card exp-card-grid" style="padding: 35px 40px; background: var(--card-bg); border-radius: 20px; border: 1px solid var(--border); display: grid; grid-template-columns: 32% 68%; gap: 35px; align-items: stretch; position: relative; overflow: hidden;">
         
-        <div style="border-right: 1px solid var(--border); padding-right: 25px; height: 100%; display: flex; flex-direction: column; min-height: 340px; position: relative; z-index: 1;">
-            <div style="position: relative; z-index: 2;">
-                <h3 style="margin: 0; font-size: 1.65rem; font-weight: 800; color: var(--text-main); line-height: 1.2;">Python Developer</h3>
+        <div style="border-right: 1px solid var(--border); padding-right: 25px; display: flex; flex-direction: column; justify-content: space-between; position: relative; z-index: 1;">
+            <div>
+                <h3 style="margin: 0; font-size: 1.6rem; font-weight: 800; color: var(--text-main); line-height: 1.2;">Python Developer</h3>
                 
-                <h4 style="margin: 8px 0 15px 0; font-size: 1.2rem; color: var(--accent); font-weight: 600;">Cognizant (Client: MERCK) | Hyderabad, India</h4>
+                <h4 style="margin: 6px 0 12px 0; font-size: 1.15rem; color: var(--accent); font-weight: 600;">Cognizant (Client: MERCK) | Hyderabad, India</h4>
                 
-                <div style="display: inline-flex; align-items: center; font-size: 0.9rem; font-weight: 600; color: var(--text-muted); background: rgba(49, 130, 206, 0.06); padding: 6px 14px; border-radius: 8px; border: 1px solid rgba(49, 130, 206, 0.15);">
-                    <i class="fa-regular fa-calendar" style="margin-right: 8px; color: var(--accent);"></i> June 2021 - Jul 2023
+                <div style="display: inline-flex; align-items: center; font-size: 0.85rem; font-weight: 600; color: var(--text-muted); background: rgba(49, 130, 206, 0.06); padding: 5px 12px; border-radius: 8px; border: 1px solid rgba(49, 130, 206, 0.15);">
+                    <i class="fa-regular fa-calendar" style="margin-right: 6px; color: var(--accent);"></i> June 2021 - Jul 2023
                 </div>
             </div>
             
             
+        <div style="margin-top: auto; padding-top: 20px;">
+            <div style="font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted); font-weight: 700; margin-bottom: 10px;">Technologies Handled</div>
+            <div style="display: flex; flex-wrap: wrap;">
+                <button class='tech-badge-btn'>Python</button><button class='tech-badge-btn'>Pandas</button><button class='tech-badge-btn'>Django</button><button class='tech-badge-btn'>SQL</button><button class='tech-badge-btn'>R</button><button class='tech-badge-btn'>Data Wrangling</button>
+            </div>
         </div>
         
-        <div style="margin: 0; padding-left: 5px; position: relative; z-index: 2;">
-            <ul style="margin: 0; padding: 0; list-style: none; color: var(--text-muted); font-size: 1.1rem; line-height: 1.8;">
-                <li style='margin-bottom: 14px; position: relative; padding-left: 24px;'><span style='position: absolute; left: 0; color: var(--accent);'>•</span>Managed automated data workflows using Python, SQL, and R.</li><li style='margin-bottom: 14px; position: relative; padding-left: 24px;'><span style='position: absolute; left: 0; color: var(--accent);'>•</span>Developed pandas scripts for complex CSV data manipulation and comparison.</li><li style='margin-bottom: 14px; position: relative; padding-left: 24px;'><span style='position: absolute; left: 0; color: var(--accent);'>•</span>Built a Django-based GUI for dynamic code documentation display.</li><li style='margin-bottom: 14px; position: relative; padding-left: 24px;'><span style='position: absolute; left: 0; color: var(--accent);'>•</span>Executed long-term technological fixes for data and system bottlenecks.</li>
+        </div>
+        
+        <div style="margin: 0; padding-left: 5px; display: flex; align-items: center; position: relative; z-index: 2;">
+            <ul style="margin: 0; padding: 0; list-style: none; color: var(--text-muted); font-size: 1.05rem; line-height: 1.75; width: 100%;">
+                <li style='margin-bottom: 12px; position: relative; padding-left: 24px;'><span style='position: absolute; left: 0; color: var(--accent);'>•</span>Managed automated data workflows using Python, SQL, and R.</li><li style='margin-bottom: 12px; position: relative; padding-left: 24px;'><span style='position: absolute; left: 0; color: var(--accent);'>•</span>Developed pandas scripts for complex CSV data manipulation and comparison.</li><li style='margin-bottom: 12px; position: relative; padding-left: 24px;'><span style='position: absolute; left: 0; color: var(--accent);'>•</span>Built a Django-based GUI for dynamic code documentation display.</li><li style='margin-bottom: 12px; position: relative; padding-left: 24px;'><span style='position: absolute; left: 0; color: var(--accent);'>•</span>Executed long-term technological fixes for data and system bottlenecks.</li>
             </ul>
         </div>
         

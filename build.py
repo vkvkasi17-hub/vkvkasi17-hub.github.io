@@ -19,102 +19,104 @@ for cat, items in portfolio_data['skills'].items():
 skills_html += "</div>"
 
 # --- THE STACKING EXPERIENCE LOOP ---
-experience_html = '<div class="experience-container">'
-for exp in portfolio_data['experience']:
-    bullets = "".join([f"<li style='margin-bottom: 14px; position: relative; padding-left: 24px;'><span style='position: absolute; left: 0; top: 0; font-size: 1.3rem; font-weight: bold;'>•</span>{b}</li>" for b in exp['bullets']])
-    color = "var(--accent)"
-    
-    # --- OPTION 1: MINIMALIST TIMELINE LOOP ---
-experience_html = '<div class="experience-container" style="position: relative; padding-left: 20px; border-left: 2px solid var(--border); margin-left: 10px;">'
-for exp in portfolio_data['experience']:
-    bullets = "".join([f"<li style='margin-bottom: 12px; position: relative; padding-left: 20px;'><span style='position: absolute; left: 0; color: var(--accent);'>•</span>{b}</li>" for b in exp['bullets']])
-    
-    # --- OPTION 2: SPLIT-GRID LAYOUT LOOP ---
+# --- PERFECT BLENDED MOUSE EXPERIENCE LOOP ---
+# --- EXPERIENCES LOOP WITH SKILLS BADGES & ENLARGED DISNEY IMAGE ---
+# --- EXPERIENCES LOOP WITH DYNAMIC AUTO-HEIGHT MAPPING ---
+# --- EXPERIENCES LOOP WITH INTERACTIVE TECH CLUSTERS & COMPACT LAYOUT ---
+# --- BALANCED EXPERIENCES LOOP WITH INTEGRATED TECH STACKS ---
+# --- EXPERIENCES LOOP WITH PERFECTLY CENTERED ENLARGED IMAGE ---
+# --- FULLY STANDARDIZED EXPERIENCE GRID SYSTEM LOOP ---
 experience_html = '<div class="experience-container" style="display: flex; flex-direction: column; gap: 35px;">'
 for exp in portfolio_data['experience']:
-    bullets = "".join([f"<li style='margin-bottom: 14px; position: relative; padding-left: 20px;'><span style='position: absolute; left: 0; color: var(--accent);'>•</span>{b}</li>" for b in exp['bullets']])
-    
-    # --- ENHANCED SPLIT-GRID LAYOUT LOOP (FILLED LEFT COLUMN) ---
-experience_html = '<div class="experience-container" style="display: flex; flex-direction: column; gap: 35px;">'
-for exp in portfolio_data['experience']:
-    bullets = "".join([f"<li style='margin-bottom: 14px; position: relative; padding-left: 20px;'><span style='position: absolute; left: 0; color: var(--accent);'>•</span>{b}</li>" for b in exp['bullets']])
-    
-    # 1. Dynamically pull or fallback tech tags to fill the empty space
-    # (If your json has a 'tech' key for experience, it uses it; otherwise it defaults to these)
-    tech_tags = exp.get("tech", ["Python", "Snowflake", "SQL", "ETL", "AWS"])
-    tech_badges = "".join([f"<span style='display: inline-block; background: rgba(255,255,255,0.03); border: 1px solid var(--border); color: var(--text-muted); font-size: 0.8rem; font-weight: 500; padding: 4px 10px; border-radius: 6px; margin: 0 6px 6px 0;'>{t}</span>" for t in tech_tags])
-    
-    # --- EXPERIENCE LOOP WITH DYNAMIC BRAND ICONS ---
-experience_html = '<div class="experience-container" style="display: flex; flex-direction: column; gap: 35px;">'
-for exp in portfolio_data['experience']:
-    bullets = "".join([f"<li style='margin-bottom: 14px; position: relative; padding-left: 24px;'><span style='position: absolute; left: 0; color: var(--accent);'>•</span>{b}</li>" for b in exp['bullets']])
-    
-    # Check the company name to set up custom branding graphics/icons
-    company_lower = exp["company"].lower()
-    brand_graphic_html = ""
-    
-    if "disney" in company_lower:
-        # High-end FontAwesome Mickey/Glow structure or themed icon
-        brand_graphic_html = """
-        <div style="position: absolute; bottom: -10px; left: 20px; font-size: 7.5rem; color: var(--accent); opacity: 0.08; pointer-events: none; transform: rotate(-10deg);">
-            <i class="fa-solid fa-wand-magic-sparkles"></i>
-        </div>
-        """
-    elif "aeronautics" in company_lower or "hal" in company_lower:
-        brand_graphic_html = """
-        <div style="position: absolute; bottom: -10px; left: 20px; font-size: 7.5rem; color: var(--accent); opacity: 0.08; pointer-events: none; transform: rotate(-15deg);">
-            <i class="fa-solid fa-plane-jet"></i>
-        </div>
-        """
-    else:
-        brand_graphic_html = """
-        <div style="position: absolute; bottom: -10px; left: 20px; font-size: 7.5rem; color: var(--accent); opacity: 0.05; pointer-events: none;">
-            <i class="fa-solid fa-briefcase"></i>
-        </div>
-        """
-
-    # --- EXPERIENCE LOOP WITH TRUE BRAND VECTOR WATERMARKS ---
-# --- EXPERIENCE LOOP WITH LOCAL BRAND WATERMARKS ---
-# --- EXPERIENCE LOOP WITH CENTERED SOLID IMAGES ---
-# --- CLEAN SPLIT-GRID LAYOUT LOOP WITH LARGE BLENDED IMAGE ---
-experience_html = '<div class="experience-container" style="display: flex; flex-direction: column; gap: 35px;">'
-for exp in portfolio_data['experience']:
-    bullets = "".join([f"<li style='margin-bottom: 14px; position: relative; padding-left: 24px;'><span style='position: absolute; left: 0; color: var(--accent);'>•</span>{b}</li>" for b in exp['bullets']])
+    bullets = "".join([f"<li style='margin-bottom: 12px; position: relative; padding-left: 24px;'><span style='position: absolute; left: 0; color: var(--accent);'>•</span>{b}</li>" for b in exp['bullets']])
     
     company_lower = exp["company"].lower()
     brand_graphic_html = ""
     
-    # Target only the Disney role to inject the large, seamless image
+    # 1. Disney Experience
     if "disney" in company_lower:
-        brand_graphic_html = """
-        <div style="display: flex; justify-content: center; align-items: center; width: 100%; margin-top: auto; margin-bottom: auto; padding-top: 20px; z-index: 1;">
+        disney_skills = ["Python", "Snowflake", "SQL", "ETL", "Airflow", "API Integration"]
+        badges = "".join([f"<button class='tech-badge-btn'>{tech}</button>" for tech in disney_skills])
+        brand_graphic_html = f"""
+        <div style="display: flex; flex: 1; justify-content: center; align-items: center; width: 100%; min-height: 220px; z-index: 1;">
             <img src="disney-logo.jpeg" 
-                 style="width: 220px; height: auto; pointer-events: none; mix-blend-mode: multiply;" />
+                 style="width: 280px; height: auto; pointer-events: none; mix-blend-mode: multiply;" />
+        </div>
+        <div style="margin-top: auto; padding-top: 15px; border-top: 1px dashed var(--border);">
+            <div style="font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted); font-weight: 700; margin-bottom: 10px;">Technologies Handled</div>
+            <div style="display: flex; flex-wrap: wrap;">
+                {badges}
+            </div>
         </div>
         """
-    # Other experiences are now completely empty on the left side as requested
+    # 2. Cigna Experience
+    elif "cigna" in company_lower:
+        cigna_skills = ["Python", "FastAPI", "AWS", "Snowflake", "Docker", "GCP", "Airflow", "LLM Eval"]
+        badges = "".join([f"<button class='tech-badge-btn'>{tech}</button>" for tech in cigna_skills])
+        brand_graphic_html = f"""
+        <div style="margin-top: auto; padding-top: 20px;">
+            <div style="font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted); font-weight: 700; margin-bottom: 10px;">Technologies Handled</div>
+            <div style="display: flex; flex-wrap: wrap;">
+                {badges}
+            </div>
+        </div>
+        """
+    # 3. Cognizant / Merck Experience
+    elif "cognizant" in company_lower or "merck" in company_lower:
+        cognizant_skills = ["Python", "Pandas", "Django", "SQL", "R", "Data Wrangling"]
+        badges = "".join([f"<button class='tech-badge-btn'>{tech}</button>" for tech in cognizant_skills])
+        brand_graphic_html = f"""
+        <div style="margin-top: auto; padding-top: 20px;">
+            <div style="font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted); font-weight: 700; margin-bottom: 10px;">Technologies Handled</div>
+            <div style="display: flex; flex-wrap: wrap;">
+                {badges}
+            </div>
+        </div>
+        """
+    # 4. HAL Experience
+    elif "aeronautics" in company_lower or "hal" in company_lower:
+        hal_skills = ["Python", "PySpark", "Unix Shell", "Map-Reduce", "Blob Data"]
+        badges = "".join([f"<button class='tech-badge-btn'>{tech}</button>" for tech in hal_skills])
+        brand_graphic_html = f"""
+        <div style="margin-top: auto; padding-top: 20px;">
+            <div style="font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted); font-weight: 700; margin-bottom: 10px;">Technologies Handled</div>
+            <div style="display: flex; flex-wrap: wrap;">
+                {badges}
+            </div>
+        </div>
+        """
+    # 5. Any Fallback default layout
     else:
-        brand_graphic_html = ""
+        fallback_skills = ["Python", "Backend", "SQL", "ETL"]
+        badges = "".join([f"<button class='tech-badge-btn'>{tech}</button>" for tech in fallback_skills])
+        brand_graphic_html = f"""
+        <div style="margin-top: auto; padding-top: 20px;">
+            <div style="font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted); font-weight: 700; margin-bottom: 10px;">Technologies Handled</div>
+            <div style="display: flex; flex-wrap: wrap;">
+                {badges}
+            </div>
+        </div>
+        """
 
     experience_html += f"""
-    <div class="card exp-card-grid" style="padding: 40px; background: var(--card-bg); border-radius: 20px; border: 1px solid var(--border); display: grid; grid-template-columns: 32% 68%; gap: 35px; align-items: start; position: relative; overflow: hidden;">
+    <div class="card exp-card-grid" style="padding: 35px 40px; background: var(--card-bg); border-radius: 20px; border: 1px solid var(--border); display: grid; grid-template-columns: 32% 68%; gap: 35px; align-items: stretch; position: relative; overflow: hidden;">
         
-        <div style="border-right: 1px solid var(--border); padding-right: 25px; height: 100%; display: flex; flex-direction: column; min-height: 340px; position: relative; z-index: 1;">
-            <div style="position: relative; z-index: 2;">
-                <h3 style="margin: 0; font-size: 1.65rem; font-weight: 800; color: var(--text-main); line-height: 1.2;">{exp["role"]}</h3>
+        <div style="border-right: 1px solid var(--border); padding-right: 25px; display: flex; flex-direction: column; justify-content: space-between; position: relative; z-index: 1;">
+            <div>
+                <h3 style="margin: 0; font-size: 1.6rem; font-weight: 800; color: var(--text-main); line-height: 1.2;">{exp["role"]}</h3>
                 
-                <h4 style="margin: 8px 0 15px 0; font-size: 1.2rem; color: var(--accent); font-weight: 600;">{exp["company"]}</h4>
+                <h4 style="margin: 6px 0 12px 0; font-size: 1.15rem; color: var(--accent); font-weight: 600;">{exp["company"]}</h4>
                 
-                <div style="display: inline-flex; align-items: center; font-size: 0.9rem; font-weight: 600; color: var(--text-muted); background: rgba(49, 130, 206, 0.06); padding: 6px 14px; border-radius: 8px; border: 1px solid rgba(49, 130, 206, 0.15);">
-                    <i class="fa-regular fa-calendar" style="margin-right: 8px; color: var(--accent);"></i> {exp["duration"]}
+                <div style="display: inline-flex; align-items: center; font-size: 0.85rem; font-weight: 600; color: var(--text-muted); background: rgba(49, 130, 206, 0.06); padding: 5px 12px; border-radius: 8px; border: 1px solid rgba(49, 130, 206, 0.15);">
+                    <i class="fa-regular fa-calendar" style="margin-right: 6px; color: var(--accent);"></i> {exp["duration"]}
                 </div>
             </div>
             
             {brand_graphic_html}
         </div>
         
-        <div style="margin: 0; padding-left: 5px; position: relative; z-index: 2;">
-            <ul style="margin: 0; padding: 0; list-style: none; color: var(--text-muted); font-size: 1.1rem; line-height: 1.8;">
+        <div style="margin: 0; padding-left: 5px; display: flex; align-items: center; position: relative; z-index: 2;">
+            <ul style="margin: 0; padding: 0; list-style: none; color: var(--text-muted); font-size: 1.05rem; line-height: 1.75; width: 100%;">
                 {bullets}
             </ul>
         </div>

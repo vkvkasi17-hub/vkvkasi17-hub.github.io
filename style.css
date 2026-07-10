@@ -3,7 +3,7 @@
 --text-main: #1a202c; --text-muted: #4a5568; --accent: #4299e1;
 --card-bg: #ffffff; --border: #e2e8f0; --form-border: #cbd5e0;
 --submit-btn: #df9e38; --tag-bg: #f1f5f9; --tag-text: #334155;
---term-bg: #07090b; --term-border: #2d3748; --project-header-bg: #f1f5f9;
+--term-bg: #07090b; --term-border: #0e1219; --project-header-bg: #f1f5f9;
 --logo-color: #2b6cb0;
 }
 
@@ -392,4 +392,72 @@ body {
         padding-bottom: 20px !important;
         height: auto !important;
     }
+}
+
+/* --- INTERACTIVE TECH BUTTON STYLES & CLICK ANIMATIONS --- */
+.tech-badge-btn {
+    display: inline-block;
+    background: rgba(49, 130, 206, 0.05);
+    border: 1px solid rgba(49, 130, 206, 0.15);
+    color: var(--accent);
+    font-size: 0.82rem;
+    font-weight: 600;
+    padding: 6px 12px;
+    border-radius: 8px;
+    margin: 0 6px 6px 0;
+    cursor: pointer;
+    outline: none;
+    font-family: inherit;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Hover State - Scale up slightly and intensify glowing border */
+.tech-badge-btn:hover {
+    background: var(--accent);
+    color: #ffffff;
+    border-color: var(--accent);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(49, 130, 206, 0.25);
+}
+
+/* Click/Active State - Snappy mechanical click down scale */
+.tech-badge-btn:active {
+    transform: translateY(1px) scale(0.93);
+    box-shadow: 0 2px 4px rgba(49, 130, 206, 0.15);
+}
+
+/* --- INTERACTIVE TECH BADGES STYLE --- */
+.tech-badge-btn {
+    display: inline-block;
+    background: rgba(49, 130, 206, 0.05) !important;
+    border: 1px solid rgba(49, 130, 206, 0.15) !important;
+    color: var(--accent) !important;
+    font-size: 0.82rem !important;
+    font-weight: 600 !important;
+    padding: 6px 12px !important;
+    border-radius: 8px !important;
+    margin: 0 6px 6px 0 !important;
+    cursor: pointer !important;
+    position: relative !important;
+    overflow: hidden !important;
+    transition: all 0.2s ease !important;
+}
+
+.tech-badge-btn:hover {
+    background: var(--accent) !important;
+    color: #ffffff !important;
+    border-color: var(--accent) !important;
+    transform: translateY(-2px) !important;
+}
+
+/* JavaScript trigger style for animations */
+.tech-badge-btn.pop-burst {
+    animation: badgePop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes badgePop {
+    0% { transform: scale(1); }
+    30% { transform: scale(0.88); }
+    60% { transform: scale(1.1); }
+    100% { transform: scale(1); }
 }

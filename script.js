@@ -418,3 +418,18 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 });
+
+// --- CLICK ANIMATION FOR TECH BADGES ---
+document.addEventListener("DOMContentLoaded", function() {
+    document.body.addEventListener("click", function(e) {
+        if (e.target && e.target.classList.contains("tech-badge-btn")) {
+            const btn = e.target;
+            
+            // Trigger the pop-burst CSS animation scale
+            btn.classList.add("pop-burst");
+            setTimeout(() => {
+                btn.classList.remove("pop-burst");
+            }, 400);
+        }
+    });
+});
