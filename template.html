@@ -4,8 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>[[NAME]] | Portfolio</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -13,7 +14,10 @@
     <link rel="stylesheet" href="style.css">
 </head>
 
-<body class="at-top in-hero is-idle"> 
+<body class="at-top in-hero is-idle">
+  <!-- Place the canvas right at the top inside the body -->
+   <canvas id="bg-3d-canvas" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -1; pointer-events: none;"></canvas>
+    
     <div id="llm-3d-bg"></div>
 
     <div class="race-track" id="raceTrack" style="right: 15px; z-index: 99999999;">
@@ -55,28 +59,55 @@
 
     <header class="hero-section">
         <div class="hero-container">
+            <!-- Clean Left Column -->
             <div class="hero-text">
                 <h1>[[NAME]]</h1>
                 <div class="typewriter-text"><span id="typewriter"></span><span class="cursor">&nbsp;</span></div>
                 <p class="hero-desc">[[HEADLINE]]</p>
+                
                 <div class="hero-ctas">
                     <a href="#projects" class="btn-primary">View Projects</a>
                     <a href="#contact" class="btn-secondary">Contact Me</a>
                 </div>
+
                 <div class="hero-socials">
                     <a href="[[LINKEDIN]]" target="_blank"><i class="fa-brands fa-linkedin-in"></i></a>
                     <a href="[[GITHUB]]" target="_blank"><i class="fa-brands fa-github"></i></a>
                     <a href="mailto:[[EMAIL]]"><i class="fa-regular fa-envelope"></i></a>
                 </div>
             </div>
+
+            <!-- Clean Right Photo Column -->
             <div class="hero-visual">
-                <div class="image-wrapper"><img src="[[PROFILE_PIC]]" class="profile-img-large" onerror="this.style.display='none'"></div>
+                <div class="image-wrapper">
+                    <img src="[[PROFILE_PIC]]" class="profile-img-large" onerror="this.style.display='none'">
+                </div>
             </div>
         </div>
-        <div class="marquee-container">
-            <div class="marquee-content">
-                <span>Python • AWS • LangChain • FastAPI • Snowflake • Docker • SQL • GCP • Data Engineering • Machine Learning • </span>
-                <span>Python • AWS • LangChain • FastAPI • Snowflake • Docker • SQL • GCP • Data Engineering • Machine Learning • </span>
+
+        <!-- Marquee Ticker Bar -->
+        <div class="hero-ticker-wrapper">
+            <div class="hero-ticker-track">
+                <span><i class="fa-brands fa-python"></i> PYTHON</span>
+                <span><i class="fa-solid fa-database"></i> SQL</span>
+                <span><i class="fa-solid fa-snowflake"></i> SNOWFLAKE</span>
+                <span><i class="fa-solid fa-bolt"></i> FASTAPI</span>
+                <span><i class="fa-brands fa-aws"></i> AWS</span>
+                <span><i class="fa-solid fa-wind"></i> AIRFLOW</span>
+                <span><i class="fa-brands fa-docker"></i> DOCKER</span>
+                <span><i class="fa-solid fa-brain"></i> GENAI / LLM</span>
+                <span><i class="fa-solid fa-network-wired"></i> ETL PIPELINES</span>
+
+                <!-- Duplicated for seamless loop -->
+                <span><i class="fa-brands fa-python"></i> PYTHON</span>
+                <span><i class="fa-solid fa-database"></i> SQL</span>
+                <span><i class="fa-solid fa-snowflake"></i> SNOWFLAKE</span>
+                <span><i class="fa-solid fa-bolt"></i> FASTAPI</span>
+                <span><i class="fa-brands fa-aws"></i> AWS</span>
+                <span><i class="fa-solid fa-wind"></i> AIRFLOW</span>
+                <span><i class="fa-brands fa-docker"></i> DOCKER</span>
+                <span><i class="fa-solid fa-brain"></i> GENAI / LLM</span>
+                <span><i class="fa-solid fa-network-wired"></i> ETL PIPELINES</span>
             </div>
         </div>
     </header>
@@ -88,8 +119,8 @@
             
             <div style="position: absolute; top: -20px; left: 10px; font-size: 10rem; color: var(--accent); opacity: 0.1; line-height: 1;">"</div>
             
-            <p style="margin:0; font-size: 1.3rem; line-height: 1.9; font-weight: 400; color: var(--text-main); position: relative; z-index: 1;">
-                [[ABOUT_ME]]
+            <p class="about-text" style="margin:0; font-size: 1.3rem; line-height: 1.9; font-weight: 400; position: relative; z-index: 1;">
+               [[ABOUT_ME]]
             </p>
             
             <div style="position: absolute; bottom: -70px; right: 10px; font-size: 10rem; color: var(--accent); opacity: 0.1; line-height: 1;">"</div>
@@ -165,18 +196,33 @@
         <span class="section-title">Contact Me</span>
         <div class="title-underline"></div>
         <div class="contact-wrapper">
-            <div class="interactive-terminal">
-                <div class="term-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="term-title">contact_kasi.py</span></div>
-                <div class="term-body">
-                    <p><span class="prompt">>>></span> import developer</p>
-                    <p><span class="prompt">>>></span> kasi = developer.get("[[NAME]]")</p>
-                    <p><span class="prompt">>>></span> kasi.contact()</p>
-                    <div class="term-output">
-                        {<br>&nbsp;&nbsp;"email": "<a href='mailto:[[EMAIL]]'>[[EMAIL]]</a>",<br>&nbsp;&nbsp;"phone": "[[PHONE]]",<br>&nbsp;&nbsp;"github": "<a href='[[GITHUB]]' target='_blank'>/vkvkasi17-hub</a>",<br>&nbsp;&nbsp;"status": "Available for Full-Time Opportunities"<br>}
-                    </div>
-                    <p><span class="prompt">>>></span> <span class="cursor" style="background-color: white;">&nbsp;</span></p>
-                </div>
-            </div>
+            <div class="interactive-terminal" style="background-color: #0d1117 !important; color: #c9d1d9 !important; border-radius: 12px; padding: 20px; font-family: 'Fira Code', 'Courier New', monospace !important; font-size: 0.9rem; line-height: 1.7; border: 1px solid #30363d; height: 100%;">
+    <!-- Terminal Header Bar -->
+    <div class="term-header" style="display: flex; gap: 8px; margin-bottom: 16px; border-bottom: 1px solid #21262d; padding-bottom: 12px; align-items: center;">
+        <span class="dot red" style="width: 12px; height: 12px; background: #ff5f56; border-radius: 50%; display: inline-block;"></span>
+        <span class="dot yellow" style="width: 12px; height: 12px; background: #ffbd2e; border-radius: 50%; display: inline-block;"></span>
+        <span class="dot green" style="width: 12px; height: 12px; background: #27c93f; border-radius: 50%; display: inline-block;"></span>
+        <span style="margin-left: auto; color: #8b949e !important; font-size: 0.8rem;">contact_kasi.py</span>
+    </div>
+
+    <!-- Terminal Code Body -->
+    <div class="term-body" style="color: #c9d1d9 !important;">
+        <p style="margin: 0 0 8px 0; color: #c9d1d9 !important;"><span class="prompt" style="color: #3fb950 !important; font-weight: bold;">&gt;&gt;&gt;</span> <span style="color: #ff7b72 !important;">import</span> <span style="color: #79c0ff !important;">developer</span></p>
+        <p style="margin: 0 0 8px 0; color: #c9d1d9 !important;"><span class="prompt" style="color: #3fb950 !important; font-weight: bold;">&gt;&gt;&gt;</span> kasi = developer.get(<span style="color: #a5d6ff !important;">"[[NAME]]"</span>)</p>
+        <p style="margin: 0 0 12px 0; color: #c9d1d9 !important;"><span class="prompt" style="color: #3fb950 !important; font-weight: bold;">&gt;&gt;&gt;</span> kasi.contact()</p>
+        
+        <div class="term-output" style="padding-left: 16px; border-left: 2px solid #30363d; margin-left: 4px; color: #e6edf3 !important;">
+            <p style="margin: 0; color: #e6edf3 !important;">{</p>
+            <p style="margin: 0 0 4px 16px; color: #e6edf3 !important;"><span style="color: #79c0ff !important;">"email"</span>: <a href="mailto:[[EMAIL]]" style="color: #58a6ff !important; text-decoration: underline;">"[[EMAIL]]"</a>,</p>
+            <p style="margin: 0 0 4px 16px; color: #e6edf3 !important;"><span style="color: #79c0ff !important;">"phone"</span>: <span style="color: #a5d6ff !important;">"[[PHONE]]"</span>,</p>
+            <p style="margin: 0 0 4px 16px; color: #e6edf3 !important;"><span style="color: #79c0ff !important;">"github"</span>: <a href="[[GITHUB]]" target="_blank" style="color: #58a6ff !important; text-decoration: underline;">"[[GITHUB]]"</a>,</p>
+            <p style="margin: 0 0 4px 16px; color: #e6edf3 !important;"><span style="color: #79c0ff !important;">"status"</span>: <span style="color: #a5d6ff !important;">"Works at Disney"</span></p>
+            <p style="margin: 0; color: #e6edf3 !important;">}</p>
+        </div>
+        
+        <p style="margin: 12px 0 0 0; color: #c9d1d9 !important;"><span class="prompt" style="color: #3fb950 !important; font-weight: bold;">&gt;&gt;&gt;</span> <span class="cursor" style="display: inline-block; width: 8px; height: 15px; background-color: #58a6ff !important; vertical-align: middle;"></span></p>
+    </div>
+</div>
             <div class="form-container">
                 <form action="https://api.web3forms.com/submit" method="POST">
                     <input type="hidden" name="access_key" value="YOUR_ACCESS_KEY_HERE">
@@ -218,7 +264,6 @@
     </div>
 
     <script src="script.js"></script>
-
 <script>
         document.addEventListener('DOMContentLoaded', () => {
             const skillTags = document.querySelectorAll('.skill-tag');
@@ -249,5 +294,16 @@
             });
         });
     </script>
+    <!-- DELETE THIS ENTIRE CANVAS AND SCRIPT BLOCK FROM TEMPLATE.HTML -->
+<canvas id="bg-3d-canvas" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -1; pointer-events: none;"></canvas>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+<script>
+  window.addEventListener('DOMContentLoaded', () => {
+    // ... delete all of this script ...
+  });
+</script>
+
 </body>
 </html>

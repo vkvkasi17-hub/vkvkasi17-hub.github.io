@@ -461,3 +461,348 @@ body {
     60% { transform: scale(1.1); }
     100% { transform: scale(1); }
 }
+
+/* --- MATCH ABOUT SECTION PARAGRAPH SIZE TO EXPERIENCE BULLETS --- */
+#about p,
+#about .about-content,
+#about div {
+    font-size: 0.95rem !important;      /* Matches experience bullet point size */
+    line-height: 1.6 !important;         /* Matches experience line spacing */
+    color: #1f2937 !important;           /* Dark gray-black tone for optimal reading */
+    text-align: left !important;         /* Align text cleanly to match experience layout */
+    max-width: 100% !important;
+}
+
+/* --- TIGHTEN GAP BETWEEN SECTIONS --- */
+section, 
+.section-container {
+    padding-top: 35px !important;
+    padding-bottom: 35px !important;
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+}
+
+/* Reduce spacing around section headers */
+.section-title {
+    margin-top: 10px !important;
+    margin-bottom: 20px !important;
+}
+
+/* --- GLOBAL UNIFIED TEXT STYLING FOR ALL SECTIONS --- */
+section p,
+section li,
+section div,
+.card p,
+.card li,
+.card span,
+.exp-card-grid p,
+.exp-card-grid li {
+    font-size: 0.92rem !important;      /* Exact compact project card font size */
+    line-height: 1.55 !important;        /* Clean, comfortable line spacing */
+    color: #4b5563 !important;          /* Slate dark-gray contrast color */
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
+}
+
+/* Maintain strong contrast for card titles and subheadings */
+.card h3,
+.card h4,
+.exp-card-grid h3,
+.exp-card-grid h4 {
+    color: #111827 !important;
+}
+
+/* --- GLOBAL UNIFIED PURE BLACK TEXT FOR ALL SECTIONS --- */
+section p,
+section li,
+section div,
+.card p,
+.card li,
+.card span,
+.exp-card-grid p,
+.exp-card-grid li {
+    font-size: 0.92rem !important;      /* Exact compact project card font size */
+    line-height: 1.55 !important;        /* Clean, comfortable line spacing */
+    color: #000000 !important;          /* Pure black text color */
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
+}
+
+/* Titles and Headings in Pure Black */
+.card h3,
+.card h4,
+.exp-card-grid h3,
+.exp-card-grid h4 {
+    color: #000000 !important;
+}
+
+/* --- GLOBAL TEXT UNIFICATION (PRESERVING TERMINAL SYNTAX) --- */
+/* Target regular paragraph, bullet, and text elements */
+section p,
+section li,
+.card p,
+.card li,
+.card span:not(.code-syntax),
+.exp-card-grid p,
+.exp-card-grid li {
+    font-size: 0.92rem !important;
+    line-height: 1.55 !important;
+    color: #000000 !important; /* Pure black for standard text */
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
+}
+
+/* Ensure Terminal Code Boxes & Syntax Highlighting Retain Light/Bright Colors */
+.terminal-window,
+.terminal-window *,
+.code-block,
+.code-block *,
+pre, code {
+    color: initial; /* Restores green, white, blue, and yellow terminal colors */
+}
+
+/* Headings in Pure Black */
+.card h3,
+.card h4,
+.exp-card-grid h3,
+.exp-card-grid h4 {
+    color: #000000 !important;
+}
+
+/* --- GLOBAL UNIFIED TEXT FOR REGULAR SECTIONS --- */
+section p,
+section li,
+.card p,
+.card li,
+.exp-card-grid p,
+.exp-card-grid li {
+    font-size: 0.92rem !important;
+    line-height: 1.55 !important;
+    color: #000000 !important; /* Pure black text for body content */
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
+}
+
+/* Headings in Pure Black */
+.card h3,
+.card h4,
+.exp-card-grid h3,
+.exp-card-grid h4 {
+    color: #000000 !important;
+}
+
+/* --- FIX CONTACT TERMINAL CODE VISIBILITY --- */
+/* Force bright syntax highlighting inside the black contact terminal window */
+[class*="terminal"], 
+[class*="contact"] pre, 
+[class*="contact"] code,
+.contact-code-window,
+.contact-code-window * {
+    color: #f8f9fa !important; /* Light white default for code/json keys */
+}
+
+/* Specific Python Syntax Highlighting Colors */
+[class*="terminal"] .keyword,
+.contact-code-window .keyword {
+    color: #38bdf8 !important; /* Bright light blue for keywords (import, developer) */
+}
+
+[class*="terminal"] .string,
+.contact-code-window .string {
+    color: #facc15 !important; /* Bright yellow for strings ("940-290-0996", etc.) */
+}
+
+[class*="terminal"] .prompt,
+.contact-code-window .prompt {
+    color: #4ade80 !important; /* Bright green for Python prompt >>> */
+}
+
+[class*="terminal"] a,
+.contact-code-window a {
+    color: #60a5fa !important; /* Bright blue for clickable email and github links */
+    text-decoration: underline !important;
+}
+
+/* Exclude terminal window from black text overrides */
+.code-terminal-window,
+.code-terminal-window * {
+    font-family: 'Fira Code', Consolas, Monaco, monospace !important;
+}
+
+.code-terminal-window p {
+    font-size: 0.9rem !important;
+    line-height: 1.7 !important;
+}
+
+
+/* --- CLEAN HERO LAYOUT & TICKER --- */
+.hero-container {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    gap: 40px !important;
+    max-width: 1200px !important;
+    margin: 0 auto !important;
+    padding: 0 20px !important;
+}
+
+.hero-text {
+    flex: 1 1 55% !important;
+    max-width: 600px !important;
+}
+
+.hero-visual {
+    flex: 1 1 40% !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+}
+
+/* Marquee Ticker */
+.hero-ticker-wrapper {
+    width: 100%;
+    overflow: hidden;
+    background: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-top: 1px solid rgba(49, 130, 206, 0.15);
+    border-bottom: 1px solid rgba(49, 130, 206, 0.15);
+    padding: 12px 0;
+    margin-top: 50px;
+    display: flex;
+    white-space: nowrap;
+}
+
+.hero-ticker-track {
+    display: flex;
+    gap: 45px;
+    animation: scrollTicker 25s linear infinite;
+    will-change: transform;
+}
+
+.hero-ticker-track span {
+    font-size: 0.85rem;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+    color: #334155;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    text-transform: uppercase;
+}
+
+.hero-ticker-track i {
+    color: #3182ce;
+    font-size: 1rem;
+}
+
+@keyframes scrollTicker {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+}
+
+/* ==========================================
+   GLOBAL DARK MODE TEXT & CONTRAST FIXES
+   ========================================== */
+
+/* 1. Global CSS Variables Switch */
+body.dark-mode,
+body.dark-theme,
+[data-theme="dark"] {
+    --text-main: #f8fafc !important;
+    --text-muted: #cbd5e1 !important;
+    --card-bg: #0f172a !important;
+    --border: #334155 !important;
+}
+
+/* 2. Force All Text Elements to Light Color in Dark Mode */
+body.dark-mode p,
+body.dark-mode span:not(.prompt):not(.tag),
+body.dark-mode li,
+body.dark-mode h1,
+body.dark-mode h2,
+body.dark-mode h3,
+body.dark-mode h4,
+body.dark-mode div,
+body.dark-theme p,
+body.dark-theme span:not(.prompt):not(.tag),
+body.dark-theme li,
+body.dark-theme h1,
+body.dark-theme h2,
+body.dark-theme h3,
+body.dark-theme h4,
+body.dark-theme div,
+[data-theme="dark"] p,
+[data-theme="dark"] span:not(.prompt):not(.tag),
+[data-theme="dark"] li,
+[data-theme="dark"] h1,
+[data-theme="dark"] h2,
+[data-theme="dark"] h3,
+[data-theme="dark"] h4,
+[data-theme="dark"] div {
+    color: #e2e8f0 !important;
+}
+
+/* 3. Specific Overrides for Cards & Experience Bullet Points */
+body.dark-mode .card,
+body.dark-mode .card *,
+body.dark-mode .exp-card-grid *,
+body.dark-theme .card,
+body.dark-theme .card *,
+body.dark-theme .exp-card-grid *,
+[data-theme="dark"] .card,
+[data-theme="dark"] .card *,
+[data-theme="dark"] .exp-card-grid * {
+    color: #f1f5f9 !important;
+}
+
+/* 4. Muted Metadata Text Fix (Dates, Durations, Subtitles) */
+body.dark-mode .text-muted,
+body.dark-mode [style*="color: #4b5563"],
+body.dark-mode [style*="color: #374151"],
+body.dark-mode [style*="color: #1f2937"],
+body.dark-theme .text-muted,
+body.dark-theme [style*="color: #4b5563"],
+body.dark-theme [style*="color: #374151"],
+body.dark-theme [style*="color: #1f2937"],
+[data-theme="dark"] .text-muted,
+[data-theme="dark"] [style*="color: #4b5563"],
+[data-theme="dark"] [style*="color: #374151"],
+[data-theme="dark"] [style*="color: #1f2937"] {
+    color: #cbd5e1 !important;
+}
+
+/* 5. Ticker & Footer Dark Mode Text Adjustment */
+body.dark-mode .hero-ticker-wrapper,
+body.dark-theme .hero-ticker-wrapper,
+[data-theme="dark"] .hero-ticker-wrapper {
+    background: rgba(15, 23, 42, 0.8) !important;
+    border-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+body.dark-mode .hero-ticker-track span,
+body.dark-theme .hero-ticker-track span,
+[data-theme="dark"] .hero-ticker-track span {
+    color: #f8fafc !important;
+}
+
+/* --- ABOUT ME SECTION DARK MODE CONTRAST FIX --- */
+body.dark-mode #about .card p,
+body.dark-theme #about .card p,
+[data-theme="dark"] #about .card p,
+body.dark-mode #about p,
+body.dark-theme #about p,
+[data-theme="dark"] #about p {
+    color: #f8fafc !important;
+}
+
+/* About Me Text Color Handling */
+.about-text {
+    color: #1e293b; /* Light mode dark gray */
+}
+
+/* Dark mode override */
+body.dark-mode .about-text,
+body.dark-theme .about-text,
+[data-theme="dark"] .about-text,
+body.dark-mode #about .card p,
+body.dark-theme #about .card p,
+[data-theme="dark"] #about .card p {
+    color: #f8fafc !important; /* Crisp white for dark mode */
+}
