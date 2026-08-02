@@ -27,14 +27,36 @@ const observer = new IntersectionObserver((entries) => {
 pages.forEach(page => observer.observe(page));
 
 // --- THEME TOGGLE ---
-const themeToggleBtn = document.getElementById('themeToggle');
-if (localStorage.getItem('portfolio-theme') === 'dark') {
-    document.body.classList.add('dark-mode'); themeToggleBtn.querySelector('i').classList.replace('fa-moon', 'fa-sun');
-}
-themeToggleBtn.addEventListener('click', () => {
-    document.body.classList.toggle('dark-mode'); const icon = themeToggleBtn.querySelector('i');
-    if (document.body.classList.contains('dark-mode')) { localStorage.setItem('portfolio-theme', 'dark'); icon.classList.replace('fa-moon', 'fa-sun'); } 
-    else { localStorage.setItem('portfolio-theme', 'light'); icon.classList.replace('fa-sun', 'fa-moon'); }
+document.addEventListener('DOMContentLoaded', () => {
+    const themeCheckbox = document.getElementById('themeToggleCheckbox');
+    const toggleIcon = document.getElementById('toggleIcon');
+
+    // Check saved theme preference
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'dark') {
+        document.body.classList.add('dark-mode');
+        if (themeCheckbox) themeCheckbox.checked = true;
+        if (toggleIcon) toggleIcon.className = 'fa-solid fa-moon';
+    } else {
+        document.body.classList.remove('dark-mode');
+        if (themeCheckbox) themeCheckbox.checked = false;
+        if (toggleIcon) toggleIcon.className = 'fa-solid fa-sun';
+    }
+
+    // Toggle theme state
+    if (themeCheckbox) {
+        themeCheckbox.addEventListener('change', () => {
+            if (themeCheckbox.checked) {
+                document.body.classList.add('dark-mode');
+                localStorage.setItem('theme', 'dark');
+                toggleIcon.className = 'fa-solid fa-moon';
+            } else {
+                document.body.classList.remove('dark-mode');
+                localStorage.setItem('theme', 'light');
+                toggleIcon.className = 'fa-solid fa-sun';
+            }
+        });
+    }
 });
 
 // --- TYPEWRITER ---
