@@ -879,3 +879,247 @@ input:checked + .slider .slider-icon {
     color: var(--text-main);
     user-select: none;
 }
+
+/* ===================================================
+   1. REMOVE ALL SCROLL BLUR (ALWAYS SHARP & CLEAR)
+   =================================================== */
+.book-page {
+  opacity: 1 !important;
+  filter: none !important;
+  transform: none !important;
+}
+
+/* ===================================================
+   2. CLEAN GLASS CARD WITH THIN MOVING BORDER LIGHT
+   =================================================== */
+.card,
+.exp-card-grid,
+.game-container {
+  position: relative !important;
+  background: rgba(255, 255, 255, 0.75) !important;
+  backdrop-filter: blur(20px) !important;
+  -webkit-backdrop-filter: blur(20px) !important;
+  border-radius: 24px !important;
+  border: 1px solid rgba(226, 232, 240, 0.8) !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05) !important;
+  overflow: hidden !important;
+}
+
+body.dark-mode .card,
+body.dark-mode .exp-card-grid,
+body.dark-mode .game-container,
+[data-theme="dark"] .card,
+[data-theme="dark"] .exp-card-grid,
+[data-theme="dark"] .game-container {
+  background: rgba(15, 23, 42, 0.75) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4) !important;
+}
+
+/* Moving Light Beam - Restricted strictly to a 2px Border Track */
+.card::before,
+.exp-card-grid::before,
+.game-container::before {
+  content: '' !important;
+  position: absolute !important;
+  inset: -150% !important;
+  background: conic-gradient(
+    from 0deg,
+    transparent 0deg,
+    transparent 60deg,
+    #38bdf8 80deg,
+    #818cf8 95deg,
+    transparent 115deg,
+    transparent 360deg
+  ) !important;
+  animation: borderRotate 5s linear infinite !important;
+  z-index: 0 !important;
+  pointer-events: none !important;
+}
+
+/* Inner Mask: Keeps the center 100% clean and clear */
+.card::after,
+.exp-card-grid::after,
+.game-container::after {
+  content: '' !important;
+  position: absolute !important;
+  inset: 1.5px !important;
+  background: #ffffff !important;
+  border-radius: 22.5px !important;
+  z-index: 0 !important;
+  pointer-events: none !important;
+}
+
+body.dark-mode .card::after,
+body.dark-mode .exp-card-grid::after,
+body.dark-mode .game-container::after,
+[data-theme="dark"] .card::after,
+[data-theme="dark"] .exp-card-grid::after,
+[data-theme="dark"] .game-container::after {
+  background: #0f172a !important;
+}
+
+/* Lift Card Content Above the Border Effect */
+.card > *,
+.exp-card-grid > *,
+.game-container > * {
+  position: relative !important;
+  z-index: 1 !important;
+}
+
+@keyframes borderRotate {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* ===================================================
+   3. SMOOTH SHRINKING ISLAND NAVBAR
+   =================================================== */
+/* ===================================================
+   FLOATING NAVBAR (EXTRA COMPACT SCROLL + BOLD LINKS)
+   =================================================== */
+
+/* ===================================================
+   TRUE ULTRA-TRANSPARENT LIQUID GLASS
+   =================================================== */
+
+/* 1. NAVBAR - Transparent Floating Island */
+#navbar {
+  position: fixed !important;
+  top: 18px !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  width: min(94%, 1160px) !important;
+  background: rgba(255, 255, 255, 0.18) !important;
+  backdrop-filter: blur(16px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(16px) saturate(180%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.4) !important;
+  border-radius: 9999px !important;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.05), inset 0 1px 1px rgba(255, 255, 255, 0.6) !important;
+  padding: 12px 30px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  z-index: 1000 !important;
+  box-sizing: border-box !important;
+  transition: top 0.3s ease, padding 0.3s ease, width 0.3s ease, background 0.3s ease !important;
+}
+
+body.dark-mode #navbar,
+[data-theme="dark"] #navbar {
+  background: rgba(15, 23, 42, 0.28) !important;
+  border: 1px solid rgba(255, 255, 255, 0.15) !important;
+  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.35), inset 0 1px 1px rgba(255, 255, 255, 0.1) !important;
+}
+
+/* Navbar Shrink State (Reduces height & width smoothly without breaking internal flex items) */
+#navbar.nav-scrolled {
+  top: 8px !important;
+  width: min(88%, 1020px) !important;
+  padding: 6px 24px !important;
+  background: rgba(255, 255, 255, 0.28) !important;
+}
+
+body.dark-mode #navbar.nav-scrolled,
+[data-theme="dark"] #navbar.nav-scrolled {
+  background: rgba(15, 23, 42, 0.45) !important;
+}
+
+/* Nav Links Layout */
+#navbar .nav-right-group {
+  display: flex !important;
+  align-items: center !important;
+  gap: 20px !important;
+}
+
+#navbar .nav-links {
+  display: flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  flex-wrap: nowrap !important;
+}
+
+#navbar .logo {
+  font-weight: 800 !important;
+  font-size: 1.3rem !important;
+  text-decoration: none !important;
+}
+
+#navbar .nav-links a {
+  font-weight: 700 !important;
+  font-size: 0.92rem !important;
+  white-space: nowrap !important;
+  padding: 6px 12px !important;
+  border-radius: 9999px !important;
+  text-decoration: none !important;
+  color: #0f172a !important;
+  transition: all 0.2s ease !important;
+}
+
+body.dark-mode #navbar .nav-links a,
+[data-theme="dark"] #navbar .nav-links a {
+  color: #f8fafc !important;
+}
+
+#navbar .nav-links a:hover {
+  color: #3182ce !important;
+  background: rgba(49, 130, 206, 0.12) !important;
+}
+
+body.dark-mode #navbar .nav-links a:hover,
+[data-theme="dark"] #navbar .nav-links a:hover {
+  color: #38bdf8 !important;
+  background: rgba(56, 189, 248, 0.15) !important;
+}
+
+/* 2. TRANSPARENT LIQUID TILES / CARDS */
+.card,
+.exp-card-grid,
+.game-container {
+  background: rgba(255, 255, 255, 0.16) !important;
+  backdrop-filter: blur(18px) saturate(160%) !important;
+  -webkit-backdrop-filter: blur(18px) saturate(160%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.45) !important;
+  border-radius: 24px !important;
+  padding: 36px 40px !important;
+  box-shadow: 
+    0 10px 30px rgba(0, 0, 0, 0.04),
+    inset 0 1px 1.5px rgba(255, 255, 255, 0.7) !important;
+  transition: transform 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease !important;
+  position: relative !important;
+}
+
+body.dark-mode .card,
+body.dark-mode .exp-card-grid,
+body.dark-mode .game-container,
+[data-theme="dark"] .card,
+[data-theme="dark"] .exp-card-grid,
+[data-theme="dark"] .game-container {
+  background: rgba(15, 23, 42, 0.25) !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  box-shadow: 
+    0 12px 40px rgba(0, 0, 0, 0.4),
+    inset 0 1px 1px rgba(255, 255, 255, 0.15) !important;
+}
+
+.card:hover,
+.exp-card-grid:hover,
+.game-container:hover {
+  transform: translateY(-4px) !important;
+  border-color: rgba(56, 189, 248, 0.4) !important;
+  box-shadow: 
+    0 18px 40px rgba(0, 0, 0, 0.08),
+    inset 0 1px 2px rgba(255, 255, 255, 0.9) !important;
+}
+
+body.dark-mode .card:hover,
+body.dark-mode .exp-card-grid:hover,
+body.dark-mode .game-container:hover,
+[data-theme="dark"] .card:hover,
+[data-theme="dark"] .exp-card-grid:hover,
+[data-theme="dark"] .game-container:hover {
+  border-color: rgba(56, 189, 248, 0.35) !important;
+  box-shadow: 
+    0 20px 45px rgba(0, 0, 0, 0.6),
+    0 0 20px rgba(56, 189, 248, 0.15) !important;
+}

@@ -426,32 +426,46 @@ window.addEventListener('DOMContentLoaded', () => {
 });
 
 document.addEventListener('DOMContentLoaded', () => {
-    const expCards = document.querySelectorAll('.exp-card');
-    
-    expCards.forEach(card => {
-        card.addEventListener('click', function() {
-            // Add a temporary 'clicked' class for extra visual flare
-            this.classList.add('pulse-effect');
-            
-            // Remove it after the animation finishes
-            setTimeout(() => {
-                this.classList.remove('pulse-effect');
-            }, 300);
-        });
-    });
-});
+    const navbar = document.getElementById('navbar');
 
-// --- CLICK ANIMATION FOR TECH BADGES ---
-document.addEventListener("DOMContentLoaded", function() {
-    document.body.addEventListener("click", function(e) {
-        if (e.target && e.target.classList.contains("tech-badge-btn")) {
-            const btn = e.target;
-            
-            // Trigger the pop-burst CSS animation scale
-            btn.classList.add("pop-burst");
-            setTimeout(() => {
-                btn.classList.remove("pop-burst");
-            }, 400);
+    // 1. Scroll-triggered Navbar Shrink
+    const checkNavbarScroll = () => {
+        if (window.scrollY > 20) {
+            navbar.classList.add('nav-scrolled');
+        } else {
+            navbar.classList.remove('nav-scrolled');
         }
+    };
+
+    window.addEventListener('scroll', checkNavbarScroll, { passive: true });
+    checkNavbarScroll();
+
+    // 2. Hover Navigation Auto-Scroll
+    const navLinks = document.querySelectorAll('#navbar .nav-links a');
+    let scrollDebounce = null;
+
+    navLinks.forEach(link => {
+        link.addEventListener('mouseenter', () => {
+            const href = link.getAttribute('href');
+            if (href && href.startsWith('#') && href.length > 1) {
+                clearTimeout(scrollDebounce);
+                scrollDebounce = setTimeout(() => {
+                    const targetEl = document.querySelector(href);
+                    if (targetEl) {
+                        const navOffset = (navbar ? navbar.offsetHeight : 55) + 15;
+                        const targetPosition = targetEl.getBoundingClientRect().top + window.pageYOffset - navOffset;
+
+                        window.scrollTo({
+                            top: targetPosition,
+                            behavior: 'smooth'
+                        });
+                    }
+                }, 130);
+            }
+        });
+
+        link.addEventListener('mouseleave', () => {
+            clearTimeout(scrollDebounce);
+        });
     });
 });
