@@ -1076,17 +1076,18 @@ body.dark-mode #navbar .nav-links a:hover,
 .card,
 .exp-card-grid,
 .game-container {
-  background: rgba(255, 255, 255, 0.16) !important;
-  backdrop-filter: blur(18px) saturate(160%) !important;
-  -webkit-backdrop-filter: blur(18px) saturate(160%) !important;
-  border: 1px solid rgba(255, 255, 255, 0.45) !important;
+  /* LOWER ALPHA = MORE CLEAR BACKGROUND */
+  background: rgba(255, 255, 255, 0.08) !important;
+  
+  /* REDUCED BLUR = LESS FROSTING, MORE SHARP BACKGROUND */
+  backdrop-filter: blur(10px) saturate(160%) !important;
+  -webkit-backdrop-filter: blur(10px) saturate(160%) !important;
+  
+  /* Lighter border so the edges remain subtle */
+  border: 1px solid rgba(255, 255, 255, 0.3) !important;
   border-radius: 24px !important;
   padding: 36px 40px !important;
-  box-shadow: 
-    0 10px 30px rgba(0, 0, 0, 0.04),
-    inset 0 1px 1.5px rgba(255, 255, 255, 0.7) !important;
-  transition: transform 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease !important;
-  position: relative !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03), inset 0 1px 1px rgba(255, 255, 255, 0.5) !important;
 }
 
 body.dark-mode .card,
@@ -1095,11 +1096,14 @@ body.dark-mode .game-container,
 [data-theme="dark"] .card,
 [data-theme="dark"] .exp-card-grid,
 [data-theme="dark"] .game-container {
-  background: rgba(15, 23, 42, 0.25) !important;
-  border: 1px solid rgba(255, 255, 255, 0.12) !important;
-  box-shadow: 
-    0 12px 40px rgba(0, 0, 0, 0.4),
-    inset 0 1px 1px rgba(255, 255, 255, 0.15) !important;
+  /* LOWER ALPHA = CLEARER PARTICLES / BACKGROUND IN DARK MODE */
+  background: rgba(15, 23, 42, 0.12) !important;
+  
+  backdrop-filter: blur(12px) saturate(160%) !important;
+  -webkit-backdrop-filter: blur(12px) saturate(160%) !important;
+  
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3), inset 0 1px 1px rgba(255, 255, 255, 0.1) !important;
 }
 
 .card:hover,
@@ -1122,4 +1126,260 @@ body.dark-mode .game-container:hover,
   box-shadow: 
     0 20px 45px rgba(0, 0, 0, 0.6),
     0 0 20px rgba(56, 189, 248, 0.15) !important;
+}
+
+/* ===================================================
+   PROJECT TILES TRANSPARENCY FIX
+   =================================================== */
+
+/* Target every possible project card class */
+.project-card,
+.project-item,
+.projects-grid > div,
+.projects-container .card,
+.portfolio-card {
+  background: rgba(255, 255, 255, 0.12) !important;
+  backdrop-filter: blur(12px) saturate(160%) !important;
+  -webkit-backdrop-filter: blur(12px) saturate(160%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.45) !important;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.04), inset 0 1px 1px rgba(255, 255, 255, 0.7) !important;
+}
+
+/* Dark Mode */
+body.dark-mode .project-card,
+body.dark-mode .project-item,
+body.dark-mode .projects-grid > div,
+body.dark-mode .projects-container .card,
+body.dark-mode .portfolio-card,
+[data-theme="dark"] .project-card,
+[data-theme="dark"] .project-item,
+[data-theme="dark"] .projects-grid > div,
+[data-theme="dark"] .projects-container .card,
+[data-theme="dark"] .portfolio-card {
+  background: rgba(15, 23, 42, 0.22) !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.4), inset 0 1px 1px rgba(255, 255, 255, 0.15) !important;
+}
+
+/* ===================================================
+   MATCH ALL TILES TO THE NAVBAR LIQUID GLASS
+   =================================================== */
+
+/* Target every card, grid container, and tile across the entire site */
+.card,
+.exp-card-grid,
+.exp-card,
+.experience-card,
+.education-card,
+.cert-card,
+.certification-card,
+.skills-category,
+.skill-card,
+.project-card,
+.portfolio-card,
+.projects-grid > div,
+.projects-container .card,
+.game-container,
+.contact-card,
+.form-container {
+  /* Exact same translucent liquid glass recipe as the navbar */
+  background: rgba(255, 255, 255, 0.22) !important;
+  backdrop-filter: blur(20px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.5) !important;
+  border-radius: 24px !important;
+  box-shadow: 
+    0 10px 30px rgba(0, 0, 0, 0.05),
+    inset 0 1px 1.5px rgba(255, 255, 255, 0.8) !important;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease, border-color 0.3s ease !important;
+}
+
+/* Dark Mode: Translucent Dark Liquid Glass */
+body.dark-mode .card,
+body.dark-mode .exp-card-grid,
+body.dark-mode .exp-card,
+body.dark-mode .experience-card,
+body.dark-mode .education-card,
+body.dark-mode .cert-card,
+body.dark-mode .certification-card,
+body.dark-mode .skills-category,
+body.dark-mode .skill-card,
+body.dark-mode .project-card,
+body.dark-mode .portfolio-card,
+body.dark-mode .projects-grid > div,
+body.dark-mode .projects-container .card,
+body.dark-mode .game-container,
+body.dark-mode .contact-card,
+body.dark-mode .form-container,
+[data-theme="dark"] .card,
+[data-theme="dark"] .exp-card-grid,
+[data-theme="dark"] .exp-card,
+[data-theme="dark"] .experience-card,
+[data-theme="dark"] .education-card,
+[data-theme="dark"] .cert-card,
+[data-theme="dark"] .certification-card,
+[data-theme="dark"] .skills-category,
+[data-theme="dark"] .skill-card,
+[data-theme="dark"] .project-card,
+[data-theme="dark"] .portfolio-card,
+[data-theme="dark"] .projects-grid > div,
+[data-theme="dark"] .projects-container .card,
+[data-theme="dark"] .game-container,
+[data-theme="dark"] .contact-card,
+[data-theme="dark"] .form-container {
+  background: rgba(15, 23, 42, 0.32) !important;
+  border: 1px solid rgba(255, 255, 255, 0.14) !important;
+  box-shadow: 
+    0 14px 38px rgba(0, 0, 0, 0.45),
+    inset 0 1px 1px rgba(255, 255, 255, 0.15) !important;
+}
+
+/* Subtle Interactive Lift on Hover */
+.card:hover,
+.exp-card:hover,
+.project-card:hover,
+.skills-category:hover,
+.cert-card:hover,
+.education-card:hover {
+  transform: translateY(-4px) !important;
+  border-color: rgba(56, 189, 248, 0.5) !important;
+  box-shadow: 
+    0 16px 36px rgba(56, 189, 248, 0.12),
+    inset 0 1px 2px rgba(255, 255, 255, 0.9) !important;
+}
+
+body.dark-mode .card:hover,
+body.dark-mode .exp-card:hover,
+body.dark-mode .project-card:hover,
+body.dark-mode .skills-category:hover,
+body.dark-mode .cert-card:hover,
+body.dark-mode .education-card:hover,
+[data-theme="dark"] .card:hover,
+[data-theme="dark"] .exp-card:hover,
+[data-theme="dark"] .project-card:hover,
+[data-theme="dark"] .skills-category:hover,
+[data-theme="dark"] .cert-card:hover,
+[data-theme="dark"] .education-card:hover {
+  border-color: rgba(56, 189, 248, 0.4) !important;
+  box-shadow: 
+    0 18px 45px rgba(0, 0, 0, 0.6),
+    0 0 20px rgba(56, 189, 248, 0.2) !important;
+}
+
+/* ===================================================
+   FORCE LIQUID GLASS ON ALL SECTIONS & TILES
+   =================================================== */
+
+/* 1. Strip any solid white backgrounds from parent containers */
+.book-page,
+.section-container,
+.about-section,
+.experience-section,
+.skills-section,
+.projects-section,
+.education-section,
+.certifications-section,
+.contact-section {
+  background: transparent !important;
+}
+
+/* 2. Apply Navbar's Exact Translucent Glass Formula */
+.card,
+.about-card,
+.about-content,
+.exp-card,
+.exp-card-grid,
+.experience-card,
+.experience-item,
+.timeline-card,
+.education-card,
+.cert-card,
+.certification-card,
+.skills-category,
+.skill-card,
+.project-card,
+.portfolio-card,
+.projects-grid > div,
+.projects-container .card,
+.game-container,
+.contact-card,
+.form-container,
+.contact-form {
+  /* Ultra-clear glass (matches navbar transparency) */
+  background: rgba(255, 255, 255, 0.28) !important;
+  backdrop-filter: blur(18px) saturate(170%) !important;
+  -webkit-backdrop-filter: blur(18px) saturate(170%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.6) !important;
+  border-radius: 24px !important;
+  box-shadow: 
+    0 10px 32px rgba(0, 0, 0, 0.04),
+    inset 0 1px 1.5px rgba(255, 255, 255, 0.8) !important;
+  transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease !important;
+}
+
+/* 3. Dark Mode Translucent Glass */
+body.dark-mode .card,
+body.dark-mode .about-card,
+body.dark-mode .about-content,
+body.dark-mode .exp-card,
+body.dark-mode .exp-card-grid,
+body.dark-mode .experience-card,
+body.dark-mode .experience-item,
+body.dark-mode .timeline-card,
+body.dark-mode .education-card,
+body.dark-mode .cert-card,
+body.dark-mode .certification-card,
+body.dark-mode .skills-category,
+body.dark-mode .skill-card,
+body.dark-mode .project-card,
+body.dark-mode .portfolio-card,
+body.dark-mode .projects-grid > div,
+body.dark-mode .projects-container .card,
+body.dark-mode .game-container,
+body.dark-mode .contact-card,
+body.dark-mode .form-container,
+body.dark-mode .contact-form,
+[data-theme="dark"] .card,
+[data-theme="dark"] .about-card,
+[data-theme="dark"] .about-content,
+[data-theme="dark"] .exp-card,
+[data-theme="dark"] .exp-card-grid,
+[data-theme="dark"] .experience-card,
+[data-theme="dark"] .experience-item,
+[data-theme="dark"] .timeline-card,
+[data-theme="dark"] .education-card,
+[data-theme="dark"] .cert-card,
+[data-theme="dark"] .certification-card,
+[data-theme="dark"] .skills-category,
+[data-theme="dark"] .skill-card,
+[data-theme="dark"] .project-card,
+[data-theme="dark"] .portfolio-card,
+[data-theme="dark"] .projects-grid > div,
+[data-theme="dark"] .projects-container .card,
+[data-theme="dark"] .game-container,
+[data-theme="dark"] .contact-card,
+[data-theme="dark"] .form-container,
+[data-theme="dark"] .contact-form {
+  background: rgba(15, 23, 42, 0.35) !important;
+  border: 1px solid rgba(255, 255, 255, 0.14) !important;
+  box-shadow: 
+    0 12px 40px rgba(0, 0, 0, 0.4),
+    inset 0 1px 1px rgba(255, 255, 255, 0.15) !important;
+}
+
+/* 4. Interactive Lift on Hover */
+.card:hover,
+.about-card:hover,
+.about-content:hover,
+.exp-card:hover,
+.experience-card:hover,
+.project-card:hover,
+.skills-category:hover,
+.cert-card:hover,
+.education-card:hover {
+  transform: translateY(-4px) !important;
+  border-color: rgba(56, 189, 248, 0.5) !important;
+  box-shadow: 
+    0 16px 36px rgba(56, 189, 248, 0.12),
+    inset 0 1px 2px rgba(255, 255, 255, 0.9) !important;
 }
