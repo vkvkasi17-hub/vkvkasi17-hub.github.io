@@ -64,53 +64,6 @@ document.getElementById('copy-email').addEventListener('click', async () => {
   clearTimeout(toastTimer); toast.classList.add('show'); toastTimer = setTimeout(() => toast.classList.remove('show'), 3500);
 });
 document.getElementById('year').textContent = new Date().getFullYear();
-// Ray-marched 3D sculpture: torus and floating spheres, lit in world space.
-// No remote libraries or model downloads. The CSS background is the fallback.
-const scene = document.getElementById('scene-canvas');
-const gl = scene.getContext('webgl', { alpha: true, antialias: false, powerPreference: 'low-power' });
-if (gl) {
-  const vertex = 'attribute vec2 position; void main(){gl_Position=vec4(position,0.,1.);}';
-  const fragment = `precision mediump float;
-    uniform vec2 resolution; uniform float time; uniform vec2 pointer;
-    mat2 rotate(float a){return mat2(cos(a),-sin(a),sin(a),cos(a));}
-    float model(vec3 p){
-      float spread=min(resolution.x/resolution.y/1.8,1.);vec3 q=p-vec3(3.5*spread,0.45,0.0);q.xz=rotate(0.6+time*0.13+pointer.x*0.2)*q.xz;q.xy=rotate(0.5)*q.xy;
-      float ring=length(vec2(length(q.xz)-1.28,q.y))-0.34;
-      float orb=length(p-vec3(-3.7*spread,-1.35+sin(time*0.4)*0.18,0.0))-0.8;
-      float small=length(p-vec3(0.0,1.75+cos(time*0.3)*0.12,-1.1))-0.36;
-      return min(ring,min(orb,small));
-    }
-    vec3 normal(vec3 p){vec2 e=vec2(0.004,0.0);return normalize(vec3(model(p+e.xyy)-model(p-e.xyy),model(p+e.yxy)-model(p-e.yxy),model(p+e.yyx)-model(p-e.yyx)));}
-    void main(){vec2 uv=(gl_FragCoord.xy*2.-resolution)/resolution.y;
-      vec3 ro=vec3(pointer.x*0.13,pointer.y*0.13,6.8);vec3 rd=normalize(vec3(uv,-2.1));
-      float t=0.;float d=0.;for(int i=0;i<64;i++){d=model(ro+rd*t);if(d<0.004||t>14.)break;t+=d*0.85;}
-      if(t>14.){gl_FragColor=vec4(0.);return;}
-      vec3 p=ro+rd*t;vec3 n=normal(p);vec3 light=normalize(vec3(-3.,5.,5.));
-      float diffuse=max(dot(n,light),0.);float shine=pow(max(dot(reflect(-light,n),-rd),0.),40.);
-      float edge=pow(1.-max(dot(n,-rd),0.),2.);
-      vec3 color=mix(vec3(0.32,0.43,0.29),vec3(0.74,0.75,0.54),n.x*0.5+0.5);
-      color=color*(0.7+diffuse*0.32)+shine*0.48+edge*vec3(0.14,0.20,0.25);
-      gl_FragColor=vec4(color,0.9);
-    }`;
-  function compile(type, source) { const shader=gl.createShader(type); gl.shaderSource(shader,source);gl.compileShader(shader);if(!gl.getShaderParameter(shader,gl.COMPILE_STATUS)){gl.deleteShader(shader);return null;}return shader; }
-  const vs=compile(gl.VERTEX_SHADER,vertex),fs=compile(gl.FRAGMENT_SHADER,fragment);
-  if (vs && fs) {
-    const program=gl.createProgram();gl.attachShader(program,vs);gl.attachShader(program,fs);gl.linkProgram(program);
-    if (gl.getProgramParameter(program,gl.LINK_STATUS)) {
-      gl.useProgram(program);const buffer=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,buffer);gl.bufferData(gl.ARRAY_BUFFER,new Float32Array([-1,-1,1,-1,-1,1,-1,1,1,-1,1,1]),gl.STATIC_DRAW);
-      const pos=gl.getAttribLocation(program,'position');gl.enableVertexAttribArray(pos);gl.vertexAttribPointer(pos,2,gl.FLOAT,false,0,0);
-      const r=gl.getUniformLocation(program,'resolution'),t=gl.getUniformLocation(program,'time'),m=gl.getUniformLocation(program,'pointer');
-      let pointerX=0,pointerY=0,animation=null,last=0,elapsed=0;
-      function draw(){gl.uniform2f(r,scene.width,scene.height);gl.uniform1f(t,elapsed);gl.uniform2f(m,pointerX,pointerY);gl.drawArrays(gl.TRIANGLES,0,6);}
-      function resize(){const scale=Math.min(window.devicePixelRatio||1,1)*0.65;const bounds=scene.getBoundingClientRect();scene.width=Math.round(bounds.width*scale);scene.height=Math.round(bounds.height*scale);gl.viewport(0,0,scene.width,scene.height);draw();}
-      function loop(now){animation=null;if(document.hidden||reducedMotion.matches)return;if(now-last>32){elapsed+=Math.min((now-last)/1000,0.05);last=now;draw();}animation=requestAnimationFrame(loop);}
-      function sync(){if(animation!==null)cancelAnimationFrame(animation);animation=null;last=performance.now();draw();if(!document.hidden&&!reducedMotion.matches)animation=requestAnimationFrame(loop);}
-      window.addEventListener('pointermove',event=>{if(reducedMotion.matches)return;pointerX=event.clientX/innerWidth*2-1;pointerY=1-event.clientY/innerHeight*2;},{passive:true});
-      window.addEventListener('resize',resize,{passive:true});document.addEventListener('visibilitychange',sync);reducedMotion.addEventListener('change',sync);
-      scene.addEventListener('webglcontextlost',()=>{if(animation!==null)cancelAnimationFrame(animation);scene.style.display='none';});resize();sync();
-    }
-  }
-}
 // Pin long cards only after their full contents have scrolled into view.
 // Shorter cards stack under the navigation; all content remains in normal flow.
 const experienceCards = [...document.querySelectorAll('.experience-card')];
@@ -128,3 +81,117 @@ if ('ResizeObserver' in window) {
 }
 window.addEventListener('resize', sizeExperienceStack, { passive: true });
 sizeExperienceStack();
+
+// Interactive, locally rendered 3D sculpture. No external rendering dependency.
+const scene = document.getElementById('scene-canvas');
+const stage = document.querySelector('.sculpture-drag');
+const motionButton = document.querySelector('.motion-toggle');
+let paused = reducedMotion.matches;
+let rotation = 0, paletteIndex = 0, requestRender = () => {};
+function updateMotion() {
+  document.body.classList.toggle('motion-paused', paused || reducedMotion.matches);
+  motionButton.setAttribute('aria-pressed', String(paused));
+  motionButton.disabled = reducedMotion.matches;
+  motionButton.innerHTML = reducedMotion.matches ? 'Reduced motion' : paused ? 'Resume motion <span>▶</span>' : 'Pause motion <span>Ⅱ</span>';
+  requestRender();
+}
+motionButton.addEventListener('click', () => { paused = !paused; updateMotion(); });
+reducedMotion.addEventListener('change', () => { paused = reducedMotion.matches; updateMotion(); });
+const palettes = [ ['#baf88b','186,248,139','#a390ff'], ['#ffba86','255,186,134','#f28aba'], ['#7ce8e1','124,232,225','#7ea2ff'] ];
+document.querySelectorAll('.palette').forEach(button => button.addEventListener('click', () => {
+  paletteIndex = Number(button.dataset.palette);
+  const colors = palettes[paletteIndex];
+  document.documentElement.style.setProperty('--accent', colors[0]);
+  document.documentElement.style.setProperty('--accent-rgb', colors[1]);
+  document.documentElement.style.setProperty('--secondary', colors[2]);
+  document.querySelectorAll('.palette').forEach(item => { item.classList.toggle('active', item === button); item.setAttribute('aria-pressed', String(item === button)); });
+  requestRender();
+}));
+function setRotation(value) {
+  rotation = ((value + 180) % 360 + 360) % 360 - 180;
+  stage.setAttribute('aria-valuenow', String(Math.round(rotation)));
+  stage.setAttribute('aria-valuetext', Math.round(rotation) + ' degrees'); requestRender();
+}
+let dragX = null;
+stage.addEventListener('pointerdown', event => { if(event.button !== 0) return; dragX=event.clientX; stage.setPointerCapture(event.pointerId); });
+stage.addEventListener('pointermove', event => { if(dragX === null) return; setRotation(rotation+(event.clientX-dragX)*0.65); dragX=event.clientX; });
+function releaseDrag(){dragX=null;}
+stage.addEventListener('pointerup',releaseDrag);stage.addEventListener('pointercancel',releaseDrag);stage.addEventListener('lostpointercapture',releaseDrag);
+stage.addEventListener('keydown', event => {
+  if (['ArrowLeft','ArrowRight','Home'].includes(event.key)) { event.preventDefault();setRotation(event.key === 'Home' ? 0 : rotation + (event.key === 'ArrowLeft' ? -15 : 15)); }
+});
+const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)');
+document.querySelectorAll('.project-card').forEach(card => {
+  card.addEventListener('pointermove', event => {
+    if(reducedMotion.matches || paused || !finePointer.matches) return;
+    const box=card.getBoundingClientRect(), x=(event.clientX-box.left)/box.width, y=(event.clientY-box.top)/box.height;
+    card.style.setProperty('--rx', (0.5-y)*9+'deg');card.style.setProperty('--ry',(x-0.5)*11+'deg');
+    card.style.setProperty('--shine-x',x*100+'%');card.style.setProperty('--shine-y',y*100+'%');
+  });
+  card.addEventListener('pointerleave',()=>{card.style.setProperty('--rx','0deg');card.style.setProperty('--ry','0deg');});
+});
+let scrollFrame;
+function trackScroll(){if(scrollFrame)return;scrollFrame=requestAnimationFrame(()=>{scrollFrame=null;const max=document.documentElement.scrollHeight-innerHeight;document.documentElement.style.setProperty('--progress',max>0?scrollY/max:0);requestRender();});}
+window.addEventListener('scroll',trackScroll,{passive:true});trackScroll();
+const gl = scene.getContext('webgl', {alpha:true, antialias:false, powerPreference:'low-power',premultipliedAlpha:false});
+if (gl) {
+  const vertex='attribute vec2 position;void main(){gl_Position=vec4(position,0.,1.);}';
+  const fragment=`precision mediump float;
+    uniform vec2 resolution,focus;uniform float radius,time,turn,palette,scroll;
+    mat2 spin(float a){return mat2(cos(a),-sin(a),sin(a),cos(a));}
+    float sculpture(vec3 p){
+      p.xy=spin(-0.45+sin(time*0.2)*0.12)*p.xy;
+      p.xz=spin(0.55+turn+time*0.18+scroll*0.00025)*p.xz;
+      p.yz=spin(0.7)*p.yz;
+      p.xz=spin(p.y*0.75)*p.xz;
+      float angle=atan(p.z,p.x);
+      float loop=1.12+0.18*cos(angle*3.);
+      return length(vec2(length(p.xz)-loop,p.y))-0.35;
+    }
+    vec3 norm(vec3 p){vec2 e=vec2(.004,0.);return normalize(vec3(sculpture(p+e.xyy)-sculpture(p-e.xyy),sculpture(p+e.yxy)-sculpture(p-e.yxy),sculpture(p+e.yyx)-sculpture(p-e.yyx)));}
+    void main(){
+      vec2 uv=(gl_FragCoord.xy-focus)/radius;if(length(uv)>1.8){gl_FragColor=vec4(0.);return;}
+      vec3 ro=vec3(0.,0.,5.5),rd=normalize(vec3(uv,-3.));float t=0.;float d=0.;
+      for(int i=0;i<72;i++){d=sculpture(ro+rd*t);if(d<.003||t>10.)break;t+=d*.8;}
+      if(t>10.||d>.015){gl_FragColor=vec4(0.);return;}
+      vec3 p=ro+rd*t,n=norm(p);vec3 light=normalize(vec3(-3.,4.,5.));
+      float diffuse=max(dot(n,light),0.);float rim=pow(1.-max(dot(n,-rd),0.),2.);
+      float spec=pow(max(dot(reflect(-light,n),-rd),0.),55.);
+      float bands=sin(dot(n,vec3(3.,2.,4.))+p.y*1.5)*.5+.5;
+      vec3 a=vec3(.37,.18,.95),b=vec3(.28,.93,.83);
+      if(palette>.5&&palette<1.5){a=vec3(.88,.15,.48);b=vec3(1.,.65,.27);}
+      if(palette>1.5){a=vec3(.1,.35,.95);b=vec3(.25,.96,.86);}
+      vec3 c=mix(a,b,bands);c=c*(.3+diffuse*.75)+spec*.85+rim*mix(b,vec3(.75,.7,1.),.4)*.7;
+      float strip=pow(max(0.,sin(n.x*3.+n.y*5.)),14.);c+=strip*.28;
+      gl_FragColor=vec4(c,1.);
+    }`;
+  function shader(type,source){const s=gl.createShader(type);gl.shaderSource(s,source);gl.compileShader(s);if(!gl.getShaderParameter(s,gl.COMPILE_STATUS)){gl.deleteShader(s);return null;}return s;}
+  const vs=shader(gl.VERTEX_SHADER,vertex),fs=shader(gl.FRAGMENT_SHADER,fragment);
+  if(vs&&fs){
+    const program=gl.createProgram();gl.attachShader(program,vs);gl.attachShader(program,fs);gl.linkProgram(program);
+    if(gl.getProgramParameter(program,gl.LINK_STATUS)){
+      gl.useProgram(program);const buffer=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,buffer);gl.bufferData(gl.ARRAY_BUFFER,new Float32Array([-1,-1,1,-1,-1,1,-1,1,1,-1,1,1]),gl.STATIC_DRAW);
+      const position=gl.getAttribLocation(program,'position');gl.enableVertexAttribArray(position);gl.vertexAttribPointer(position,2,gl.FLOAT,false,0,0);
+      const uniforms={};['resolution','focus','radius','time','turn','palette','scroll'].forEach(name=>uniforms[name]=gl.getUniformLocation(program,name));
+      let scale=.8,elapsed=0,frame=null,last=0,lost=false;
+      function draw(){
+        if(lost)return;
+        const box=stage.getBoundingClientRect();const visible=box.bottom>0&&box.top<innerHeight;
+        const cx=visible?box.left+box.width/2:innerWidth*.88;
+        const cy=visible?box.top+box.height/2:innerHeight*.5;
+        const size=visible?Math.min(box.width,box.height)*(innerWidth<650?.66:.76):Math.min(innerWidth,innerHeight)*.42;
+        gl.uniform2f(uniforms.resolution,scene.width,scene.height);gl.uniform2f(uniforms.focus,cx*scale,(innerHeight-cy)*scale);gl.uniform1f(uniforms.radius,size*scale);
+        gl.uniform1f(uniforms.time,elapsed);gl.uniform1f(uniforms.turn,rotation*Math.PI/180);gl.uniform1f(uniforms.palette,paletteIndex);gl.uniform1f(uniforms.scroll,reducedMotion.matches?0:scrollY);
+        gl.drawArrays(gl.TRIANGLES,0,6);
+      }
+      function loop(now){frame=null;if(document.hidden||paused||reducedMotion.matches||lost)return;if(now-last>=33){elapsed+=Math.min((now-last)/1000,.05);last=now;draw();}frame=requestAnimationFrame(loop);}
+      requestRender=()=>{if(frame!==null)cancelAnimationFrame(frame);frame=null;draw();last=performance.now();if(!document.hidden&&!paused&&!reducedMotion.matches&&!lost)frame=requestAnimationFrame(loop);};
+      function resize(){scale=Math.min(window.devicePixelRatio||1,innerWidth<650?1:1.25);scene.width=Math.round(innerWidth*scale);scene.height=Math.round(innerHeight*scale);gl.viewport(0,0,scene.width,scene.height);requestRender();}
+      window.addEventListener('resize',resize,{passive:true});document.addEventListener('visibilitychange',requestRender);
+      scene.addEventListener('webglcontextlost',()=>{lost=true;if(frame!==null)cancelAnimationFrame(frame);scene.style.display='none';document.body.classList.add('scene-fallback');});
+      document.body.classList.add('scene-ready');resize();
+    }
+  }
+}
+if(!document.body.classList.contains('scene-ready'))document.body.classList.add('scene-fallback');
+updateMotion();
