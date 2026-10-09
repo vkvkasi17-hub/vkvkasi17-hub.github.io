@@ -46,3 +46,17 @@
 
 /* Give the profile selector portrait more breathing room. */
 .main-profile img{width:290%;top:-35%}
+
+/* Bake the silhouette into PNG alpha so Safari never exposes the source background. */
+.intro-portrait,.hero-art img,.main-profile img,.about-portrait>img{-webkit-mask-image:none;mask-image:none;mask-composite:add;mask-mode:alpha}
+.intro-portrait{-webkit-mask-image:linear-gradient(#000 57%,transparent 90%);mask-image:linear-gradient(#000 57%,transparent 90%)}
+.skip-intro{display:inline-flex;align-items:center;gap:6px}.skip-intro svg{width:13px;height:13px}
+#intro-play{-webkit-appearance:none;appearance:none;line-height:1.2;color:#141419;flex-shrink:0}
+#intro-play svg{width:18px;height:18px;display:block;flex:none}
+@media(max-width:760px){
+ .intro-screen{height:100svh;bottom:auto}
+ .intro-title{top:18%}
+ .intro-portrait{width:min(205vw,900px);top:calc(35% - min(29.3vw,128.7px))}
+ .intro-bottom{bottom:max(7%,env(safe-area-inset-bottom));gap:16px}
+ #intro-play{min-width:126px;min-height:48px;padding:12px 26px;gap:8px}
+}
