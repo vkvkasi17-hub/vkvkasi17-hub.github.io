@@ -91,3 +91,6 @@
 body.screen-open .chapter-progress,body.screen-open .chapter-progress-label{display:none}
 @media(max-width:760px){.motion-reveal{transform:translateY(12px);transition-duration:.4s}.hero-art img{translate:none}.project-card{transform:none}.chapter-progress-label{bottom:max(10px,env(safe-area-inset-bottom));font-size:10px}.hero-light:after,.intro-screen:before{animation-duration:18s}}
 @media(prefers-reduced-motion:reduce){.motion-reveal{opacity:1;transform:none}.hero-art img{translate:none}.project-card,.job-card{transform:none;filter:none}.intro-title:after{display:none}.hero-light:after,.intro-screen:before{animation:none}.project-preview{transition:none}}
+
+.project-cover.auction{background:radial-gradient(ellipse at 80% 15%,#94b84b55,transparent 60%),linear-gradient(135deg,#153c31,#102522)}
+.auction .project-art{color:#d8f79955}.auction-links{display:flex;align-items:center;gap:18px;flex-wrap:wrap}
